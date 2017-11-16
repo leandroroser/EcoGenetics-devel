@@ -155,10 +155,11 @@ setGeneric("eco.format", function(data,
     singlechar <- function(x) {
       
       y <- as.vector(as.matrix(x))
+      ncod.y <- nchar(y, keepNA = TRUE)
+      ncod.y <- ncod.y[!is.na(ncod.y)]
       y <- as.factor(y)
       original.code <- levels(y)[!is.na(levels(y))]
       y <- as.numeric(y)
-      ncod.y <- nchar(y)
       
       if(nout < max(ncod.y)) {
         stop("nout (output number of digits) < ncod 
@@ -253,3 +254,4 @@ setGeneric("eco.format", function(data,
   X
   
   })
+

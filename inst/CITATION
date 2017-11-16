@@ -1,0 +1,13 @@
+citHeader("To cite the EcoGenetics package:")
+
+
+citEntry(
+entry="Article",
+title = "EcoGenetics: An R package for the management and exploratory analysis of spatial data in landscape genetics",
+journal= "Molecular Ecology Resources",
+author = "LG. Roser, LI. Ferreyra, BO. Saidman and JC. Vilardi",
+year = "2008",
+volume = "",
+pages = "",
+textVersion = "Roser LG, Ferreyra LI, Saidman BO, and Vilardi JC (2017). EcoGenetics: an R package for the management and exploratory analysis of spatial data in landscape genetics. Molecular Ecology Resources. doi: 10.1111/1755-0998.12697"
+)

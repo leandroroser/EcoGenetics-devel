@@ -477,6 +477,12 @@ setGeneric("gstudio2ecogen", function(from, ID = "ID", lat = "Latitude", lon = "
 #' @param eco Object of class "ecogen".
 #' @param pop The name of the S slot column with the groups 
 #' for the hierfstat data frame.
+#' @param columns_to_numeric Recode the genetic data into numeric format? If TRUE, 
+#' the functions performs the correction via \code{\link{eco.weight}}.
+#' Additional formatting parameters can be passed to this function.
+#' @param recode If recoding is TRUE, it should be performed individually (e.g., microsatellite data)
+#' for each column, or overall (e.g., SNPs). Default: "column". 
+#' @param ... Additional parameters passed to \code{\link{eco.format}}
 #' 
 #' @examples
 #' 
@@ -494,11 +500,35 @@ setGeneric("gstudio2ecogen", function(from, ID = "ID", lat = "Latitude", lon = "
 
 
 setGeneric("ecogen2hierfstat", 
-           function(eco, pop = NULL) {
+           function(eco, pop = NULL, columns_to_numeric = FALSE, nout = 3, 
+                    recode = c("column", "all"), ...) {
+             
+             recode <- match.arg(recode)
              
              u <- eco@G
              
-             grupo <- eco@S
+             # check that the data is in numeric format checking the first <= 20 columns
+            
+             if(columns_to_numeric) {
+               u <- eco.format(u, recode = recode, nout = nout, ...)
+             } else {
+               
+               if(ncol(u) > 20) {
+                 testclass <- unlist(u[, 1:20])
+               } else {
+                 testclass <- unlist(u[, 1:ncol(u)])
+               }
+               
+               if(class(testclass) != "numeric" || class(tesclass) != "integer") {
+                 stop("Note: recoding of data into numeric format is off (columns_to_numeric = FALSE), 
+                       but the program detected character data in your genetic matrix. 
+                       Try setting columns_to_numeric = TRUE")
+               }
+               
+             }
+               
+             
+             groups <- eco@S
              
              if(is.null(pop))
              {
@@ -508,16 +538,16 @@ setGeneric("ecogen2hierfstat",
                Gord <- u
              } else {
                
-               pop <- match(pop, colnames(eco@S), nomatch = 0)
+               pop <- match(pop, colnames(groups), nomatch = 0)
                pop <- pop[pop != 0]
                if(length(pop) == 0) {
                  stop("incorrect factor name")
                }
-               orden <- order(eco@S[, pop])
+               orden <- order(groups[, pop])
                Gord <- u[orden,]
-               factord <- eco@S[orden, pop]
+               factord <- groups[orden, pop]
                factord <- as.numeric(factord)
-               cnom <- colnames(eco@S[pop])
+               cnom <- colnames(groups[pop])
                rnom <- rownames(eco@G)[orden]
              }
              

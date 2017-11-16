@@ -4,13 +4,23 @@
 \alias{ecogen2hierfstat}
 \title{Converting an ecogen genetic data frame into a hierfstat data frame}
 \usage{
-ecogen2hierfstat(eco, pop = NULL)
+ecogen2hierfstat(eco, pop = NULL, columns_to_numeric = FALSE, nout = 3,
+  recode = c("column", "all"), ...)
 }
 \arguments{
 \item{eco}{Object of class "ecogen".}
 
 \item{pop}{The name of the S slot column with the groups 
 for the hierfstat data frame.}
+
+\item{columns_to_numeric}{Recode the genetic data into numeric format? If TRUE, 
+the functions performs the correction via \code{\link{eco.weight}}.
+Additional formatting parameters can be passed to this function.}
+
+\item{recode}{If recoding is TRUE, it should be performed individually (e.g., microsatellite data)
+for each column, or overall (e.g., SNPs). Default: "column".}
+
+\item{...}{Additional parameters passed to \code{\link{eco.format}}}
 }
 \description{
 This function converts the genetic 
