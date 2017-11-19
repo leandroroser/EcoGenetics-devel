@@ -5,7 +5,7 @@
 \title{Exporting an ecogen genetic data frame into Genepop format}
 \usage{
 ecogen2genepop(eco, dir = "", outName = "infile.genepop.txt", grp = NULL,
-  nout = 3, sep = "")
+  nout = 3, sep = "", recode = "none")
 }
 \arguments{
 \item{eco}{Object of class "ecogen".}
@@ -21,6 +21,11 @@ all individuals will be assigned to a single one.}
 \item{nout}{Number of digits in the output file}
 
 \item{sep}{Character separating alleles.}
+
+\item{recode}{if recode = TRUE, should recoding be performed individually (e.g., microsatellite data)
+for each column, or overall (e.g., SNPs). Default: "column".}
+
+\item{...}{Additional parameters passed to \code{\link{eco.format}}}
 }
 \value{
 A Genepop file in the working directory.

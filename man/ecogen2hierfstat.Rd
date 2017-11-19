@@ -14,15 +14,15 @@ ecogen2hierfstat(eco, pop = NULL, columns_to_numeric = FALSE, nout = 3,
 for the hierfstat data frame.}
 
 \item{columns_to_numeric}{Recode the genetic data into numeric format? If TRUE, 
-the functions performs the correction via \code{\link{eco.weight}}.
+the functions performs the correction via \code{\link{eco.format}}.
 Additional formatting parameters can be passed to this function.}
 
-\item{nout}{Number of digits in the output.}
+\item{nout}{Number of digits in the output when columns_to_numeric = TRUE.}
 
-\item{recode}{If recoding = TRUE,recoding should be performed individually (e.g., microsatellite data)
+\item{recode}{if recode = TRUE,recoding should be performed individually (e.g., microsatellite data)
 for each column, or overall (e.g., SNPs). Default: "column".}
 
-\item{...}{Additional parameters passed to \code{\link{eco.format}}}
+\item{...}{Additional parameters passed to \code{\link{eco.format} when columns_to_numeric = TRUE}}
 }
 \description{
 This function converts the genetic 

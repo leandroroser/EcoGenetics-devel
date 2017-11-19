@@ -281,3 +281,39 @@ int.check.group <- function(X, grp = NULL, dummy = TRUE, exp.l = NULL) {
 is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol
 
 
+
+
+#---------------------------------------------------
+#' check if elements are numbers and if not convert the matrix using eco.format
+#' @keywords  internal
+
+int.check.to_numeric <- function(x,  columns_to_numeric = FALSE, ...) {
+  
+ncolx <- ncol(x)
+
+if(columns_to_numeric) {
+  x <- eco.format(x, ... )
+  
+} else {
+  
+  # check that the data is in numeric format, using the first <= 20 columns 
+  if(ncolx > 20) {
+    testclass <- unlist(x[, 1:20])
+  } else {
+    testclass <- unlist(x[, seq_len(ncolx)])
+  }
+  
+  if(class(testclass) != "numeric" || class(testclass) != "integer") {
+    stop("Note: recoding of data into numeric format is off (columns_to_numeric = FALSE), 
+                       but the program detected character data in your genetic matrix. 
+                       Try setting columns_to_numeric = TRUE")
+  }
+  
+}
+
+x
+}
+
+#-----------------------------------------------------------------------------------------#
+
+

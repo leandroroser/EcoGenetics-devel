@@ -4,7 +4,8 @@
 \alias{ecogen2geneland}
 \title{Creating input data for Geneland with an ecogen object}
 \usage{
-ecogen2geneland(eco, dir = "", ncod = NULL, ploidy = 2)
+ecogen2geneland(eco, dir = "", ncod = NULL, ploidy = 2,
+  columns_to_numeric = FALSE, nout = 3, recode = c("column", "all"), ...)
 }
 \arguments{
 \item{eco}{Object of class "ecogen"}
@@ -15,6 +16,17 @@ ecogen2geneland(eco, dir = "", ncod = NULL, ploidy = 2)
 (e.g., 1: x, 2: xx, 3: xxx, etc.).}
 
 \item{ploidy}{Ploidy of the data.}
+
+\item{columns_to_numeric}{Recode the genetic data into numeric format? If TRUE, 
+the functions performs the correction via \code{\link{eco.format}}.
+Additional formatting parameters can be passed to this function.}
+
+\item{nout}{Number of digits in the output when columns_to_numeric = TRUE.}
+
+\item{recode}{if recode = TRUE,recoding should be performed individually (e.g., microsatellite data)
+for each column, or overall (e.g., SNPs). Default: "column".}
+
+\item{...}{Additional parameters passed to \code{\link{eco.format} when columns_to_numeric = TRUE}}
 }
 \value{
 XY.txt Matrix with coordinates.

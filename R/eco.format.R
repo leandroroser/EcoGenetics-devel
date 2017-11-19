@@ -134,8 +134,8 @@ setGeneric("eco.format", function(data,
   
   # recode check
   if(any(grep("[^[:digit:]]", data)) && recode == "none") {
-    stop("Non numeric characters found. Set recode = <all> or 
-         recode = <column>.")
+    stop("Non numeric characters found. Set recode = 'all' or 
+         recode = 'column'")
   }
   
   # ploidy check

@@ -4,10 +4,11 @@
 \alias{ecogen2spagedi}
 \title{Exporting an ecogen genetic data frame into SPAGeDi format}
 \usage{
-ecogen2spagedi(eco, pop = NULL, ndig, dir = "",
+ecogen2spagedi(eco, pop = NULL, ndig = NULL, dir = "",
   outName = "infile.spagedi.txt", smin = 0, smax = NULL, int = NULL,
   nclass = NULL, seqvec = NULL, size = NULL, bin = c("sturges", "FD"),
-  distmat = NULL, latlon = FALSE)
+  distmat = NULL, latlon = FALSE, columns_to_numeric = FALSE, nout = 3,
+  recode = c("column", "all"), ...)
 }
 \arguments{
 \item{eco}{Object of class "ecogen".}
@@ -16,8 +17,9 @@ ecogen2spagedi(eco, pop = NULL, ndig, dir = "",
 for the output data. The default option includes all the individuals into 
 a single group.}
 
-\item{ndig}{Number of digits coding each allele
-(e.g., 1: x, 2: xx, or 3: xxx).}
+\item{ndig}{Number of digits coding each allele in the output file
+(e.g., 1: x, 2: xx, or 3: xxx). If NULL, the vale will be deduced from
+the number of digits used for coding alleles in the ecogen object.}
 
 \item{dir}{output path. Default = "" (current directory).}
 
@@ -45,6 +47,15 @@ option is Freedman-Diaconis method (Freedman and Diaconis, 1981).}
 the coordinates must be in a matrix/data frame with the longitude in the first
 column and latitude in the second. The position is projected onto a plane in
 meters with the function \code{\link[SoDA]{geoXY}}.}
+
+\item{columns_to_numeric}{Recode the genetic data into numeric format? If TRUE, 
+the functions performs the correction via \code{\link{eco.format}}.
+Additional formatting parameters can be passed to this function.}
+
+\item{recode}{if recode = TRUE,recoding should be performed individually (e.g., microsatellite data)
+for each column, or overall (e.g., SNPs). Default: "column".}
+
+\item{...}{Additional parameters passed to \code{\link{eco.format} when columns_to_numeric = TRUE}}
 }
 \description{
 This function converts the genetic data of an ecogen object 

@@ -8,6 +8,13 @@
 #' @param ncod Number of digits coding each allele
 #'  (e.g., 1: x, 2: xx, 3: xxx, etc.).
 #' @param ploidy Ploidy of the data.
+#' @param columns_to_numeric Recode the genetic data into numeric format? If TRUE, 
+#' the functions performs the correction via \code{\link{eco.format}}.
+#' Additional formatting parameters can be passed to this function.
+#' @param recode if recode = TRUE,recoding should be performed individually (e.g., microsatellite data)
+#' for each column, or overall (e.g., SNPs). Default: "column". 
+#' @param nout Number of digits in the output when columns_to_numeric = TRUE.
+#' @param ... Additional parameters passed to \code{\link{eco.format} when columns_to_numeric = TRUE}
 #' @return XY.txt Matrix with coordinates.
 #' @return NAMES.txt Matrix with row names.
 #' @return P.txt Matrix with phenotypic data.
@@ -26,7 +33,10 @@
 
 
 setGeneric("ecogen2geneland", 
-           function(eco, dir = "", ncod = NULL, ploidy = 2) {
+           function(eco, dir = "", ncod = NULL, ploidy = 2,  columns_to_numeric = FALSE, nout = 3, 
+                    recode = c("column", "all"), ...) {
+             
+             recode <- match.arg(recode)
             
               if(dir != "") {
                 #add "/" to the end if path is "xxx/xxx"
@@ -44,7 +54,11 @@ setGeneric("ecogen2geneland",
              write.table(eco@P, paste0(dir, "P.txt"), quote = FALSE, row.names = FALSE, 
                          col.names = FALSE)
              
-             write.table(int.loc2al(eco@G,  ncod = ncod,  ploidy = ploidy), paste0(dir, "G.txt"),
+             # check numeric format in G
+             G_temp <- int.check.to_numeric(eco@G, columns_to_numeric = columns_to_numeric, 
+                                       nout = nout, recode = recode, ...)
+             
+             write.table(int.loc2al(G_temp,  ncod = ncod,  ploidy = ploidy), paste0(dir, "G.txt"),
                          quote = FALSE, row.names = FALSE, col.names = FALSE)
             
               if(dir == "") {
@@ -66,8 +80,11 @@ setGeneric("ecogen2geneland",
 #' @param grp The name of the S slot column with groups in which the sample
 #' must be divided (e.g., populations). If groups are not given (grp = NULL),
 #' all individuals will be assigned to a single one.
-#' @param nout Number of digits in the output file
+#' @param nout Number of digits in the output file.
 #' @param sep Character separating alleles.
+#' @param recode if recode = TRUE, should recoding be performed individually (e.g., microsatellite data)
+#' for each column, or overall (e.g., SNPs). Default: "column". 
+#' @param ... Additional parameters passed to \code{\link{eco.format}}
 #' @return A Genepop file in the working directory.
 #' @examples 
 #' 
@@ -85,7 +102,7 @@ setGeneric("ecogen2geneland",
 
 setGeneric("ecogen2genepop", 
            function(eco, dir = "", outName = "infile.genepop.txt", 
-                    grp = NULL, nout = 3, sep = "") {
+                    grp = NULL, nout = 3, sep = "", recode = "none") {
 
              
              if(dir != "") {
@@ -100,8 +117,7 @@ setGeneric("ecogen2genepop",
              if(length(nout) != 1)  {
                stop("nout must be 1, 2 or 3")
              }
-             #check codes
-             ncod <- int.check.ncod(eco@G, ploidy = eco@INT@ploidy, sep = sep)
+
              #check group consistency
              structures <- int.check.group(eco@S, grp = grp, exp.l = nrow(eco@G))
              structures <- as.factor(as.numeric(structures)) #recoding levels
@@ -110,7 +126,9 @@ setGeneric("ecogen2genepop",
              X <- eco.format(eco@G, ncod = eco@INT@ncod, 
                              nout = nout,
                              ploidy = eco@INT@ploidy,
-                             fill.mode = "first")
+                             fill.mode = "first",
+                             recode = recode,
+                             ...)
              
              X <- cbind(rep(0, nrow(X)), X)
              X[, 1] <- paste(rownames(X), ",")
@@ -363,6 +381,8 @@ setGeneric("genind2ecogen", function(from) {
 setGeneric("ecogen2gstudio", 
            function(from, type = c("codominant", "dominant")) {
              
+             require(gstudio)
+             
              type <- match.arg(type)
              if(type == "codominant") {
                dat <- eco.convert(from@G, "matrix", sep.out = ":")
@@ -480,12 +500,12 @@ setGeneric("gstudio2ecogen", function(from, ID = "ID", lat = "Latitude", lon = "
 #' @param pop The name of the S slot column with the groups 
 #' for the hierfstat data frame.
 #' @param columns_to_numeric Recode the genetic data into numeric format? If TRUE, 
-#' the functions performs the correction via \code{\link{eco.weight}}.
+#' the functions performs the correction via \code{\link{eco.format}}.
 #' Additional formatting parameters can be passed to this function.
-#' @param recode If recoding = TRUE,recoding should be performed individually (e.g., microsatellite data)
+#' @param recode if recode = TRUE,recoding should be performed individually (e.g., microsatellite data)
 #' for each column, or overall (e.g., SNPs). Default: "column". 
-#' @param nout Number of digits in the output.
-#' @param ... Additional parameters passed to \code{\link{eco.format}}
+#' @param nout Number of digits in the output when columns_to_numeric = TRUE.
+#' @param ... Additional parameters passed to \code{\link{eco.format} when columns_to_numeric = TRUE}
 #' 
 #' @examples
 #' 
@@ -512,24 +532,8 @@ setGeneric("ecogen2hierfstat",
              
              # check that the data is in numeric format, using the first <= 20 columns
             
-             if(columns_to_numeric) {
-               u <- eco.format(u, recode = recode, nout = nout, ...)
-             } else {
-               
-               if(ncol(u) > 20) {
-                 testclass <- unlist(u[, 1:20])
-               } else {
-                 testclass <- unlist(u[, 1:ncol(u)])
-               }
-               
-               if(class(testclass) != "numeric" || class(tesclass) != "integer") {
-                 stop("Note: recoding of data into numeric format is off (columns_to_numeric = FALSE), 
-                       but the program detected character data in your genetic matrix. 
-                       Try setting columns_to_numeric = TRUE")
-               }
-               
-             }
-               
+             u <- int.check.to_numeric(u, columns_to_numeric = columns_to_numeric, 
+                                       nout = nout, recode = recode, ...)
              
              groups <- eco@S
              
@@ -598,8 +602,9 @@ setGeneric("ecogen2hierfstat",
 #' @param pop The name of the S slot column with the groups 
 #' for the output data. The default option includes all the individuals into 
 #' a single group.
-#' @param ndig Number of digits coding each allele
-#'  (e.g., 1: x, 2: xx, or 3: xxx). 
+#' @param ndig Number of digits coding each allele in the output file
+#'  (e.g., 1: x, 2: xx, or 3: xxx). If NULL, the vale will be deduced from
+#'  the number of digits used for coding alleles in the ecogen object.
 #' @param outName The name of the output file.
 #' @param int Distance interval in the units of the XY slot data.
 #' @param smin Minimum class distance in the units of the XY slot data.
@@ -615,6 +620,12 @@ setGeneric("ecogen2hierfstat",
 #' the coordinates must be in a matrix/data frame with the longitude in the first
 #' column and latitude in the second. The position is projected onto a plane in
 #' meters with the function \code{\link[SoDA]{geoXY}}.
+#' @param columns_to_numeric Recode the genetic data into numeric format? If TRUE, 
+#' the functions performs the correction via \code{\link{eco.format}}.
+#' Additional formatting parameters can be passed to this function.
+#' @param recode if recode = TRUE,recoding should be performed individually (e.g., microsatellite data)
+#' for each column, or overall (e.g., SNPs). Default: "column". 
+#' @param ... Additional parameters passed to \code{\link{eco.format} when columns_to_numeric = TRUE}
 #' @examples
 #' 
 #' \dontrun{
@@ -643,7 +654,7 @@ setGeneric("ecogen2hierfstat",
 setGeneric("ecogen2spagedi", 
                         function(eco, 
                          pop = NULL, 
-                         ndig, 
+                         ndig = NULL,
                          dir = "",
                          outName = "infile.spagedi.txt", 
                          smin = 0,
@@ -654,15 +665,21 @@ setGeneric("ecogen2spagedi",
                          size = NULL,
                          bin = c("sturges", "FD"),
                          distmat = NULL,
-                         latlon = FALSE) {
+                         latlon = FALSE,
+                         columns_to_numeric = FALSE,
+                         nout = 3, 
+                         recode = c("column", "all"),
+                         ...) {
                           
-                          if(dir != "") {
-                            #add "/" to the end if path is "xxx/xxx"
-                            if(!grep("/$", dir)) {
-                              dir <- paste0(dir, "/")
-                            }
-                          }
+ if(dir != "") {
+ #add "/" to the end if path is "xxx/xxx"
+ if(!grep("/$", dir)) {
+ dir <- paste0(dir, "/")
+  }
+}
   
+                          
+  recode <- match.arg(recode)                        
   bin <- match.arg(bin)
   if(is.null(pop)) {
     pop <- rep(1, nrow(eco@XY))
@@ -670,15 +687,24 @@ setGeneric("ecogen2spagedi",
     pop <- as.numeric(eco@S[, which(colnames(eco@S)== pop)])
   }
   
+  if(is.null(ndig)) {
+  ndig <-eco@INT@ncod
+  }
+  
   if(sum(pop == 0)) {
     stop("non matching S column name")
   }
   
-  gmat <- as.matrix(eco@G)
-  ploidy <- eco@INT@ploidy
-  gmat[gmat == "NA" || is.na(gmat)] <- paste(rep("0", ploidy), collapse="")
+  # check that the data is in numeric format, using the first <= 20 columns
   
-  matriz <- data.frame(rownames(eco@P), pop, eco@XY, gmat)
+  gmat <- int.check.to_numeric(eco@G, columns_to_numeric = columns_to_numeric, 
+                            nout = ndig, recode = recode, ...)
+  gmat <- as.matrix(gmat)
+  
+  ploidy <- eco@INT@ploidy
+  gmat[gmat == "NA" | is.na(gmat)] <- paste(rep("0", ploidy), collapse="")
+  
+  matriz <- data.frame(rownames(eco@G), pop, eco@XY, gmat)
   matriz <- as.matrix(matriz)
   colnames(matriz) <- c("Individual", "Population",
                         colnames(eco@XY), colnames(eco@G))
