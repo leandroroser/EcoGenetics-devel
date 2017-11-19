@@ -6,7 +6,8 @@
 <h3>Installation:</h3>
 
 ```
-devtools::install_github("leandroroser/EcoGenetics-devel")
+library(devtools)
+'install_github("leandroroser/EcoGenetics-devel")
 ```
 
 <br/>
@@ -17,6 +18,8 @@ devtools::install_github("leandroroser/EcoGenetics-devel")
 <br/>
 
 <h3><a href=https://leandroroser.github.io/EcoGenetics-documentation/> Online documentation </a></h3>
+
+
 
 
 
