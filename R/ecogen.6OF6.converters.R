@@ -322,7 +322,9 @@ setGeneric("genind2ecogen", function(from) {
   
   if(!require(adegenet)) stop("Please install the adegenet package first")
   
-  to <- ecogen(G = adegenet::genind2df(from, usepop = FALSE))
+  to <- adegenet::genind2df(from, usepop = FALSE)
+  to[to == ""] <- NA
+  to <- ecogen(G = to)
   if(!is.null(from@strata)) {
     to@S <- from@strata
   }
