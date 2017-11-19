@@ -473,15 +473,16 @@ setGeneric("gstudio2ecogen", function(from, ID = "ID", lat = "Latitude", lon = "
 #' Converting an ecogen genetic data frame into a hierfstat data frame
 #' 
 #' @description This function converts the genetic 
-#' data of an ecogen object in a hierfstat data frame. 
+#' data of an ecogen object into a hierfstat data frame. 
 #' @param eco Object of class "ecogen".
 #' @param pop The name of the S slot column with the groups 
 #' for the hierfstat data frame.
 #' @param columns_to_numeric Recode the genetic data into numeric format? If TRUE, 
 #' the functions performs the correction via \code{\link{eco.weight}}.
 #' Additional formatting parameters can be passed to this function.
-#' @param recode If recoding is TRUE, it should be performed individually (e.g., microsatellite data)
+#' @param recode If recoding = TRUE,recoding should be performed individually (e.g., microsatellite data)
 #' for each column, or overall (e.g., SNPs). Default: "column". 
+#' @param nout Number of digits in the output.
 #' @param ... Additional parameters passed to \code{\link{eco.format}}
 #' 
 #' @examples
@@ -489,7 +490,7 @@ setGeneric("gstudio2ecogen", function(from, ID = "ID", lat = "Latitude", lon = "
 #' \dontrun{
 #' 
 #' data(eco.test)
-#' hiereco <- ecogen2hierfstat(eco, "pop")
+#' hiereco <- ecogen2hierfstat(eco, "pop", columns_to_numeric = TRUE)
 #' require("hierfstat")
 #' basic.stats(hiereco)
 #' 
@@ -507,7 +508,7 @@ setGeneric("ecogen2hierfstat",
              
              u <- eco@G
              
-             # check that the data is in numeric format checking the first <= 20 columns
+             # check that the data is in numeric format, using the first <= 20 columns
             
              if(columns_to_numeric) {
                u <- eco.format(u, recode = recode, nout = nout, ...)

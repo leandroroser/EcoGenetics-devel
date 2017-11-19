@@ -17,21 +17,23 @@ for the hierfstat data frame.}
 the functions performs the correction via \code{\link{eco.weight}}.
 Additional formatting parameters can be passed to this function.}
 
-\item{recode}{If recoding is TRUE, it should be performed individually (e.g., microsatellite data)
+\item{nout}{Number of digits in the output.}
+
+\item{recode}{If recoding = TRUE,recoding should be performed individually (e.g., microsatellite data)
 for each column, or overall (e.g., SNPs). Default: "column".}
 
 \item{...}{Additional parameters passed to \code{\link{eco.format}}}
 }
 \description{
 This function converts the genetic 
-data of an ecogen object in a hierfstat data frame.
+data of an ecogen object into a hierfstat data frame.
 }
 \examples{
 
 \dontrun{
 
 data(eco.test)
-hiereco <- ecogen2hierfstat(eco, "pop")
+hiereco <- ecogen2hierfstat(eco, "pop", columns_to_numeric = TRUE)
 require("hierfstat")
 basic.stats(hiereco)
 
