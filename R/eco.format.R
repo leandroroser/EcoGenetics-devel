@@ -124,8 +124,6 @@ setGeneric("eco.format", function(data,
   }
   
   mode(data) <- "character"
-  nind <- nrow(data)
-  nloc <- ncol(data)
   data <- aue.rmspaces(data)
   data <- int.check.colnames(data)
   data <- int.check.rownames(data)
@@ -156,40 +154,42 @@ setGeneric("eco.format", function(data,
       
       y <- as.vector(as.matrix(x))
       ncod.y <- nchar(y, keepNA = TRUE)
-      ncod.y <- ncod.y[!is.na(ncod.y)]
       y <- as.factor(y)
       original.code <- levels(y)[!is.na(levels(y))]
       y <- as.numeric(y)
       
-      if(nout < max(ncod.y)) {
+      if(nout < max(ncod.y[!is.na(ncod.y)])) {
         stop("nout (output number of digits) < ncod 
              (input number of digits per allele) is not valid")
       }
       
-      ncod.y[is.na(y)] <- NA
+      #ncod.y[is.na(y)] <- NA
       ncl <- length(y)
-      y2 <- y
       # recoding data
       
       if(fill.mode ==  "last") {
+        if(nout>1) {
         add.dig <- paste(rep(1, ncl), paste(rep(0, nout-1), collapse = ""), sep = "")
         add.dig <- as.numeric(add.dig)
-        y2 <- y2 + add.dig
-        y2 <- as.character(y2)
+        y <- y + add.dig
+        }
+        y <- as.character(y)
         
       } else {
-        y2 <- as.character(y2)
+        y <- as.character(y)
+        if(nout>1) {
         add.zeros <- nout-ncod.y
         add.zeros[is.na(add.zeros)] <- 0
-        for(i in 1:ncl) {
+        for(i in seq_len(ncl)) {
           zero.init <- paste(rep("0", add.zeros[i]), collapse = "")
-          y2[i] <- paste(zero.init, y2[i],  sep = "")
+          y[i] <- paste(zero.init, y[i],  sep = "")
+        }
         }
       }
       
-      y <- matrix(y2, ncol = ncol(x))
+      y <- matrix(y, ncol = ncol(x))
       # codes
-      y.cod <- as.factor(y2)
+      y.cod <- as.factor(y)
       new.code <- levels(y.cod)[which(levels(y.cod)!= "NA")]
       y.tab <- data.frame(original.code, new.code)
       
