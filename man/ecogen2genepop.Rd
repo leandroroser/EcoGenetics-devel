@@ -5,7 +5,8 @@
 \title{Exporting an ecogen genetic data frame into Genepop format}
 \usage{
 ecogen2genepop(eco, dir = "", outName = "infile.genepop.txt", grp = NULL,
-  nout = 3, sep = "", recode = "none")
+  nout = 3, sep = "", recode = c("none", "all", "column", "paired"),
+  replace_in = NULL, replace_out = NULL, ...)
 }
 \arguments{
 \item{eco}{Object of class "ecogen".}
@@ -18,12 +19,22 @@ ecogen2genepop(eco, dir = "", outName = "infile.genepop.txt", grp = NULL,
 must be divided (e.g., populations). If groups are not given (grp = NULL),
 all individuals will be assigned to a single one.}
 
-\item{nout}{Number of digits in the output file}
+\item{nout}{Number of digits in the output file.}
 
 \item{sep}{Character separating alleles.}
 
-\item{recode}{if recode = TRUE, should recoding be performed individually (e.g., microsatellite data)
-for each column, or overall (e.g., SNPs). Default: "column".}
+\item{recode}{Recode mode: "none" for no recoding (defalut), "all" for recoding
+the data considering all the individuals values at once (e.g., protein data), 
+"column" for recoding the values by column (e.g., microsatellite data), "paired" 
+for passing the values of allelic states and corresponding replacement values, using 
+the replace_in and replace_out arguments (e.g. replace_in = c("A", "T", "C", "G"),
+replace_out = c(1,2,3,4)).}
+
+\item{replace_in}{vector with states of the data matrix to be replaced, when recode = "paired".
+This argument must be used in conjunction with the argument "replace_out".}
+
+\item{replace_out}{vector with states of the data matrix used for replacement, when recode = "paired".
+This argument must be used in conjunction with the argument "replace_in".}
 
 \item{...}{Additional parameters passed to \code{\link{eco.format}}}
 }

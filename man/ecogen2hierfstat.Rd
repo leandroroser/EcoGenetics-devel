@@ -4,7 +4,7 @@
 \alias{ecogen2hierfstat}
 \title{Converting an ecogen genetic data frame into a hierfstat data frame}
 \usage{
-ecogen2hierfstat(eco, pop = NULL, columns_to_numeric = FALSE, nout = 3,
+ecogen2hierfstat(eco, pop = NULL, to_numeric = FALSE, nout = 3,
   recode = c("column", "all"), ...)
 }
 \arguments{
@@ -13,16 +13,16 @@ ecogen2hierfstat(eco, pop = NULL, columns_to_numeric = FALSE, nout = 3,
 \item{pop}{The name of the S slot column with the groups 
 for the hierfstat data frame.}
 
-\item{columns_to_numeric}{Recode the genetic data into numeric format? If TRUE, 
+\item{to_numeric}{Recode the genetic data into numeric format? If TRUE, 
 the functions performs the correction via \code{\link{eco.format}}.
 Additional formatting parameters can be passed to this function.}
 
-\item{nout}{Number of digits in the output when columns_to_numeric = TRUE.}
+\item{nout}{Number of digits in the output when to_numeric = TRUE.}
 
 \item{recode}{if recode = TRUE,recoding should be performed individually (e.g., microsatellite data)
 for each column, or overall (e.g., SNPs). Default: "column".}
 
-\item{...}{Additional parameters passed to \code{\link{eco.format} when columns_to_numeric = TRUE}}
+\item{...}{Additional parameters passed to \code{\link{eco.format} when to_numeric = TRUE}}
 }
 \description{
 This function converts the genetic 
@@ -33,7 +33,7 @@ data of an ecogen object into a hierfstat data frame.
 \dontrun{
 
 data(eco.test)
-hiereco <- ecogen2hierfstat(eco, "pop", columns_to_numeric = TRUE)
+hiereco <- ecogen2hierfstat(eco, "pop", to_numeric = TRUE)
 require("hierfstat")
 basic.stats(hiereco)
 

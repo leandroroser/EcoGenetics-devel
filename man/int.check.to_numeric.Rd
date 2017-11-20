@@ -4,7 +4,7 @@
 \alias{int.check.to_numeric}
 \title{check if elements are numbers and if not convert the matrix using eco.format}
 \usage{
-int.check.to_numeric(x, columns_to_numeric = FALSE, ...)
+int.check.to_numeric(x, to_numeric = FALSE, ...)
 }
 \description{
 check if elements are numbers and if not convert the matrix using eco.format

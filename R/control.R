@@ -72,7 +72,7 @@ int.check.numeric <- function(mat) {
 int.check.rownames <- function(X, lab = "") {
   rnames <- rownames(X)
   rnames <- aue.rmspaces(rnames)
-  if (is.null(rnames) || any(duplicated(rnames))){
+  if (is.null(rnames) || any(duplicated(rnames)) || length(rnames) == 0){
     message("Note: null or duplicated row names. using generic labels.")
     rownames(X) <- aue.genlab(lab, nrow(X))
   }
@@ -91,7 +91,7 @@ int.check.rownames <- function(X, lab = "") {
 int.check.colnames <- function(X, lab = "L") {
   cnames <- colnames(X)
   cnames <- aue.rmspaces(cnames)
-  if (is.null(cnames) || any(duplicated(cnames))){
+  if (is.null(cnames) || any(duplicated(cnames)) || length(cnames) == 0){
     message("Note: null or duplicated column names. using generic labels.")
     colnames(X) <- aue.genlab(lab, ncol(X))
   }
@@ -287,11 +287,11 @@ is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) 
 #' check if elements are numbers and if not convert the matrix using eco.format
 #' @keywords  internal
 
-int.check.to_numeric <- function(x,  columns_to_numeric = FALSE, ...) {
+int.check.to_numeric <- function(x,  to_numeric = FALSE, ...) {
   
 ncolx <- ncol(x)
 
-if(columns_to_numeric) {
+if(to_numeric) {
   x <- eco.format(x, ... )
   
 } else {
@@ -303,10 +303,10 @@ if(columns_to_numeric) {
     testclass <- unlist(x[, seq_len(ncolx)])
   }
   
-  if(class(testclass) != "numeric" || class(testclass) != "integer") {
-    stop("Note: recoding of data into numeric format is off (columns_to_numeric = FALSE), 
+  if(class(testclass) != "numeric" && class(testclass) != "integer") {
+    stop("Note: recoding of data into numeric format is off (to_numeric = FALSE), 
                        but the program detected character data in your genetic matrix. 
-                       Try setting columns_to_numeric = TRUE")
+                       Try setting: to_numeric = TRUE")
   }
   
 }

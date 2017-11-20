@@ -8,13 +8,13 @@
 #' @param ncod Number of digits coding each allele
 #'  (e.g., 1: x, 2: xx, 3: xxx, etc.).
 #' @param ploidy Ploidy of the data.
-#' @param columns_to_numeric Recode the genetic data into numeric format? If TRUE, 
+#' @param to_numeric Recode the genetic data into numeric format? If TRUE, 
 #' the functions performs the correction via \code{\link{eco.format}}.
 #' Additional formatting parameters can be passed to this function.
 #' @param recode if recode = TRUE,recoding should be performed individually (e.g., microsatellite data)
 #' for each column, or overall (e.g., SNPs). Default: "column". 
-#' @param nout Number of digits in the output when columns_to_numeric = TRUE.
-#' @param ... Additional parameters passed to \code{\link{eco.format} when columns_to_numeric = TRUE}
+#' @param nout Number of digits in the output when to_numeric = TRUE.
+#' @param ... Additional parameters passed to \code{\link{eco.format} when to_numeric = TRUE}
 #' @return XY.txt Matrix with coordinates.
 #' @return NAMES.txt Matrix with row names.
 #' @return P.txt Matrix with phenotypic data.
@@ -33,7 +33,7 @@
 
 
 setGeneric("ecogen2geneland", 
-           function(eco, dir = "", ncod = NULL, ploidy = 2,  columns_to_numeric = FALSE, nout = 3, 
+           function(eco, dir = "", ncod = NULL, ploidy = 2,  to_numeric = FALSE, nout = 3, 
                     recode = c("column", "all"), ...) {
              
              recode <- match.arg(recode)
@@ -43,7 +43,14 @@ setGeneric("ecogen2geneland",
                if(!grep("/$", dir)) {
                dir <- paste0(dir, "/")
                }
-             }
+              }
+             
+             # check numeric format in G
+             G_temp <- int.check.to_numeric(eco@G, to_numeric = to_numeric, 
+                                            nout = nout, recode = recode, ...)
+             
+             write.table(int.loc2al(G_temp,  ncod = ncod,  ploidy = ploidy), paste0(dir, "G.txt"),
+                         quote = FALSE, row.names = FALSE, col.names = FALSE)
              
              write.table(eco@XY, paste0(dir, "XY.txt"), quote = FALSE,
                          row.names = FALSE, col.names = FALSE)
@@ -54,12 +61,7 @@ setGeneric("ecogen2geneland",
              write.table(eco@P, paste0(dir, "P.txt"), quote = FALSE, row.names = FALSE, 
                          col.names = FALSE)
              
-             # check numeric format in G
-             G_temp <- int.check.to_numeric(eco@G, columns_to_numeric = columns_to_numeric, 
-                                       nout = nout, recode = recode, ...)
-             
-             write.table(int.loc2al(G_temp,  ncod = ncod,  ploidy = ploidy), paste0(dir, "G.txt"),
-                         quote = FALSE, row.names = FALSE, col.names = FALSE)
+    
             
               if(dir == "") {
                return(paste0("Files written to: ", getwd()))
@@ -82,8 +84,16 @@ setGeneric("ecogen2geneland",
 #' all individuals will be assigned to a single one.
 #' @param nout Number of digits in the output file.
 #' @param sep Character separating alleles.
-#' @param recode if recode = TRUE, should recoding be performed individually (e.g., microsatellite data)
-#' for each column, or overall (e.g., SNPs). Default: "column". 
+#' @param recode Recode mode: "none" for no recoding (defalut), "all" for recoding
+#' the data considering all the individuals values at once (e.g., protein data), 
+#' "column" for recoding the values by column (e.g., microsatellite data), "paired" 
+#' for passing the values of allelic states and corresponding replacement values, using 
+#' the replace_in and replace_out arguments (e.g. replace_in = c("A", "T", "C", "G"),
+#' replace_out = c(1,2,3,4)).
+#' @param replace_in vector with states of the data matrix to be replaced, when recode = "paired".
+#' This argument must be used in conjunction with the argument "replace_out".
+#' @param replace_out vector with states of the data matrix used for replacement, when recode = "paired".
+#' This argument must be used in conjunction with the argument "replace_in".
 #' @param ... Additional parameters passed to \code{\link{eco.format}}
 #' @return A Genepop file in the working directory.
 #' @examples 
@@ -102,7 +112,11 @@ setGeneric("ecogen2geneland",
 
 setGeneric("ecogen2genepop", 
            function(eco, dir = "", outName = "infile.genepop.txt", 
-                    grp = NULL, nout = 3, sep = "", recode = "none") {
+                    grp = NULL, nout = 3, sep = "",   
+                    recode = c("none", "all", "column", "paired"),
+                    replace_in = NULL,
+                    replace_out =NULL,
+                    ...) {
 
              
              if(dir != "") {
@@ -366,7 +380,7 @@ setGeneric("genind2ecogen", function(from) {
 #' togstudio <- ecogen2gstudio(eco, type = "codominant")
 #' togstudio
 #' toeco <- gstudio2ecogen(togstudio, ID = "ID", lat = "Latitude", 
-#' lon = "Longitude", ID = "ID", struct = "pop")
+#' lon = "Longitude", struct = "pop")
 #' toeco
 #' # as ID, Latitude and Longitude are column names in the <togstudio> data frame 
 #' # (that match default parameter values for gstudio2ecogen), 
@@ -499,20 +513,20 @@ setGeneric("gstudio2ecogen", function(from, ID = "ID", lat = "Latitude", lon = "
 #' @param eco Object of class "ecogen".
 #' @param pop The name of the S slot column with the groups 
 #' for the hierfstat data frame.
-#' @param columns_to_numeric Recode the genetic data into numeric format? If TRUE, 
+#' @param to_numeric Recode the genetic data into numeric format? If TRUE, 
 #' the functions performs the correction via \code{\link{eco.format}}.
 #' Additional formatting parameters can be passed to this function.
 #' @param recode if recode = TRUE,recoding should be performed individually (e.g., microsatellite data)
 #' for each column, or overall (e.g., SNPs). Default: "column". 
-#' @param nout Number of digits in the output when columns_to_numeric = TRUE.
-#' @param ... Additional parameters passed to \code{\link{eco.format} when columns_to_numeric = TRUE}
+#' @param nout Number of digits in the output when to_numeric = TRUE.
+#' @param ... Additional parameters passed to \code{\link{eco.format} when to_numeric = TRUE}
 #' 
 #' @examples
 #' 
 #' \dontrun{
 #' 
 #' data(eco.test)
-#' hiereco <- ecogen2hierfstat(eco, "pop", columns_to_numeric = TRUE)
+#' hiereco <- ecogen2hierfstat(eco, "pop", to_numeric = TRUE)
 #' require("hierfstat")
 #' basic.stats(hiereco)
 #' 
@@ -523,7 +537,7 @@ setGeneric("gstudio2ecogen", function(from, ID = "ID", lat = "Latitude", lon = "
 
 
 setGeneric("ecogen2hierfstat", 
-           function(eco, pop = NULL, columns_to_numeric = FALSE, nout = 3, 
+           function(eco, pop = NULL, to_numeric = FALSE, nout = 3, 
                     recode = c("column", "all"), ...) {
              
              recode <- match.arg(recode)
@@ -532,7 +546,7 @@ setGeneric("ecogen2hierfstat",
              
              # check that the data is in numeric format, using the first <= 20 columns
             
-             u <- int.check.to_numeric(u, columns_to_numeric = columns_to_numeric, 
+             u <- int.check.to_numeric(u, to_numeric = to_numeric, 
                                        nout = nout, recode = recode, ...)
              
              groups <- eco@S
@@ -620,12 +634,21 @@ setGeneric("ecogen2hierfstat",
 #' the coordinates must be in a matrix/data frame with the longitude in the first
 #' column and latitude in the second. The position is projected onto a plane in
 #' meters with the function \code{\link[SoDA]{geoXY}}.
-#' @param columns_to_numeric Recode the genetic data into numeric format? If TRUE, 
+#' @param to_numeric Recode the genetic data into numeric format? If TRUE, 
 #' the functions performs the correction via \code{\link{eco.format}}.
 #' Additional formatting parameters can be passed to this function.
-#' @param recode if recode = TRUE,recoding should be performed individually (e.g., microsatellite data)
-#' for each column, or overall (e.g., SNPs). Default: "column". 
-#' @param ... Additional parameters passed to \code{\link{eco.format} when columns_to_numeric = TRUE}
+#' @param nout Number of digits in the output when to_numeric = TRUE.
+#' @param recode Recode mode: "none" for no recoding (defalut), "all" for recoding
+#' the data considering all the individuals values at once (e.g., protein data), 
+#' "column" for recoding the values by column (e.g., microsatellite data), "paired" 
+#' for passing the values of allelic states and corresponding replacement values, using 
+#' the replace_in and replace_out arguments (e.g. replace_in = c("A", "T", "C", "G"),
+#' replace_out = c(1,2,3,4)).
+#' @param replace_in vector with states of the data matrix to be replaced, when recode = "paired".
+#' This argument must be used in conjunction with the argument "replace_out".
+#' @param replace_out vector with states of the data matrix used for replacement, when recode = "paired".
+#' This argument must be used in conjunction with the argument "replace_in".
+#' @param ... Additional parameters passed to \code{\link{eco.format} when to_numeric = TRUE}
 #' @examples
 #' 
 #' \dontrun{
@@ -666,9 +689,11 @@ setGeneric("ecogen2spagedi",
                          bin = c("sturges", "FD"),
                          distmat = NULL,
                          latlon = FALSE,
-                         columns_to_numeric = FALSE,
+                         to_numeric = FALSE,
                          nout = 3, 
-                         recode = c("column", "all"),
+                         recode = c("none", "all", "column", "paired"),
+                         replace_in = NULL,
+                         replace_out =NULL,
                          ...) {
                           
  if(dir != "") {
@@ -697,7 +722,7 @@ setGeneric("ecogen2spagedi",
   
   # check that the data is in numeric format, using the first <= 20 columns
   
-  gmat <- int.check.to_numeric(eco@G, columns_to_numeric = columns_to_numeric, 
+  gmat <- int.check.to_numeric(eco@G, to_numeric = to_numeric, 
                             nout = ndig, recode = recode, ...)
   gmat <- as.matrix(gmat)
   

@@ -37,7 +37,7 @@ data(eco.test)
 togstudio <- ecogen2gstudio(eco, type = "codominant")
 togstudio
 toeco <- gstudio2ecogen(togstudio, ID = "ID", lat = "Latitude", 
-lon = "Longitude", ID = "ID", struct = "pop")
+lon = "Longitude", struct = "pop")
 toeco
 # as ID, Latitude and Longitude are column names in the <togstudio> data frame 
 # (that match default parameter values for gstudio2ecogen), 

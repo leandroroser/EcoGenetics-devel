@@ -7,8 +7,9 @@
 ecogen2spagedi(eco, pop = NULL, ndig = NULL, dir = "",
   outName = "infile.spagedi.txt", smin = 0, smax = NULL, int = NULL,
   nclass = NULL, seqvec = NULL, size = NULL, bin = c("sturges", "FD"),
-  distmat = NULL, latlon = FALSE, columns_to_numeric = FALSE, nout = 3,
-  recode = c("column", "all"), ...)
+  distmat = NULL, latlon = FALSE, to_numeric = FALSE, nout = 3,
+  recode = c("none", "all", "column", "paired"), replace_in = NULL,
+  replace_out = NULL, ...)
 }
 \arguments{
 \item{eco}{Object of class "ecogen".}
@@ -48,14 +49,26 @@ the coordinates must be in a matrix/data frame with the longitude in the first
 column and latitude in the second. The position is projected onto a plane in
 meters with the function \code{\link[SoDA]{geoXY}}.}
 
-\item{columns_to_numeric}{Recode the genetic data into numeric format? If TRUE, 
+\item{to_numeric}{Recode the genetic data into numeric format? If TRUE, 
 the functions performs the correction via \code{\link{eco.format}}.
 Additional formatting parameters can be passed to this function.}
 
-\item{recode}{if recode = TRUE,recoding should be performed individually (e.g., microsatellite data)
-for each column, or overall (e.g., SNPs). Default: "column".}
+\item{nout}{Number of digits in the output when to_numeric = TRUE.}
 
-\item{...}{Additional parameters passed to \code{\link{eco.format} when columns_to_numeric = TRUE}}
+\item{recode}{Recode mode: "none" for no recoding (defalut), "all" for recoding
+the data considering all the individuals values at once (e.g., protein data), 
+"column" for recoding the values by column (e.g., microsatellite data), "paired" 
+for passing the values of allelic states and corresponding replacement values, using 
+the replace_in and replace_out arguments (e.g. replace_in = c("A", "T", "C", "G"),
+replace_out = c(1,2,3,4)).}
+
+\item{replace_in}{vector with states of the data matrix to be replaced, when recode = "paired".
+This argument must be used in conjunction with the argument "replace_out".}
+
+\item{replace_out}{vector with states of the data matrix used for replacement, when recode = "paired".
+This argument must be used in conjunction with the argument "replace_in".}
+
+\item{...}{Additional parameters passed to \code{\link{eco.format} when to_numeric = TRUE}}
 }
 \description{
 This function converts the genetic data of an ecogen object 
