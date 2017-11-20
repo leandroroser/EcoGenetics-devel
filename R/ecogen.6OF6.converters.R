@@ -571,7 +571,8 @@ setGeneric("ecogen2hierfstat",
             
              u <- int.check.to_numeric(u, to_numeric = to_numeric, 
                                        nout = nout, recode = recode, 
-                                       replace_in, replace_out, ploidy = eco@INT@ploidy,
+                                       replace_in = replace_in, replace_out = replace_out,
+                                       ploidy = eco@INT@ploidy,
                                        ncod = eco@INT@ncod, ...)
              
              groups <- eco@S
