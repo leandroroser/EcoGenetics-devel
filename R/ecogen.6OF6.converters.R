@@ -11,7 +11,7 @@
 #' @param to_numeric Recode the genetic data into numeric format? If TRUE, 
 #' the functions performs the correction via \code{\link{eco.format}}.
 #' Additional formatting parameters can be passed to this function.
-#' @param recode Recode mode: "none" for no recoding (defalut), "all" for recoding
+#' @param recode Recode mode when to_numeric = TRUE: "all" for recoding
 #' the data considering all the individuals values at once (e.g., protein data), 
 #' "column" for recoding the values by column (e.g., microsatellite data), "paired" 
 #' for passing the values of allelic states and corresponding replacement values, using 
@@ -42,7 +42,7 @@
 
 setGeneric("ecogen2geneland", 
            function(eco, dir = "", ncod = NULL, ploidy = 2,  to_numeric = FALSE, nout = 3, 
-                    recode = c("none", "all", "column", "paired"),
+                    recode = c("all", "column", "paired"),
                     replace_in = NULL,
                     replace_out =NULL, ...) {
              
@@ -57,7 +57,10 @@ setGeneric("ecogen2geneland",
              
              # check numeric format in G
              G_temp <- int.check.to_numeric(eco@G, to_numeric = to_numeric, 
-                                            nout = nout, recode = recode, ...)
+                                            nout = nout, recode = recode, 
+                                            ploidy = eco@INT@ploidy,
+                                            ncod = eco@INT@ncod,
+                                            ...)
              
              write.table(int.loc2al(G_temp,  ncod = ncod,  ploidy = ploidy), paste0(dir, "G.txt"),
                          quote = FALSE, row.names = FALSE, col.names = FALSE)
@@ -526,7 +529,7 @@ setGeneric("gstudio2ecogen", function(from, ID = "ID", lat = "Latitude", lon = "
 #' the functions performs the correction via \code{\link{eco.format}}.
 #' Additional formatting parameters can be passed to this function.
 #' @param nout Number of digits in the output when to_numeric = TRUE.
-#' @param recode Recode mode: "none" for no recoding (defalut), "all" for recoding
+#' @param recode Recode mode when to_numeric = TRUE: "all" for recoding
 #' the data considering all the individuals values at once (e.g., protein data), 
 #' "column" for recoding the values by column (e.g., microsatellite data), "paired" 
 #' for passing the values of allelic states and corresponding replacement values, using 
@@ -555,7 +558,7 @@ setGeneric("gstudio2ecogen", function(from, ID = "ID", lat = "Latitude", lon = "
 
 setGeneric("ecogen2hierfstat", 
            function(eco, pop = NULL, to_numeric = FALSE, nout = 3, 
-                    recode = c("none", "all", "column", "paired"),
+                    recode = c("all", "column", "paired"),
                     replace_in = NULL,
                     replace_out =NULL,
                     ...) {
@@ -567,7 +570,9 @@ setGeneric("ecogen2hierfstat",
              # check that the data is in numeric format, using the first <= 20 columns
             
              u <- int.check.to_numeric(u, to_numeric = to_numeric, 
-                                       nout = nout, recode = recode, ...)
+                                       nout = nout, recode = recode, 
+                                       replace_in, replace_out, ploidy = eco@INT@ploidy,
+                                       ncod = eco@INT@ncod, ...)
              
              groups <- eco@S
              
@@ -658,7 +663,7 @@ setGeneric("ecogen2hierfstat",
 #' the functions performs the correction via \code{\link{eco.format}}.
 #' Additional formatting parameters can be passed to this function.
 #' @param nout Number of digits in the output when to_numeric = TRUE.
-#' @param recode Recode mode: "none" for no recoding (defalut), "all" for recoding
+#' @param recode Recode mode when to_numeric = TRUE: "all" for recoding
 #' the data considering all the individuals values at once (e.g., protein data), 
 #' "column" for recoding the values by column (e.g., microsatellite data), "paired" 
 #' for passing the values of allelic states and corresponding replacement values, using 
@@ -711,7 +716,7 @@ setGeneric("ecogen2spagedi",
                          latlon = FALSE,
                          to_numeric = FALSE,
                          nout = 3, 
-                         recode = c("none", "all", "column", "paired"),
+                         recode = c("all", "column", "paired"),
                          replace_in = NULL,
                          replace_out =NULL,
                          ...) {
@@ -743,7 +748,8 @@ setGeneric("ecogen2spagedi",
   # check that the data is in numeric format, using the first <= 20 columns
   
   gmat <- int.check.to_numeric(eco@G, to_numeric = to_numeric, 
-                            nout = ndig, recode = recode, ...)
+                            nout = ndig, recode = recode, ploidy = eco@INT@ploidy,
+                            ncod = eco@INT@ncod, ...)
   gmat <- as.matrix(gmat)
   
   ploidy <- eco@INT@ploidy

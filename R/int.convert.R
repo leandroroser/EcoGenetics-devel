@@ -133,8 +133,8 @@ int.al2loc <- function(X,
                     function(i) {
                       apply(X[, xseq[, i], drop = FALSE], 
                             1, 
-                            paste, 
-                            sep = "", collapse = sep.out)
+                            function(y) paste(y,  sep = "", collapse = sep.out)
+                           )
                     })
   
   X <- do.call(cbind, X.list)

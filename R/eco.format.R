@@ -117,8 +117,8 @@ setGeneric("eco.format", function(data,
                                   ncod = NULL, 
                                   nout = 3, 
                                   ploidy = 2, 
-                                  sep.in,
-                                  sep.out,
+                                  sep.in = "",
+                                  sep.out = "",
                                   fill.mode = c("last", "first", "none"),
                                   recode = c("none", "all", "column", "paired"),
                                   replace_in = NULL,
@@ -144,14 +144,7 @@ setGeneric("eco.format", function(data,
   } else {
     paired_replacement <- FALSE
   }
-    
-  if(missing(sep.in)) {
-    sep.in <- ""
-  }
-  if(missing(sep.out)) {
-    sep.out <- ""
-  }
-  
+
   data <- as.matrix(data, rownames.force = TRUE)
   
   #stop if <sep.loc> is present in the data
@@ -171,8 +164,7 @@ setGeneric("eco.format", function(data,
   
   # recode check
   if(any(grep("[^[:digit:]]", data)) && recode == "none") {
-    stop("Non numeric characters found. Set recode = 'all' or 
-         recode = 'column'")
+    stop("Non numeric characters found. Use the argument 'recode'")
   }
   
   # ploidy check

@@ -5,8 +5,8 @@
 \title{Creating input data for Geneland with an ecogen object}
 \usage{
 ecogen2geneland(eco, dir = "", ncod = NULL, ploidy = 2,
-  to_numeric = FALSE, nout = 3, recode = c("none", "all", "column",
-  "paired"), replace_in = NULL, replace_out = NULL, ...)
+  to_numeric = FALSE, nout = 3, recode = c("all", "column", "paired"),
+  replace_in = NULL, replace_out = NULL, ...)
 }
 \arguments{
 \item{eco}{Object of class "ecogen"}
@@ -24,7 +24,7 @@ Additional formatting parameters can be passed to this function.}
 
 \item{nout}{Number of digits in the output when to_numeric = TRUE.}
 
-\item{recode}{Recode mode: "none" for no recoding (defalut), "all" for recoding
+\item{recode}{Recode mode when to_numeric = TRUE: "all" for recoding
 the data considering all the individuals values at once (e.g., protein data), 
 "column" for recoding the values by column (e.g., microsatellite data), "paired" 
 for passing the values of allelic states and corresponding replacement values, using 
