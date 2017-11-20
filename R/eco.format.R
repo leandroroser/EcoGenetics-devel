@@ -9,7 +9,8 @@
 #' 
 #' "NA" is considered special character (not available data).
 #' 
-#' Note that the function also works with other data, with states equivalent to "alleles".
+#' Note that the function can also work with other type of data as well, 
+#' where the "alleles" represent the different states of the variables.
 #'
 #' @param data Genetic data frame.
 #' @param ncod Number of digits coding each allele in the input file.
