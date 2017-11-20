@@ -329,6 +329,11 @@ setGeneric("ecogen2genind", function(from) {
   if(!require(adegenet)) stop("Please install the adegenet package first")
   
   to <- adegenet::genind()
+  
+  if(!any(dim(from@XY) == 0)) {
+    to@other$xy <- from@XY
+  }
+  
   if(!any(dim(from@A) == 0)) {
     to@tab <- from@A
     to@loc.fac <- from@INT@loc.fac
@@ -369,6 +374,11 @@ setGeneric("genind2ecogen", function(from) {
   to <- adegenet::genind2df(from, usepop = FALSE)
   to[to == ""] <- NA
   to <- ecogen(G = to)
+ 
+  if(!is.null(from@other$xy)) {
+    to@XY <- from@other$xy
+  }
+ 
   if(!is.null(from@strata)) {
     to@S <- from@strata
   }
