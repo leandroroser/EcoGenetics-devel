@@ -52,6 +52,8 @@ meters with the function \code{\link[SoDA]{geoXY}}.}
 the functions performs the correction via \code{\link{eco.format}}.
 Additional formatting parameters can be passed to this function.}
 
+\item{nout}{Number of digits in the output when columns_to_numeric = TRUE.}
+
 \item{recode}{if recode = TRUE,recoding should be performed individually (e.g., microsatellite data)
 for each column, or overall (e.g., SNPs). Default: "column".}
 

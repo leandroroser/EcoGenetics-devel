@@ -6,7 +6,8 @@
 \usage{
 eco.format(data, ncod = NULL, nout = 3, ploidy = 2, sep.in, sep.out,
   fill.mode = c("last", "first", "none"), recode = c("none", "all",
-  "column"), show.codes = FALSE)
+  "column", "paired"), replace_in = NULL, replace_out = NULL,
+  show.codes = FALSE)
 }
 \arguments{
 \item{data}{Genetic data frame.}
@@ -26,7 +27,16 @@ of each allele. Default = "last".}
 
 \item{recode}{Recode mode: "none" for no recoding (defalut), "all" for recoding
 the data considering all the individuals values at once (e.g., protein data), 
-or "column" for recoding the values by column (e.g., microsatellite data).}
+"column" for recoding the values by column (e.g., microsatellite data), "paired" 
+for passing the values of allelic states and corresponding replacement values, using 
+the replace_in and replace_out arguments (e.g. replace_in = c("A", "T", "C", "G"),
+replace_out = c(1,2,3,4)).}
+
+\item{replace_in}{vector with states of the data matrix to be replaced, when recode = "paired".
+This argument must be used in conjunction with the argument "replace_out".}
+
+\item{replace_out}{vector with states of the data matrix used for replacement, when recode = "paired".
+This argument must be used in conjunction with the argument "replace_in".}
 
 \item{show.codes}{May we returned tables with the equivalence between the old 
 and new codes when recode = "all" or recode = "column"?}
@@ -43,6 +53,8 @@ It allows to:
 - transform character data into numeric data
 
 "NA" is considered special character (not available data).
+
+Note that the function also works with other data, with states equivalent to "alleles".
 }
 \examples{
 \dontrun{
@@ -79,6 +91,16 @@ ex
 recoded <- eco.format(ex, ploidy = 1, nout = 1,  recode = "all", show.codes = TRUE) 
 # recoded data 
 recoded
+
+# Example using values-replacement pairs
+samp1 <- sample(c("A","T","G","C"), 100, replace = TRUE)
+samp2 <- sample(c("A","T","G","C"), 100, replace = TRUE)
+paired <- matrix(paste0(samp1, samp2), 10, 10)
+# Generate some NAs
+paired[sample(1:100, 10)]<-NA
+out <- eco.format(paired, recode = "paired", replace_in = c("A", "T", "G", "C"),
+replace_out = c(1, 2, 3, 4))
+out
 
 
 # Example with two strings per cell and missing values:

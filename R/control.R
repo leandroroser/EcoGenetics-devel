@@ -72,7 +72,7 @@ int.check.numeric <- function(mat) {
 int.check.rownames <- function(X, lab = "") {
   rnames <- rownames(X)
   rnames <- aue.rmspaces(rnames)
-  if (is.null(rnames) || any(duplicated(rnames))){
+  if (is.null(rnames) || any(duplicated(rnames)) || length(rnames) == 0){
     message("Note: null or duplicated row names. using generic labels.")
     rownames(X) <- aue.genlab(lab, nrow(X))
   }
@@ -91,7 +91,7 @@ int.check.rownames <- function(X, lab = "") {
 int.check.colnames <- function(X, lab = "L") {
   cnames <- colnames(X)
   cnames <- aue.rmspaces(cnames)
-  if (is.null(cnames) || any(duplicated(cnames))){
+  if (is.null(cnames) || any(duplicated(cnames)) || length(cnames) == 0){
     message("Note: null or duplicated column names. using generic labels.")
     colnames(X) <- aue.genlab(lab, ncol(X))
   }

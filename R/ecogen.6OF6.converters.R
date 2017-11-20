@@ -102,7 +102,7 @@ setGeneric("ecogen2geneland",
 
 setGeneric("ecogen2genepop", 
            function(eco, dir = "", outName = "infile.genepop.txt", 
-                    grp = NULL, nout = 3, sep = "", recode = "none") {
+                    grp = NULL, nout = 3, sep = "", recode = "none", ...) {
 
              
              if(dir != "") {
@@ -623,6 +623,7 @@ setGeneric("ecogen2hierfstat",
 #' @param columns_to_numeric Recode the genetic data into numeric format? If TRUE, 
 #' the functions performs the correction via \code{\link{eco.format}}.
 #' Additional formatting parameters can be passed to this function.
+#' @param nout Number of digits in the output when columns_to_numeric = TRUE.
 #' @param recode if recode = TRUE,recoding should be performed individually (e.g., microsatellite data)
 #' for each column, or overall (e.g., SNPs). Default: "column". 
 #' @param ... Additional parameters passed to \code{\link{eco.format} when columns_to_numeric = TRUE}

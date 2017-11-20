@@ -5,7 +5,7 @@
 \title{Exporting an ecogen genetic data frame into Genepop format}
 \usage{
 ecogen2genepop(eco, dir = "", outName = "infile.genepop.txt", grp = NULL,
-  nout = 3, sep = "", recode = "none")
+  nout = 3, sep = "", recode = "none", ...)
 }
 \arguments{
 \item{eco}{Object of class "ecogen".}
@@ -18,7 +18,7 @@ ecogen2genepop(eco, dir = "", outName = "infile.genepop.txt", grp = NULL,
 must be divided (e.g., populations). If groups are not given (grp = NULL),
 all individuals will be assigned to a single one.}
 
-\item{nout}{Number of digits in the output file}
+\item{nout}{Number of digits in the output file.}
 
 \item{sep}{Character separating alleles.}
 
