@@ -112,11 +112,15 @@ setGeneric("ecogen2geneland",
 
 setGeneric("ecogen2genepop", 
            function(eco, dir = "", outName = "infile.genepop.txt", 
+<<<<<<< HEAD
                     grp = NULL, nout = 3, sep = "",   
                     recode = c("none", "all", "column", "paired"),
                     replace_in = NULL,
                     replace_out =NULL,
                     ...) {
+=======
+                    grp = NULL, nout = 3, sep = "", recode = "none", ...) {
+>>>>>>> 8cadaf38336acf6ead5c6df76ae8352c52f116fb
 
              
              if(dir != "") {
@@ -637,6 +641,7 @@ setGeneric("ecogen2hierfstat",
 #' @param to_numeric Recode the genetic data into numeric format? If TRUE, 
 #' the functions performs the correction via \code{\link{eco.format}}.
 #' Additional formatting parameters can be passed to this function.
+<<<<<<< HEAD
 #' @param nout Number of digits in the output when to_numeric = TRUE.
 #' @param recode Recode mode: "none" for no recoding (defalut), "all" for recoding
 #' the data considering all the individuals values at once (e.g., protein data), 
@@ -649,6 +654,12 @@ setGeneric("ecogen2hierfstat",
 #' @param replace_out vector with states of the data matrix used for replacement, when recode = "paired".
 #' This argument must be used in conjunction with the argument "replace_in".
 #' @param ... Additional parameters passed to \code{\link{eco.format} when to_numeric = TRUE}
+=======
+#' @param nout Number of digits in the output when columns_to_numeric = TRUE.
+#' @param recode if recode = TRUE,recoding should be performed individually (e.g., microsatellite data)
+#' for each column, or overall (e.g., SNPs). Default: "column". 
+#' @param ... Additional parameters passed to \code{\link{eco.format} when columns_to_numeric = TRUE}
+>>>>>>> 8cadaf38336acf6ead5c6df76ae8352c52f116fb
 #' @examples
 #' 
 #' \dontrun{
