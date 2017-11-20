@@ -5,12 +5,8 @@
 \title{Exporting an ecogen genetic data frame into Genepop format}
 \usage{
 ecogen2genepop(eco, dir = "", outName = "infile.genepop.txt", grp = NULL,
-<<<<<<< HEAD
   nout = 3, sep = "", recode = c("none", "all", "column", "paired"),
   replace_in = NULL, replace_out = NULL, ...)
-=======
-  nout = 3, sep = "", recode = "none", ...)
->>>>>>> 8cadaf38336acf6ead5c6df76ae8352c52f116fb
 }
 \arguments{
 \item{eco}{Object of class "ecogen".}

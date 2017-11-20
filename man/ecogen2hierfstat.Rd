@@ -5,7 +5,8 @@
 \title{Converting an ecogen genetic data frame into a hierfstat data frame}
 \usage{
 ecogen2hierfstat(eco, pop = NULL, to_numeric = FALSE, nout = 3,
-  recode = c("column", "all"), ...)
+  recode = c("none", "all", "column", "paired"), replace_in = NULL,
+  replace_out = NULL, ...)
 }
 \arguments{
 \item{eco}{Object of class "ecogen".}
@@ -19,10 +20,20 @@ Additional formatting parameters can be passed to this function.}
 
 \item{nout}{Number of digits in the output when to_numeric = TRUE.}
 
-\item{recode}{if recode = TRUE,recoding should be performed individually (e.g., microsatellite data)
-for each column, or overall (e.g., SNPs). Default: "column".}
+\item{recode}{Recode mode: "none" for no recoding (defalut), "all" for recoding
+the data considering all the individuals values at once (e.g., protein data), 
+"column" for recoding the values by column (e.g., microsatellite data), "paired" 
+for passing the values of allelic states and corresponding replacement values, using 
+the replace_in and replace_out arguments (e.g. replace_in = c("A", "T", "C", "G"),
+replace_out = c(1,2,3,4)).}
 
-\item{...}{Additional parameters passed to \code{\link{eco.format} when to_numeric = TRUE}}
+\item{replace_in}{vector with states of the data matrix to be replaced, when recode = "paired".
+This argument must be used in conjunction with the argument "replace_out".}
+
+\item{replace_out}{vector with states of the data matrix used for replacement, when recode = "paired".
+This argument must be used in conjunction with the argument "replace_in".}
+
+\item{...}{Additional parameters passed to \code{\link{eco.format}} when to_numeric = TRUE}
 }
 \description{
 This function converts the genetic 
