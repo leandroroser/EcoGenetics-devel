@@ -40,6 +40,7 @@
 #'@importFrom stats quantile
 #'@importFrom stats step
 #'@importFrom stats var
+#'@importFrom utils browseURL
 #'@importFrom utils capture.output
 #'@importFrom utils combn
 #'@importFrom utils data
