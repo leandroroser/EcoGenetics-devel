@@ -410,7 +410,6 @@ setMethod("show", 	"eco.mctree", function(object) {
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @rdname eco.lmtree.mctree-summary
 #' @aliases summary,eco.lmtree-method
-#' @exportMethod summary
 
 setMethod("summary", 	"eco.mlm", 	function(object) {
   
@@ -489,7 +488,6 @@ setMethod("summary", 	"eco.mlm", 	function(object) {
 #-------------------------------------------------------------------#
 #' @rdname eco.lmtree.mctree-summary
 #' @aliases summary,eco.mctree-method
-#' @exportMethod summary
 
 setMethod("summary", 	"eco.mctree", 	function(object) {
   
@@ -521,7 +519,6 @@ setMethod("summary", 	"eco.mctree", 	function(object) {
 #' @keywords internal
 #' @rdname eco.IBD-methods
 #' @aliases show,eco.IBD-method
-#' @export
 
 
 setMethod("show", "eco.IBD", function(object) {

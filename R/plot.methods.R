@@ -39,7 +39,6 @@
 #' 
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' 
-#' @exportMethod plot 
 
 
 setMethod("plot", "eco.correlog", function(x) cat("Use the function eco.plotCorrelog to plot this object")
