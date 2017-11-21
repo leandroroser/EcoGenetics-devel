@@ -14,8 +14,8 @@ Management and exploratory analysis of spatial data in landscape genetics. Easy 
  \tabular{ll}{
  Package: \tab EcoGenetics\cr
  Type: \tab Package\cr
- Version: \tab 1.2.1-1\cr
- Date: \tab 2017-11-14\cr
+ Version: \tab 1.2.1-2\cr
+ Date: \tab 2017-11-21\cr
  License: \tab GPL (>=2) \cr
  }
  

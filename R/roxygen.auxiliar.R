@@ -1,4 +1,4 @@
-# Auxiliar commands for package documentation with roxygen2 in Rstudio
+# Auxiliar commands for package documentation with roxygen2 
 
 #--------------------
 # NAMESPACE COMMANDS

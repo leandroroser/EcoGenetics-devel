@@ -1,3 +1,11 @@
+EcoGenetics 1.2.1-2 (Release date: 2017-11-21)
+==============
+Changes:
+
+* Correction of bugs in conversion functions
+* Improvements in eco.format and conversion functions
+
+
 EcoGenetics 1.2.1-1 (Release date: 2017-11-13)
 ==============
 Changes:
