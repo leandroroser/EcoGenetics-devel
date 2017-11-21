@@ -545,8 +545,6 @@ aue.ellipse <- function(mat, a = 1, b = 1, x0, y0, theta = 0) {
 #' @keywords internal
  
 aue.square <- function(mat, d, x0, y0, theta = 0) {
-	xmat <- col(mat)
-	ymat <- row(mat)
 	
 	x.mat <- col(mat)
 	y.mat <- row(mat)
@@ -850,19 +848,22 @@ aue.dataAngle <- function(XY, maxpi = FALSE, deg = FALSE, latlon = FALSE) {
   angle
 }
 
-
-#' @rdname web
+#' EcoGenetic devel site
+#' @description The function opens the EcoGenetics-devel web site:
+#' https://github.com/leandroroser/EcoGenetics-devel
 #' @export
 ecogenetics_devel <- function(){
   cat("Opening link: https://leandroroser.github.io/EcoGenetics-devel \n")
   browseURL("https://github.com/leandroroser/EcoGenetics-devel")
 }
 
-#' @rdname web
+#' EcoGenetic tutorial site
+#' @description The function opens the EcoGenetics tutorial web site: 
+#' https://leandroroser.github.io/EcoGenetics-Tutorial
 #' @export
 ecogenetics_tutorial <- function(){
   cat("Opening link: https://leandroroser.github.io/EcoGenetics-Tutorial \n")
-  browseURL("https://github.com/leandroroser/EcoGenetics-devel")
+  browseURL("https://leandroroser.github.io/EcoGenetics-Tutorial/")
 }
 
 
