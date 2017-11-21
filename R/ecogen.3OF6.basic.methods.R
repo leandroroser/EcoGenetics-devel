@@ -88,6 +88,9 @@ setMethod("dim", "ecogen",
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @param x Object of class ecogen
 #' @rdname ecogen-methods 
+#' @aliases as.list,ecogen-method
+#' @export
+#' @method as.list ecogen
 
 setMethod("as.list", 
           signature(x = "ecogen"), 

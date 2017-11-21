@@ -9,10 +9,11 @@
 										"\n", "                ---------------------", "\n",
 										"\r                  ","||","EcoGenetics","||",
 										"\n", "                ---------------------", "\n",
-										"\n", "  Version",  vers, "\n\n",
-										"  GitHub: https://github.com/leandroroser/EcoGenetics-devel", "\n\n",
-										"  Online tutorial: https://leandroroser.github.io/EcoGenetics-Tutorial", "\n\n",
-										"  Overview: help('EcoGenetics')")
+										"\n", "  Version",  vers, "\n",
+										"  GitHub: ecogenetics_devel()", "\n",
+										"  Online tutorial: ecogenetics_tutorial()", "\n",
+										"  Comments / suggestions / bug reports: learoser@gmail.com \n",
+										"  Overview: ?EcoGenetics\n")
 	
 	packageStartupMessage(textstart)
 }

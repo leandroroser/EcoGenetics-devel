@@ -16,7 +16,7 @@
 setMethod("$","ecogen",
           function(x, name) {	
 mess <- message(
-paste("NOTE: This method has been deprecated in EcoGenetics 1.2.0-2.\n",
+paste("NOTE: This method was deprecated in EcoGenetics 1.2.0-2.\n",
 "     Use instead the accessor", aue.access(name, deparse(substitute(x))), "or double square brackets,\n",
 "    ", paste(deparse(substitute(x)), "[[", deparse(substitute(name)),"]].", sep = ""), 
 "See help('EcoGenetics accessors')."))
@@ -36,7 +36,7 @@ setMethod("$<-","ecogen",
           function(x,name,value) {
             tmp <- "name_of_this_object"
             mess <- message(
-              paste("NOTE: This method has been deprecated in EcoGenetics 1.2.0-2.\n",
+              paste("NOTE: This method was deprecated in EcoGenetics 1.2.0-2.\n",
                     "     Use instead the accessor, ", 
                     paste(aue.access(name, tmp), "<-,\n", sep = ""),
                     "     or double square brackets,",

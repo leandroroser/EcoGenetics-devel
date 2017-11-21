@@ -850,3 +850,19 @@ aue.dataAngle <- function(XY, maxpi = FALSE, deg = FALSE, latlon = FALSE) {
   angle
 }
 
+
+#' @rdname web
+#' @export
+ecogenetics_devel <- function(){
+  cat("Opening link: https://leandroroser.github.io/EcoGenetics-devel \n")
+  browseURL("https://github.com/leandroroser/EcoGenetics-devel")
+}
+
+#' @rdname web
+#' @export
+ecogenetics_tutorial <- function(){
+  cat("Opening link: https://leandroroser.github.io/EcoGenetics-Tutorial \n")
+  browseURL("https://github.com/leandroroser/EcoGenetics-devel")
+}
+
+
