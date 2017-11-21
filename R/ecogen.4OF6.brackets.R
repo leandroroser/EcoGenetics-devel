@@ -9,7 +9,6 @@
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @rdname ecogen-methods
 #' @aliases $,ecogen,character-method 
-#' @exportMethod $
 #' 
 
 # DEPRECTED
@@ -30,7 +29,6 @@ return(mess)
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @rdname ecogen-methods 
 #' @aliases $<-,ecogen,character,ANY-method 
-#' @exportMethod $<-
 
 # DEPRECTED
 
@@ -54,7 +52,6 @@ setMethod("$<-","ecogen",
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @rdname ecogen-methods 
 #' @aliases [,ecogen,numeric,missing,ANY-method 
-#' @exportMethod [
 
 setMethod("[", c("ecogen", "numericORmissing", "missing", "ANY"), 
           
@@ -140,7 +137,6 @@ setMethod("[", c("ecogen", "numericORmissing", "missing", "ANY"),
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @rdname ecogen-methods 
 #' @aliases [,ecogen,logical,missing,ANY-method 
-#' @exportMethod [
 
 setMethod("[", c("ecogen", "logicalORmissing", "missing", "ANY"), 
           
@@ -243,7 +239,6 @@ setMethod("[", c("ecogen", "logicalORmissing", "missing", "ANY"),
 #[<-
 # @rdname ecogen-methods
 # @aliases [,ecogen-method
-# @exportMethod [<-
 
 #setReplaceMethod("[","ecogen",  function (x,i,j,value) {
 #message(paste("undefined operation for ecogen objects (would you mean",
@@ -286,7 +281,6 @@ setMethod("[[", c("ecogen","numeric", "missing"), function(x, i, j) {
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @rdname ecogen-methods 
 #' @aliases [[,ecogen,character,missing-method
-#' @exportMethod [
 
 
 setMethod("[[", c("ecogen","character", "missing"), function(x, i, j) {
@@ -346,7 +340,6 @@ setReplaceMethod("[[", c("ecogen","numeric", "missing"), function (x, i, j, ...,
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @rdname ecogen-methods 
 #' @aliases [,ecogen,character,missing-method
-#' @exportMethod [[<-
 
 setReplaceMethod("[[",c("ecogen","character", "missing"),  function (x, i, j,..., value) {
   

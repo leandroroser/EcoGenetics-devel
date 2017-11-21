@@ -8,7 +8,6 @@
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @rdname ecogen-methods
 #' @aliases names,ecogen-method
-#' @exportMethod names
 
 setMethod("names", "ecogen",
           function(x){
@@ -19,7 +18,6 @@ setMethod("names", "ecogen",
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @rdname ecogen-methods
 #' @aliases names,ecogen-method
-#' @exportMethod names<-
 
 setReplaceMethod("names", c(x="ecogen", value="character"), function(x, value) {
   x@ATTR$names <- value
@@ -50,7 +48,6 @@ is.ecogen <- function(x) {
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @rdname ecogen-methods
 #' @aliases nrow,ecogen-method
-#' @exportMethod nrow
 
 setMethod("nrow", "ecogen",
           function(x){
@@ -63,7 +60,6 @@ setMethod("nrow", "ecogen",
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @rdname ecogen-methods
 #' @aliases ncol,ecogen-method
-#' @exportMethod ncol
 
 setMethod("ncol", "ecogen",
           function(x){
@@ -76,7 +72,6 @@ setMethod("ncol", "ecogen",
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @rdname ecogen-methods
 #' @aliases dim,ecogen-method
-#' @exportMethod dim
 
 setMethod("dim", "ecogen",
           function(x){
@@ -93,7 +88,6 @@ setMethod("dim", "ecogen",
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @param x Object of class ecogen
 #' @rdname ecogen-methods 
-#' @exportMethod as.list
 
 setMethod("as.list", 
           signature(x = "ecogen"), 
@@ -146,8 +140,6 @@ setMethod("as.int.list",
 #' @keywords internal 
 #' @rdname ecogen-methods
 #' @aliases show,ecogen-method
-#' @exportMethod show
-
 
 setMethod("show", 
           "ecogen", 
@@ -277,7 +269,6 @@ setMethod("show",
 #' 
 # @rdname ecogen-summary
 # @aliases summary,ecogen,ANY-method
-# @exportMethod summary
 
 
 #setMethod("summary", "ecogen", function(object, grp = NULL) { 
