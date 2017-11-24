@@ -8,6 +8,10 @@ sudo: required
 
 language: c
 
+os:
+- linux
+- osx
+
 addons:
   apt:
     packages:
@@ -24,8 +28,13 @@ script: ./travis-tool.sh run_tests
 
 after_failure:
   - ./travis-tool.sh dump_logs
+  
+after_success:
+- Rscript -e 'covr::codecov()'
+- if [[ "$TRAVIS_OS_NAME" = 'linux' ]]; then R CMD INSTALL *tar.gz; fi
 
 notifications:
   email:
     on_success: change
     on_failure: change
+  
