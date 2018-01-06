@@ -29,7 +29,6 @@ setReplaceMethod("names", c(x="ecogen", value="character"), function(x, value) {
 })
 
 
-
 # is --------------------------------------------------------------------------#
 #' is.ecogen 
 #' @author Leandro Roser \email{learoser@@gmail.com}
@@ -233,7 +232,7 @@ setMethod("show",
             
             #GRAPHICAL INTERFACE----------------------------------#
             cat("\n")
-            cat("               || ECOGEN CLASS OBJECT ||")
+            cat("                   || ECOGEN CLASS OBJECT ||")
             cat("\n")
             .msgaccess()
             cat( "\n", "|", "slot XY:", e(3), "|","-->", l1, e(1), e(13 - nchar(l1)), l1.1)

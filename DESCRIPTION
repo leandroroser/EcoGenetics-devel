@@ -13,11 +13,18 @@ Depends: R (>= 3.0), methods
 Imports: d3heatmap, edgebundleR, ggplot2, grid, htmlwidgets, igraph,
         jsonlite, magrittr, networkD3, party, pheatmap, plotly, raster,
         reshape2, rgdal, rkt, SoDA, sp
-Suggests: adegenet
-Collate: 'ZZZ.R' 'auxiliar.R' 'int.genind.R' 'ecogen.1OF6.definition.R'
+Suggests: 
+    adegenet,
+    testthat,
+    covr
+Collate: 'ZZZ.R' 'generics.R' 'auxiliar.R' 'int.genind.R' 
+        'ecogen.1OF6.definition.R'
         'ecogen.2OF6.constructor.R' 'ecogen.3OF6.basic.methods.R'
         'ecogen.4OF6.brackets.R' 'ecogen.5OF6.get&set.R'
-        'ecogen.6OF6.converters.R' 'accesors.R' 'classes.R' 'control.R'
+        'ecogen.6OF6.converters.R' 'ecopop.1OF6.definition.R'
+        'ecopop.2OF6.constructor.R' 'ecopop.3OF6.basic.methods.R'
+        'ecopop.4OF6.brackets.R' 'ecopop.5OF6.get&set.R'
+        'ecopop.6OF6.converters.R' 'accesors.R' 'classes.R' 'control.R'
         'deprecated.R' 'eco.formula.R' 'eco.NDVI.R' 'eco.NDVI.post.R'
         'eco.alfreq.R' 'eco.association.R' 'eco.bearing.R'
         'eco.cbind.R' 'eco.clear.R' 'eco.convert.R' 'eco.cormantel.R'

@@ -52,7 +52,6 @@ check_ecogen <- function(object) {
   if(length(errors) == 0) TRUE else errors
 }
 
-
 ################################################
 #### ECOGEN CLASS DEFINITION
 ################################################
@@ -103,3 +102,4 @@ setClass("ecogen",
          
          validity = check_ecogen
 )
+

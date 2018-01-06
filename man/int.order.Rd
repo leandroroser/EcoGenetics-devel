@@ -2,7 +2,7 @@
 % Please edit documentation in R/int.order.R
 \name{int.order}
 \alias{int.order}
-\title{Ordering the rows of the data frames contained in an ecogen object}
+\title{Ordering the rows of the data frames contained in an ecogen or ecopop object}
 \usage{
 int.order(eco)
 }
@@ -10,17 +10,17 @@ int.order(eco)
 \item{eco}{Object of class "ecogen".}
 }
 \description{
-Ordering the rows of the data frames contained in an ecogen object
+Ordering the rows of the data frames contained in an ecogen or ecopop object
 }
 \details{
-This program generates an ecogen object with the rows of all
-the data frames ordered in reference to the row names of the XY data frame.
-This is useful when the data frames are loaded into the ecogen object,
+This program generates an ecogen/ecopop object with the rows of all
+the data frames ordered using a reference row names vector.
+This is useful when the data frames are loaded into the n object,
 but were not ordered previously. Also, this tool can be useful 
 for reorder rows when is needed. 
-First, the reference data frame in the slot XY will be in the desired row order. 
-This program then aligns all the data frames by coincidence of row names
-with those in the slot XY.
+The program used the row names data that was set during the
+construction of the object. Then, the program then aligns 
+all the data frames by coincidence of row names of the reference vector.
 }
 \examples{
 
