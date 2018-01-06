@@ -12,9 +12,9 @@ os:
 - linux
 - osx
 
-r_packages:
-  - covr
-  
+r_github_packages:
+  - r-lib/covr
+
 addons:
   apt:
     packages:
@@ -33,7 +33,7 @@ after_failure:
   - ./travis-tool.sh dump_logs
   
 after_success:
-- Rscript -e 'library(covr); codecov()'
+- Rscript -e 'covr::codecov()'
 - if [[ "$TRAVIS_OS_NAME" = 'linux' ]]; then R CMD INSTALL *tar.gz; fi
 
 
