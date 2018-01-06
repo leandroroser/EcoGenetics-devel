@@ -1,4 +1,4 @@
-#' Combining ecogen object by column
+#' Combining ecogen objects by column
 #' 
 #' @param eco1 Object of class "ecogen".
 #' @param eco2 Object of class "ecogen".

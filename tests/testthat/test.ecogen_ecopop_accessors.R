@@ -4,6 +4,7 @@ data(eco.test)
 
 test_that("test ecogen get", {
   skip_on_cran()
+  expect_true(all(dim(eco[["XY"]]) == c(225, 2)))
   expect_true(all(dim(eco[["P"]]) == c(225, 8)))
   expect_true(all(dim(eco[["G"]]) == c(225, 10)))
   expect_true(all(dim(eco[["A"]]) == c(225, 40)))
