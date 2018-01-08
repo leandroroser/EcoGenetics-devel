@@ -391,7 +391,7 @@ setGeneric("eco.lsa",
              
              ## general configuration. method selection
              var.names <- colnames(Z)
-             Z <- Z[, 1]
+             Z <- as.numeric(Z[, 1]) # control numeric variable
              ## NAs removed. When finalized the algorithm, NA individuals are restored.
              noNA <- !is.na(Z) 
              Z <- Z[noNA]
@@ -665,7 +665,7 @@ setGeneric("eco.lsa",
              }
              #perform here a multiple test. Use for for counting progress
              all.traits <- list()
-             for(i in 1:ntests) {
+             for(i in seq_len(ntests)) {
              all.traits[[i]] <- singletest(var[, i, drop = FALSE])
              
              cat(paste("\r", "variable", counter, "--- total progress",

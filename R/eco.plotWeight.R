@@ -104,7 +104,7 @@ eco.plotWeight <-  function(x, type = c("simple", "igraph", "edgebundle", "netwo
     line.plot(rcoord, df.con, col.custom)
     points(rcoord[, 1], rcoord[, 2], cex = 0.8, pch = 21, bg = "beige")
     
-    invisible()
+    invisible(NULL)
     
   } 
   
@@ -128,6 +128,7 @@ eco.plotWeight <-  function(x, type = c("simple", "igraph", "edgebundle", "netwo
       plot(1, type="n", axes=F, xlab="", ylab="")
       legend("topleft", legend= levels(group), fill = levels(as.factor(col)))
     }
+    invisible(NULL)
   }
   
   ##### DYNAMIC PLOT ############################################
@@ -156,8 +157,10 @@ eco.plotWeight <-  function(x, type = c("simple", "igraph", "edgebundle", "netwo
       
       # remove individuals without links
       tabla <- tabla[-cuales, ]
-      tabla[, 1:2] <- tabla[, 1:2] - 1
+      tabla[, 1:2] <- tabla[, 1:2] - min(tabla[, 1:2])
+      
       colnames(tabla)<-c("source", "target", "value")
+      # 0 indexed for JavaScript
       nodos <- data.frame(rownames(con@W))
       
       if(is.null(group)) {

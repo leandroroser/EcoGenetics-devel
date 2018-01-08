@@ -2,7 +2,7 @@ context("Test ecogen-ecopop accessors")
 
 data(eco.test)
 
-test_that("test ecogen get", {
+test_that("test ecogen get using brackets", {
   skip_on_cran()
   expect_true(all(dim(eco[["XY"]]) == c(225, 2)))
   expect_true(all(dim(eco[["P"]]) == c(225, 8)))
@@ -11,6 +11,18 @@ test_that("test ecogen get", {
   expect_true(all(dim(eco[["E"]]) == c(225, 6)))
   expect_true(all(dim(eco[["S"]]) == c(225, 1)))
   expect_true(all(dim(eco[["C"]]) == c(0, 0)))
+})
+
+test_that("test ecogen get using ecoslot notation", {
+  skip_on_cran()
+  expect_true(all(dim(ecoslot.XY(eco)) == c(225, 2)))
+  expect_true(all(dim(ecoslot.P(eco)) == c(225, 8)))
+  expect_true(all(dim(ecoslot.G(eco)) == c(225, 10)))
+  expect_true(all(dim(ecoslot.A(eco)) == c(225, 40)))
+  expect_true(all(dim(ecoslot.E(eco)) == c(225, 6)))
+  expect_true(all(dim(ecoslot.S(eco)) == c(225, 1)))
+  expect_true(all(dim(ecoslot.C(eco)) == c(0, 0)))
+  expect_true(length(ecoslot.OUT(eco)) == 0)
 })
 
 

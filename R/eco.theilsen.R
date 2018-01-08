@@ -37,11 +37,15 @@
 #'
 #'eco.theilsen(ndvisim, date)
 #'
-#'pvalue <- raster("pvalue.tif")
 #'slope <- raster("slope.tif")
+#'pvalue <- raster("pvalue.tif")
+#'
 #'par(mfrow = c(1, 2))
-#'plot(pvalue, main = "p-value")
 #'plot(slope, main = "slope")
+#'plot(pvalue, main = "p-value")
+#'
+#'
+#' file.remove(c("temporal.tif", "slope.tif", "pvalue.tif"))
 #'}
 #'
 #' @references 

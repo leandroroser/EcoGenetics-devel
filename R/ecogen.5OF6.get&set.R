@@ -372,7 +372,8 @@ setMethod("ecoslot.OUT", "ecogen",
                 cat("\n")
                 return( out.names)
               } else {
-                return("OUT is empty")
+                message("OUT is empty")
+                return(invisible(NULL))
               }
             }
             

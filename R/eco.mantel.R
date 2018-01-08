@@ -109,11 +109,8 @@ setGeneric("eco.mantel",
            function(d1, d2, dc = NULL, con = NULL, thres = NULL,
                     truncMat = c("d2","d1","dc"),
                     method = c("pearson", "spearman", "kendall"),
-                    nsim = 99,  
-                    alternative = c("auto", "two.sided", "less", 
-                                    "greater"), 
-                    plotit = TRUE,
-                    ...) {
+                    nsim = 99, alternative = c("auto", "two.sided", "less", "greater"), 
+                    plotit = TRUE, ...) {
              
              alternative <- match.arg(alternative)
              method <- match.arg(method)
