@@ -20,7 +20,7 @@ int.popdata class
 
 \item{\code{aggregator}}{function used to aggregate data}
 
-\item{\code{factor_to_count}}{Logical. Factors splitted into counts for each level?}
+\item{\code{factor_to_counts}}{Logical. Factors splitted into counts for each level?}
 
 \item{\code{loc.fac}}{locus of each allele}
 

@@ -4,7 +4,7 @@
 \alias{aue.aggregated_df}
 \title{Generate aggregated dataframe}
 \usage{
-aue.aggregated_df(X, hier, fun, factor_to_dummy = FALSE, ...)
+aue.aggregated_df(X, hier, fun, factor_to_counts = FALSE, ...)
 }
 \arguments{
 \item{X}{data frame}
@@ -12,6 +12,8 @@ aue.aggregated_df(X, hier, fun, factor_to_dummy = FALSE, ...)
 \item{hier}{hierarchy}
 
 \item{fun}{function}
+
+\item{factor_to_counts}{split factor into counts for each level?}
 
 \item{...}{additional parameters passed to fun}
 }

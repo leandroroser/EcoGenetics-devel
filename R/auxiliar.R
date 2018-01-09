@@ -877,17 +877,18 @@ aue.check_class <- function(X) {
 #' @param  X data frame
 #' @param  hier hierarchy 
 #' @param  fun  function
+#' @param factor_to_counts split factor into counts for each level?
 #' @param ... additional parameters passed to fun 
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @export
 
-aue.aggregated_df <- function(X, hier, fun, factor_to_dummy = FALSE, ...) {
+aue.aggregated_df <- function(X, hier, fun, factor_to_counts = FALSE, ...) {
   if(nrow(X) == 0)
   {
     out <- data.frame(matrix(nrow = 0, ncol = 0))
     return(out)
   }
-  if(factor_to_dummy) {
+  if(factor_to_counts) {
   aggregator_function <- function(x, ...) {
     if(class(x[,1]) == "factor") {
       return(aue.split_categorical(x[, 1, drop = FALSE], hier))

@@ -11,7 +11,7 @@
 #' @slot NA.char NA character
 #' @slot ncod number of digits coding each allele (codominant data)
 #' @slot aggregator function used to aggregate data
-#' @slot factor_to_count Logical. Factors splitted into counts for each level?
+#' @slot factor_to_counts Logical. Factors splitted into counts for each level?
 #' @slot loc.fac locus of each allele
 #' @slot all.names alleles names
 #' @author Leandro Roser \email{learoser@@gmail.com}
@@ -22,7 +22,7 @@ setClass("int.popdata",
          representation(ploidy = "numeric",
                         type = "character",
                         aggregator = "function",
-                        factor_to_dummy = "logical",
+                        factor_to_counts = "logical",
                         loc.fac = "factorORnull",
                         all.names = "characterORnull"
          ), 
@@ -30,7 +30,7 @@ setClass("int.popdata",
          prototype(ploidy = 2,
                    type = "codominant",
                    aggregator = function(){},
-                   factor_to_dummy = TRUE,
+                   factor_to_counts = TRUE,
                    loc.fac = NULL,
                    all.names = NULL
          )

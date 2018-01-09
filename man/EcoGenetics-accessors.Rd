@@ -2,8 +2,8 @@
 % Please edit documentation in R/generics.R, R/ecogen.5OF6.get&set.R,
 %   R/ecopop.5OF6.get&set.R, R/accesors.R
 \docType{methods}
-\name{ecoslot.XY}
-\alias{ecoslot.XY}
+\name{EcoGenetics accessors}
+\alias{EcoGenetics accessors}
 \alias{ecoslot.XY<-}
 \alias{ecoslot.P}
 \alias{ecoslot.P<-}
@@ -22,7 +22,7 @@
 \alias{ecoslot.OUT}
 \alias{ecoslot.OUT<-}
 \alias{int.ecoslot.INT}
-\alias{EcoGenetics accessors}
+\alias{ecoslot.XY,ecogen-method}
 \alias{ecoslot.XY<-,ecogen-method}
 \alias{ecoslot.P,ecogen-method}
 \alias{ecoslot.P<-,ecogen-method}
@@ -39,7 +39,7 @@
 \alias{ecoslot.OUT,ecogen-method}
 \alias{ecoslot.OUT<-,ecogen-method}
 \alias{int.ecoslot.INT<-}
-\alias{EcoGenetics accessors}
+\alias{ecoslot.XY,ecopop-method}
 \alias{ecoslot.XY<-,ecopop-method}
 \alias{ecoslot.P,ecopop-method}
 \alias{ecoslot.P<-,ecopop-method}
@@ -298,56 +298,20 @@ ecoslot.W(X)
 
 \item{object}{Object of class ecogen.}
 
-\item{value}{Single object or a list of objects to assign. Multiple 
-objects v1, v2, ...vn must be passed as a list : list(v1, v2, ...vn).}
-
 \item{...}{Arguments for G or OUT slots of ecogen objects (see Details).}
 
-\item{use.object.names}{Logical. Use the names stored in the object 
-for the assigned data frame? This argument can be combined with order.rows 
-if the order of the individuals do not match to the order of the 
-other elements in the object. If the names stored in the object are empty, 
-in all the cases they will be set to the names of the assigned data frame.}
-
-\item{order.rows}{Order rows of the object after assignnment to align individuals?
-This argument can be used when use.object.names is TRUE. Otherwise, it will not have
-effect in the function.}
-
-\item{G.processed}{If TRUE, the slot G will include a processed data frame (
-removed non informative loci (the data non available for all the individuals),
-removed non polymorphic loci (for dominant data) and ordered alleles in ascending
-order.}
-
-\item{order.G}{Genotypes must be ordered in G slot? Default FALSE.}
-
-\item{type}{Marker type: "codominant" or "dominant".}
-
-\item{ploidy}{Ploidy of the G data frame. Default ploidy = 2.}
-
-\item{sep}{Character separating alleles. Default option is no
-character separating alleles.}
-
-\item{ncod}{Number of characters coding each allele.}
-
-\item{missing}{Missing data treatment ("0", "NA", or "MEAN") for the A
-slot. Missing elements are set to 0 in the default option. missing elements
-are recoded as "NA" or the mean allelic frequency across individuals in "NA" 
-and "MEAN" options, respectively.}
-
-\item{NA.char}{Character simbolizing missing data in the input. Default is "NA".}
-
-\item{poly.level}{Polymorphism threshold in percentage (0 - 100), 
-for remotion of non polymorphic loci (for dominant data). Default is 5 (5\%).}
-
-\item{rm.empty.ind}{Remotion of noninformative individuals (rows of "NAs").
-Default if FALSE.}
-
-\item{object}{Object of class ecopop.}
-
 \item{value}{Single object or a list of objects to assign. Multiple 
 objects v1, v2, ...vn must be passed as a list : list(v1, v2, ...vn).}
 
-\item{...}{Arguments for G or OUT slots of ecopop objects (see Details).}
+\item{use.object.names}{Logical. Use the names stored in the object 
+for the assigned data frame? This argument can be combined with order.rows 
+if the order of the individuals do not match to the order of the 
+other elements in the object. If the names stored in the object are empty, 
+in all the cases they will be set to the names of the assigned data frame.}
+
+\item{order.rows}{Order rows of the object after assignnment to align individuals?
+This argument can be used when use.object.names is TRUE. Otherwise, it will not have
+effect in the function.}
 
 \item{G.processed}{If TRUE, the slot G will include a processed data frame (
 removed non informative loci (the data non available for all the individuals),
@@ -377,20 +341,8 @@ for remotion of non polymorphic loci (for dominant data). Default is 5 (5\%).}
 
 \item{rm.empty.ind}{Remotion of noninformative individuals (rows of "NAs").
 Default if FALSE.}
-
-\item{use.object.names}{Logical. Use the names stored in the object 
-for the assigned data frame? This argument can be combined with order.rows 
-if the order of the individuals do not match to the order of the 
-other elements in the object. If the names stored in the object are empty, 
-in all the cases they will be set to the names of the assigned data frame.}
-
-\item{order.rows}{Order rows of the object after assignnment to align individuals?
-This argument can be used when use.object.names is TRUE. Otherwise, it will not have
-effect in the function.}
 }
 \description{
-Generic accessors for EcoGenetics objects
-
 Generic accessors for EcoGenetics objects
 
 These functions provide basic access to the slots of any object
@@ -599,8 +551,6 @@ ecoslot.OUT(eco)
 
 }
 \author{
-Leandro Roser \email{learoser@gmail.com}
-
 Leandro Roser \email{learoser@gmail.com}
 
 Leandro Roser \email{learoser@gmail.com}

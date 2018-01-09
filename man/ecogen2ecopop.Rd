@@ -4,13 +4,17 @@
 \alias{ecogen2ecopop}
 \title{Conversion form ecogen to ecopop}
 \usage{
-ecogen2ecopop(from, hier, factor_to_dummy = TRUE, aggregator = function(x)
+ecogen2ecopop(from, hier, factor_to_counts = TRUE, aggregator = function(x)
   mean(x, na.rm = TRUE))
 }
 \arguments{
 \item{from}{Object of class "ecogen"}
 
-\item{to}{Object of class "ecopop"}
+\item{hier}{Name of the level of the slot S with hierarchies}
+
+\item{factor_to_counts}{Convert factors into counts for each level?}
+
+\item{aggregator}{Function used to aggregate data}
 }
 \description{
 This function creates an ecopop object from an ecogen object

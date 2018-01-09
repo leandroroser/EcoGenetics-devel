@@ -3,7 +3,9 @@
 #' 
 #' @description This function creates an ecopop object from an ecogen object
 #' @param from Object of class "ecogen"
-#' @param to Object of class "ecopop"
+#' @param hier Name of the level of the slot S with hierarchies
+#' @param factor_to_counts Convert factors into counts for each level?
+#' @param aggregator Function used to aggregate data
 #' @rdname ecogen2ecopop
 #' @examples
 #' 
@@ -17,7 +19,7 @@
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @export
 
-setGeneric("ecogen2ecopop", function(from, hier, factor_to_dummy = TRUE,
+setGeneric("ecogen2ecopop", function(from, hier, factor_to_counts = TRUE,
                                      aggregator = function(x) mean(x, na.rm = TRUE)) { 
   
 which_pop <- which(colnames(from@S)== hier)
@@ -29,9 +31,9 @@ pop <- from@S[, hier]
 
 to <- new("ecopop")
 
-to@XY <-  aue.aggregated_df(from@XY, pop, aggregator, factor_to_dummy = FALSE)
+to@XY <-  aue.aggregated_df(from@XY, pop, aggregator, factor_to_counts = FALSE)
 
-to@P <-   aue.aggregated_df(from@P, pop, aggregator, factor_to_dummy = factor_to_dummy )
+to@P <-   aue.aggregated_df(from@P, pop, aggregator, factor_to_counts = factor_to_counts )
 
 if(from@INT@type == "codominant") {
   to@AF <- as.matrix(apply(from@A, 2, tapply, structure, sum, na.rm=TRUE))
@@ -39,17 +41,17 @@ if(from@INT@type == "codominant") {
   to@AF <-  as.matrix(apply(from@G, 2, tapply, structure, sum, na.rm=TRUE))
 }
 
-to@E <-  aue.aggregated_df(from@P, pop, aggregator, factor_to_dummy = factor_to_dummy )
+to@E <-  aue.aggregated_df(from@P, pop, aggregator, factor_to_counts = factor_to_counts )
 
 to@S <-  factor(levels(pop))
 
-to@C <-   aue.aggregated_df(from@C, pop, aggregator, factor_to_dummy = factor_to_dummy )
+to@C <-   aue.aggregated_df(from@C, pop, aggregator, factor_to_counts = factor_to_counts )
 
 popdat <- new("int.popdata")
 popdat@ploidy <- from@INT@ploidy
 popdat@type <- from@INT@type
 popdat@aggregator <- aggregator
-popdat@factor_to_dummy <- factor_to_dummy
+popdat@factor_to_counts <- factor_to_counts
 popdat@loc.fac <- from@INT@loc.fac
 popdat@all.names <- from@INT@all.names
 to@INT <- popdat
