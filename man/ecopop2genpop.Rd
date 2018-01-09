@@ -2,22 +2,28 @@
 % Please edit documentation in R/ecopop.6OF6.converters.R
 \name{ecopop2genpop}
 \alias{ecopop2genpop}
+\alias{genpop2ecopop}
 \title{Conversion form ecopop to genpop and genpop to ecopop}
 \usage{
 ecopop2genpop(from)
+
+genpop2ecopop(from)
 }
 \arguments{
 \item{from}{Object of class "ecopop" / "genpop"}
 }
 \description{
 These functions export from ecopop to genpop and viceversa
+
+genpop2ecpop
 }
 \examples{
 
 \dontrun{
 data(eco.test)
 my_ecopop <- ecogen2ecopop(eco, hier = "pop")
-ecpop2genpop(my_ecopop)
+my_genpop <- ecopop2genpop(my_ecopop)
+my_ecopop2 <- genpop2ecopop(my_genpop)
 }
 
 }

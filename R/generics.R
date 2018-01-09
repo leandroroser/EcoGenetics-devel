@@ -73,7 +73,7 @@ setGeneric("ecoslot.G", function(X) standardGeneric("ecoslot.G"))
 
 
 #' @rdname EcoGenetics-accessors
-#' @exportMethod ecoslot.G
+#' @export ecoslot.G<-
 
 setGeneric("ecoslot.G<-", function(object, ..., value) 
   standardGeneric("ecoslot.G<-"))

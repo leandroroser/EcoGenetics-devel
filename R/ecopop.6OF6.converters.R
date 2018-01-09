@@ -70,7 +70,8 @@ to
 #' \dontrun{
 #' data(eco.test)
 #' my_ecopop <- ecogen2ecopop(eco, hier = "pop")
-#' ecpop2genpop(my_ecopop)
+#' my_genpop <- ecopop2genpop(my_ecopop)
+#' my_ecopop2 <- genpop2ecopop(my_genpop)
 #' }
 #' 
 #' @author Leandro Roser \email{learoser@@gmail.com}
@@ -110,8 +111,8 @@ setGeneric("ecopop2genpop", function(from) {
   to
 })
 
-#' genind2ecogen
-#' @rdname ecogen2genind
+#' genpop2ecpop
+#' @rdname ecopop2genpop
 #' @export
 
 
@@ -123,7 +124,7 @@ setGeneric("genpop2ecopop", function(from) {
   to@INT@loc.fac <- from@loc.fac
   
   counts <- lapply(from@all.names, length)
-  xnames <- names(xx@all.names)
+  xnames <- names(from@all.names)
   xnames <- rep(xnames, counts)
   to@INT@all.names <- unlist(from@all.names)
   names(to@INT@all.names) <- xnames

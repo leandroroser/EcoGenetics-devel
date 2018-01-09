@@ -71,7 +71,7 @@ setMethod("ecoslot.G", "ecogen", function(X) X@G)
 
 
 #' @rdname EcoGenetics-accessors
-#' @exportMethod ecoslot.G
+#' @exportMethod ecoslot.G<-
 
 setReplaceMethod("ecoslot.G", "ecogen",
                  function(object, value, G.processed = TRUE, order.G = FALSE, 

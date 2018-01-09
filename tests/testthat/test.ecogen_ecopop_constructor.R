@@ -1,8 +1,6 @@
 context("Test ecogen-ecopop constructors")
 
-
 data(eco.test)
-
 
 test_that("test that ecogen constructor works fine", {
   skip_on_cran()
@@ -19,15 +17,20 @@ test_that("test that ecogen constructor works fine", {
 
 test_that("test that ecogen constructor creates a new valid object from data", {
   skip_on_cran()
-  my_ecogen <- ecogen(XY = coordinates, P = phenotype, G = genotype,
-                E = environment, S = structure)
+  coord <- eco@XY
+  pheno <- eco@P
+  geno <- eco@G
+  env <- eco@E
+  struct <- eco@S
+  my_ecogen <- ecogen(XY = coord, P = pheno, G = geno,
+                E = env, S = struct)
   
   my_ecogen2 <- ecogen()
-  ecoslot.XY(my_ecogen2) <- coordinates
-  ecoslot.P(my_ecogen2) <- phenotype
-  ecoslot.G(my_ecogen2, order.G = TRUE) <- genotype
-  ecoslot.E(my_ecogen2) <- environment
-  ecoslot.E(my_ecogen2) - structure
+  ecoslot.XY(my_ecogen2) <- coord
+  ecoslot.P(my_ecogen2) <- pheno
+  ecoslot.G(my_ecogen2, order.G = TRUE) <- geno
+  ecoslot.E(my_ecogen2) <- env
+  ecoslot.S(my_ecogen2) <- struct
   
   expect_that(my_ecogen, is_a("ecogen"))
   expect_true(all(dim(my_ecogen[["XY"]]) == c(225, 2)))
@@ -67,12 +70,12 @@ test_that("ecogen2ecopop works fine", {
   my_ecopop <- ecogen2ecopop(eco, hier = "pop")
 
   XY_pop <- my_ecopop[["XY"]]
-  AF_pop <- my_ecopop[["P"]]
+  P_pop <- my_ecopop[["P"]]
   AF_pop <- my_ecopop[["AF"]]
   E_pop <- my_ecopop[["E"]]
   S_pop <- my_ecopop[["S"]]
  
-  my_ecopop2 <- ecopop(XY = XY_pop, P = XY_pop, AF = AF_pop, E = E_pop, S = S_pop)
+  my_ecopop2 <- ecopop(XY = XY_pop, P = P_pop, AF = AF_pop, E = E_pop, S = S_pop)
   
   my_ecopop3 <- ecopop()
   
