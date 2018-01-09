@@ -4,24 +4,20 @@
 
 #' Creating a new ecopop object
 #' @param XY Data frame with n rows (populations) and m columns (coordinates).
-#' @param P Data frame with n rows (populations), and phenotypic data in columns.
+#' @param P Data frame with n rows (populations), and m columns (phenotypic variables).
 #' @param AF Data of class: "matrix", with n rows (populations)
-#'  in rows and allele counts data 
-#' in columns. The ploidy and the type (codominant, dominant) of the data, 
+#' and m columns (allele counts).
+#' The ploidy and the type (codominant, dominant) of the data, 
 #' must be passed with the arguments "ploidy" and "type" for consistency
 #' with other methods of the package.
-#' @param E Data frame with n rows (populations), and environmental data 
-#' in columns.
+#' @param E Data frame with n rows (populations), and n columns (environmental variables).
 #' @param S Vector (factor) with n items (population hierarchical levels).
-#' @param C Data frame with n rows (populations), and custom variables in columns.
+#' @param C Data frame with n rows (populations), and m columns (custom variables).
 #' @param order.df Order populations of data frames by row? 
-#' (all data frames with a same order in row names).
-#' This option works when the names of the data frames are used 
-#' (i.e., set.names and valid.names are NULL), otherwise the TRUE/FALSE value of this parameter
-#'  has no effect in the function. 
-#' Defalut FALSE. The row names of all the data frames must be ordered. F not TRUE, 
+#' (all data frames with a same row order).
+#' Defalut FALSE. The row names of all the data frames must be ordered. In this case,
 #' the use of data frames with row names in different order will return an error.
-#' In both cases, the program set the S slots content as the reference names of the object
+#' In both cases, the program set the content of the S slots as the reference names of the object
 #' using the row names of the first non-empty data frame found in the following order: 
 #' XY, P, AF, E, C. This attribute is used as reference to order rows when order.df = TRUE. 
 #' 
@@ -60,18 +56,14 @@
 #' 
 #' \bold{ABOUT THE CONSTRUCTION OF NEW ECOPOP OBJECTS}
 #' 
-#' A new ecopop object can be constructed in two different ways. 
-#' First, a new object can be created, incorporating all the information 
-#' at once. Second, the data can be added in each slot, using the corresponding
-#' accessor / "[[". Accessor/double square brackets methods allow temporal modification 
-#' of any ecopop object and ensure the modularity of this kind of objets. 
-#' These methods are not only functions used to get/assign values to the slots, 
-#' they provide a basic pre-processing of the data during assignment, 
-#' generating a coherent and valid set of information.
+#' In most cases, a new ecopop object is created from an ecogen object, 
+#' using the function ecogen2ecopop. A new ecopop object can also 
+#' be directly constructed in two different ways. First, a new object can be created, 
+#' incorporating all the information in one step with the constructor. 
+#' Second, the data can be added to each slot, using the corresponding
+#' accessor or, in an equivalent way, with double brackets notation ("[[").
 #' 
-#' 
-#' @author Leandro Roser \email{learoser@@gmail.com}
-#' 
+
 #' @examples
 #' \dontrun{
 #' 
@@ -80,9 +72,9 @@
 #' ## Three ways to construct an ecopop object 
 #' 
 #' ## 1) ecogen to ecopop
-#' my_ecopop <- ecogen2ecopop(eco, hier="pop")
+#' my_ecopop <- ecogen2ecopop(eco, hier = "pop")
 #' 
-#' # extracting tables with accessors
+#' # extracting tables with accessors (double brackets notation)
 #' XY_pop <- my_ecopop[["XY"]]
 #' AF_pop <- my_ecopop[["P"]]
 #' AF_pop <- my_ecopop[["AF"]]
@@ -96,13 +88,14 @@
 #' # new empty object
 #' my_ecopop3 <- ecopop()
 #' 
-#' set slots
-#' my_ecopop[["XY"]] <- XY_pop # The first assignments initializes the S slot
+#' set slots, using as example the data generated above
+#' 
+#' my_ecopop3[["XY"]] <- XY_pop # The first assignments initializes the S slot
 #'                             # with the row names of the data frame used (XY)
-#' my_ecopop[["P"]] <- XY_pop
-#' my_ecopop[["AF"]] <- XY_pop
-#' my_ecopop[["E"]] <- XY_pop
-#' my_ecopop[["S"]] <- XY_pop
+#' my_ecopop3[["P"]] <- P_pop
+#' my_ecopop3[["AF", ploidy = 2]] <- AF_pop
+#' my_ecopop3[["E"]] <- E_pop
+#' my_ecopop3[["S"]] <- S_pop
 #' 
 #' }
 #' 

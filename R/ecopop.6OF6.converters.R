@@ -36,9 +36,9 @@ to@XY <-  aue.aggregated_df(from@XY, pop, aggregator, factor_to_counts = FALSE)
 to@P <-   aue.aggregated_df(from@P, pop, aggregator, factor_to_counts = factor_to_counts )
 
 if(from@INT@type == "codominant") {
-  to@AF <- as.matrix(apply(from@A, 2, tapply, structure, sum, na.rm=TRUE))
+  to@AF <- as.matrix(apply(from@A, 2, tapply, pop, sum, na.rm = TRUE))
 } else {
-  to@AF <-  as.matrix(apply(from@G, 2, tapply, structure, sum, na.rm=TRUE))
+  to@AF <-  as.matrix(apply(from@G, 2, tapply, pop, sum, na.rm = TRUE))
 }
 
 to@E <-  aue.aggregated_df(from@P, pop, aggregator, factor_to_counts = factor_to_counts )

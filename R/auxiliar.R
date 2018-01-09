@@ -444,7 +444,7 @@ aue.access <- function(ecoslot, X) {
   paste("ecoslot.",ecoslot,"(",X,")", sep = "")
 }
 
-#' .printaccess
+#' printaccess
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @keywords internal
 #' 

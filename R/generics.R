@@ -40,8 +40,11 @@
 #' This argument can be used when use.object.names is TRUE. Otherwise, it will not have
 #' effect in the function.
 #' @author Leandro Roser \email{learoser@@gmail.com}
-#' @export 
+NULL
 
+
+#' @rdname EcoGenetics-accessors
+#' @export 
 setGeneric("ecoslot.XY", function(X) standardGeneric("ecoslot.XY"))
 
 
