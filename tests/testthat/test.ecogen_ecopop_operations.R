@@ -71,14 +71,3 @@ test_that("slot OUT works", {
   ee <- eco.remove(eco, variog)
   expect_that(length( ee[["OUT"]]), equals(0))
 })
-
-
-#' 
-#' 
-#' # the assignment of values can be made with the corresponding accessors,
-#' # using the generic notation of EcoGenetics 
-#' # (<ecoslot.> + <name of the slot> + <name of the object>).
-#' # See help("EcoGenetics accessors")
-#' 
-
-#' 
