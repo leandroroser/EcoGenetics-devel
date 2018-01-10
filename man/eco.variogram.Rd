@@ -74,7 +74,7 @@ for each class.
 
 data(eco.test)
 variog <- eco.variogram(Z = eco[["P"]][, 2],XY =  eco[["XY"]])
-plot(variog)
+eco.plotCorrelog(variog)
 
 # variogram plots support the use of ggplot2 syntax
 require(ggplot2)

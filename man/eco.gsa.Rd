@@ -162,7 +162,7 @@ eco.plotGlobal(jc)
 
 # multiple tests
 # using the first ten alleles of the matrix
-global.JC <- eco.gsa(Z[, 1:10], ncod = 1, con = con, method = "JC", nsim = 99)
+global.JC <- eco.gsa(Z[, 1:10], con = con, method = "JC", nsim = 99)
 global.JC
 # plot method for multivariable join-count
 eco.plotGlobal(global.JC)

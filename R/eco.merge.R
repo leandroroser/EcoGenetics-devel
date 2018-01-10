@@ -64,7 +64,8 @@ setGeneric("eco.merge",
              
              
              # fill XY,  P  and G data frames
-             z@XY <- int.merge(e1@XY, e2@XY, z@XY, TRUE)
+             howmuchXY <- max(ncol(e1@XY), ncol(e2@XY))
+             z@XY <- int.merge(e1@XY, e2@XY, z@XY, TRUE)[, seq_len(howmuchXY)]
              z@P <- int.merge(e1@P, e2@P, z@P, m[1] == TRUE)
              z@G <- int.merge(e1@G, e2@G, z@G, m[2] == TRUE)
              
@@ -110,9 +111,9 @@ setGeneric("eco.merge",
              z@C <- int.merge(e1@C, e2@C, z@C, m[5] == TRUE)
              
              # set row names
-             maxrow <- maxrow<-which(nrow(z) == max(nrow(z)))
+             maxrow <- which(nrow(z) == max(nrow(z)))
              if(any(maxrow) != 0){
-             maxrow<-maxrow[1]
+             maxrow <- maxrow[1]
              z@ATTR$names <- rownames(z[[maxrow]])
              }
              # check validity

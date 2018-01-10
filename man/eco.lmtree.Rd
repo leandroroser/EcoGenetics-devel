@@ -79,14 +79,14 @@ returns the plots of those trees with significant splits.
 data(eco.test)
 
 # mlm additive model
-mod <- eco.lmtree(df1 = eco[["P"]], df2 = eco[["E"]], 
+mod <- eco.lmtree(df1 = eco3[["P"]], df2 = eco3[["E"]], 
 analysis = "mlm")                                 
 mod
 summary(mod)
 
 # mctree additive model
-mod <- eco.lmtree(df1 = eco[["P"]], df2 = eco[["E"]], 
-analysis = "mctree", fact = eco[["S"]]$pop) 
+mod <- eco.lmtree(df1 = eco3[["P"]], df2 = eco3[["E"]], 
+analysis = "mctree", fact = eco3[["S"]]$pop) 
 
 
 #-----------------------

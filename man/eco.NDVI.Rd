@@ -63,6 +63,10 @@ eco.NDVI(tab, "COST", "NDVI", "LT5")
 
 example <- raster("NDVICOST20040719.tif")
 image(example)
+
+file.remove(c("NDVICOST20040719.tif", "NDVICOST20091106.tif",
+"20040719b4.tif", "20040719b3.tif", "20091106b4.tif", 
+"20091106b3.tif")
 }
 
 }

@@ -184,6 +184,18 @@
 
 0
 
+#' my_ecopop
+#' @name my_ecopop
+#' @docType data
+#' @description ecopop object generated with the object eco
+#' @author Leandro Roser \email{learoser@@gmail.com}
+#' @usage
+#' data(eco.test)
+#' my_ecopop
+#' @keywords data
+
+0
+
 #' table.sokal
 #' @name table.sokal
 #' @docType data

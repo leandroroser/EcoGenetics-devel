@@ -64,6 +64,12 @@
 #' pch=15, main = "Mean NDVI", xlab = "X", ylab  = "Y")
 #' }
 #' 
+#' file.remove(c("NDVICOST20040719.tif", "NDVICOST20091106.tif",
+#' "20040719b4.tif", "20040719b3.tif", "20091106b4.tif", 
+#' "20091106b3.tif", "NDVI.COST.mean.tif", "NDVI.COST.var.tif",
+#' "NDVICOSTtime.tif"))
+
+#' 
 #' @references 
 #' Chander G., B. Markham, and D. Helder. 2009. Summary of current radiometric calibration 
 #' coefficients for Landsat MSS, TM, ETM+, and EO-1 ALI sensors. Remote sensing of 

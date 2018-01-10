@@ -503,9 +503,9 @@ setGeneric("gstudio2ecogen", function(from, ID = "ID", lat = "Latitude", lon = "
   cuales <- sapply(from, class)
   myloc <- from[, cuales == "locus"]
   myloc <- as.matrix(myloc)
+  rownames(myloc) <- myID
   myloc[myloc == ""] <- NA
   G <- eco.convert(myloc, sep.in = ":", sep.out = "")
-  rownames(G) <- myID
   ecoslot.G(to) <- G
   
   if(!is.na(myLat) && !is.na(myLon)) {

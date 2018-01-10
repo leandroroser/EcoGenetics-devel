@@ -295,12 +295,13 @@ setMethod("[[", c("ecogen","character", "missing"), function(x, i, j) {
     if(length(x@OUT) != 0) {
       return(x@OUT)
     } else {
-      return("OUT is empty")
+      message("OUT is empty")
     }
   }
   if(!toupper(i) %in% c("XY", "P", "G", "A","E", "S", "C", "OUT")) {
     message(paste(paste("<", i, ">", sep = ""), "is an undefined ecogen slot"))
   }
+  invisible(NULL)
 })
 
 

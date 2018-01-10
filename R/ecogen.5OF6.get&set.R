@@ -2,65 +2,19 @@
 #### GETTERS AND SETTERS
 ################################################
 
-#--------------------------------------------------------------------#
-
-#' Generic accessors for EcoGenetics objects
-#' @name  EcoGenetics accessors
-#' @rdname EcoGenetics-accessors
-#' @param object Object of class ecogen.
-#' @param value Single object or a list of objects to assign. Multiple 
-#' objects v1, v2, ...vn must be passed as a list : list(v1, v2, ...vn).
-#' @param ... Arguments for G or OUT slots of ecogen objects (see Details).
-#' @param G.processed If TRUE, the slot G will include a processed data frame (
-#' removed non informative loci (the data non available for all the individuals),
-#' removed non polymorphic loci (for dominant data) and ordered alleles in ascending
-#' order. 
-#' @param order.G Genotypes must be ordered in G slot? Default FALSE.
-#' @param type Marker type: "codominant" or "dominant".
-#' @param ploidy Ploidy of the G data frame. Default ploidy = 2.
-#' @param sep Character separating alleles. Default option is no
-#' character separating alleles. 
-#' @param ncod Number of characters coding each allele. 
-#' @param missing Missing data treatment ("0", "NA", or "MEAN") for the A
-#' slot. Missing elements are set to 0 in the default option. missing elements
-#' are recoded as "NA" or the mean allelic frequency across individuals in "NA" 
-#' and "MEAN" options, respectively. 
-#' @param NA.char Character simbolizing missing data in the input. Default is "NA".
-#' @param poly.level Polymorphism threshold in percentage (0 - 100), 
-#' for remotion of non polymorphic loci (for dominant data). Default is 5 (5\%).
-#' @param rm.empty.ind Remotion of noninformative individuals (rows of "NAs").
-#' Default if FALSE.
-#' @param use.object.names Logical. Use the names stored in the object 
-#' for the assigned data frame? This argument can be combined with order.rows 
-#' if the order of the individuals do not match to the order of the 
-#' other elements in the object. If the names stored in the object are empty, 
-#' in all the cases they will be set to the names of the assigned data frame.
-#' @param order.rows Order rows of the object after assignnment to align individuals?
-#' This argument can be used when use.object.names is TRUE. Otherwise, it will not have
-#' effect in the function.
-#' @author Leandro Roser \email{learoser@@gmail.com}
-#' @export 
-
-
-setGeneric("ecoslot.XY", function(X) standardGeneric("ecoslot.XY"))
-
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.XY
 
 setMethod("ecoslot.XY", "ecogen", function(X) X@XY)
 
-#' @rdname EcoGenetics-accessors
-#' @export 
-
-setGeneric("ecoslot.XY<-", function(object, use.object.names =FALSE, order.rows = FALSE, value) standardGeneric("ecoslot.XY<-"))
 
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.XY
 
 setReplaceMethod("ecoslot.XY", "ecogen", function(object, 
+                                                 value,
                                                  use.object.names = FALSE, 
-                                                 order.rows = FALSE,
-                                                 value) {
+                                                 order.rows = FALSE) {
   
   
   object@XY <- as.data.frame(value)
@@ -79,11 +33,6 @@ setReplaceMethod("ecoslot.XY", "ecogen", function(object,
   
 })
 
-#--------------------------------------------------------------------#
-#' @rdname EcoGenetics-accessors
-#' @export 
-
-setGeneric("ecoslot.P", function(X) standardGeneric("ecoslot.P"))
 
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.P
@@ -91,17 +40,12 @@ setGeneric("ecoslot.P", function(X) standardGeneric("ecoslot.P"))
 setMethod("ecoslot.P", "ecogen", function(X) X@P)
 
 #' @rdname EcoGenetics-accessors
-#' @export 
-
-setGeneric("ecoslot.P<-", function(object, use.object.names = FALSE, order.rows = FALSE, value) standardGeneric("ecoslot.P<-"))
-
-#' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.P
 
 setReplaceMethod("ecoslot.P", "ecogen", function(object, 
+                                                 value,
                                                  use.object.names = FALSE, 
-                                                 order.rows = FALSE,
-                                                 value) {
+                                                 order.rows = FALSE) {
   
   
   object@P <- as.data.frame(value)
@@ -120,42 +64,21 @@ setReplaceMethod("ecoslot.P", "ecogen", function(object,
   
 })
 
-
-#--------------------------------------------------------------------#
-#' @rdname EcoGenetics-accessors
-#' @export 
-
-setGeneric("ecoslot.G", function(X) standardGeneric("ecoslot.G"))
-
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.G
 
 setMethod("ecoslot.G", "ecogen", function(X) X@G)
 
-#' @rdname EcoGenetics-accessors
-#' @export
-
-setGeneric("ecoslot.G<-", function(object, G.processed = TRUE, order.G = FALSE,
-                                   type = c("codominant", "dominant"),
-                                   ploidy = 2,sep,  ncod = NULL,
-                                   missing = c("0", "NA", "MEAN"),
-                                   NA.char = "NA", poly.level = 5,
-                                   rm.empty.ind = FALSE,
-                                   use.object.names = FALSE, order.rows = FALSE,
-                                   value) 
-  standardGeneric("ecoslot.G<-"))
-
 
 #' @rdname EcoGenetics-accessors
-#' @exportMethod ecoslot.G
+#' @exportMethod ecoslot.G<-
 
 setReplaceMethod("ecoslot.G", "ecogen",
-                 function(object, G.processed = TRUE, order.G = FALSE, 
+                 function(object, value, G.processed = TRUE, order.G = FALSE, 
                           type = c("codominant", "dominant"),
                           ploidy = 2,sep,  ncod = NULL, missing = c("0", "NA", "MEAN"),
                           NA.char = "NA", poly.level = 5, rm.empty.ind = FALSE, 
-                          use.object.names = FALSE, order.rows = FALSE,
-                          value) {
+                          use.object.names = FALSE, order.rows = FALSE) {
                    
                    # give flexibility to missing argument
                    if(length(missing) == 1 && is.na(missing)) {
@@ -253,11 +176,6 @@ setReplaceMethod("ecoslot.G", "ecogen",
                      
                    })
 
-#--------------------------------------------------------------------#
-#' @rdname EcoGenetics-accessors
-#' @export 
-
-setGeneric("ecoslot.A", function(X) standardGeneric("ecoslot.A"))
 
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.A
@@ -272,42 +190,30 @@ setMethod("ecoslot.A", "ecogen", function(X) {
 })
 
 
-setGeneric("ecoslot.A<-", function(object, value) standardGeneric("ecoslot.A<-"))
-
 
 #' @rdname EcoGenetics-accessors
 #' @keywords internal
 
 setReplaceMethod("ecoslot.A", "ecogen", function(object, value) {
-  message("<A> slots can not be directly replaced. The <A> slot content
+  stop("<A> slots can not be directly replaced. The <A> slot content
           is generated when a new (codominant) data frame is assigned to 
           the slot <G>")
-  object
 })
 
-#--------------------------------------------------------------------#
-#' @rdname EcoGenetics-accessors
-#' @export 
-
-setGeneric("ecoslot.E", function(X) standardGeneric("ecoslot.E"))
 
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.E
 
 setMethod("ecoslot.E", "ecogen", function(X) X@E)
 
-#' @rdname EcoGenetics-accessors
-#' @export
-
-setGeneric("ecoslot.E<-", function(object, use.object.names = FALSE, order.rows = FALSE, value) standardGeneric("ecoslot.E<-"))
 
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.E
 
 setReplaceMethod("ecoslot.E", "ecogen", function(object, 
+                                                 value,
                                                  use.object.names = FALSE, 
-                                                 order.rows = FALSE,
-                                                 value) {
+                                                 order.rows = FALSE) {
   
   
   object@E <- as.data.frame(value)
@@ -326,29 +232,20 @@ setReplaceMethod("ecoslot.E", "ecogen", function(object,
   
 })
 
-#--------------------------------------------------------------------#
-#' @rdname EcoGenetics-accessors
-#' @export 
-
-setGeneric("ecoslot.S", function(X) standardGeneric("ecoslot.S"))
 
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.S
 
 setMethod("ecoslot.S", "ecogen", function(X) X@S)
 
-#' @rdname EcoGenetics-accessors
-#' @export
-
-setGeneric("ecoslot.S<-", function(object, use.object.names = FALSE, order.rows = FALSE, value) standardGeneric("ecoslot.S<-"))
 
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.S
 
-setReplaceMethod("ecoslot.S", "ecogen", function(object,
+setReplaceMethod("ecoslot.S", "ecogen", function(object, 
+                                                 value,
                                                  use.object.names = FALSE, 
-                                                 order.rows = FALSE,
-                                                 value) {
+                                                 order.rows = FALSE) {
   
   value <- as.data.frame(value)
   if(dim(value)[1] != 0) {
@@ -375,29 +272,22 @@ setReplaceMethod("ecoslot.S", "ecogen", function(object,
     
   })
 
-#--------------------------------------------------------------------#
-#' @rdname EcoGenetics-accessors
-#' @export
 
-setGeneric("ecoslot.C", function(X) standardGeneric("ecoslot.C"))
 
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.C
 
 setMethod("ecoslot.C", "ecogen", function(X) X@C)
 
-#' @rdname EcoGenetics-accessors
-#' @export
 
-setGeneric("ecoslot.C<-", function(object, use.object.names =FALSE, order.rows = FALSE, value) standardGeneric("ecoslot.C<-"))
 
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.C
 
 setReplaceMethod("ecoslot.C", "ecogen", function(object, 
+                                                 value,
                                                  use.object.names = FALSE, 
-                                                 order.rows = FALSE,
-                                                 value) {
+                                                 order.rows = FALSE) {
   
   
   object@C <- as.data.frame(value)
@@ -415,12 +305,6 @@ setReplaceMethod("ecoslot.C", "ecogen", function(object,
   object
   
 })
-
-#--------------------------------------------------------------------#
-#' @rdname EcoGenetics-accessors
-#' @export 
-
-setGeneric("ecoslot.OUT", function(X, ...) X@OUT)
 
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.OUT
@@ -448,7 +332,8 @@ setMethod("ecoslot.OUT", "ecogen",
                 cat("\n")
                 return( out.names)
               } else {
-                return("OUT is empty")
+                message("OUT is empty")
+                return(invisible(NULL))
               }
             }
             
@@ -462,10 +347,6 @@ setMethod("ecoslot.OUT", "ecogen",
           })
 
 
-#' @rdname EcoGenetics-accessors
-#' @export 
-
-setGeneric("ecoslot.OUT<-", function(object, value) standardGeneric("ecoslot.OUT<-"))
 
 
 #' @rdname EcoGenetics-accessors
@@ -522,12 +403,6 @@ setReplaceMethod("ecoslot.OUT", "ecogen", function(object, value) {
   
 })
 
-#' @rdname EcoGenetics-accessors
-#' @keywords internal
-
-# slot INT-Internal- non public accessor
-
-setGeneric("int.ecoslot.INT", function(X) standardGeneric("int.ecoslot.INT"))
 setMethod("int.ecoslot.INT", "ecogen", function(X) X@INT)
 
 #' @rdname EcoGenetics-accessors

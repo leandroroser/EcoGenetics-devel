@@ -109,16 +109,15 @@ ex <- c("Ala", "Asx", "Cys", "Asp", "Glu", "Phe", "Gly", "His", "Ile",
 "Lys", "Leu", "Met", "Asn", "Pro", "Gln", "Arg", "Ser", "Thr", 
 "Val", "Trp")
 ex1 <- sample(ex, 100, rep= T)
-ex2 <- sample(ex, 100, rep= T)
-ex3 <- paste(ex1, ex2, sep="")
-missing.ex3 <- sample(1:100, 20)
-ex3[missing.ex3] <-NA
-ex4 <- matrix(ex3, 10, 10)
-colnames(ex4) <- letters[1:10]
-rownames(ex4) <- LETTERS[1:10]
+ex2 <- paste(ex1, ex1, sep="")
+missing.ex2 <- sample(1:100, 20)
+ex2[missing.ex2] <-NA
+ex2 <- matrix(ex2, 10, 10)
+colnames(ex2) <- letters[1:10]
+rownames(ex2) <- LETTERS[1:10]
 # example data
-ex4
-recoded <- eco.format(ex4, ncod = 3, ploidy = 2, 
+ex2
+recoded <- eco.format(ex2, ncod = 3, ploidy = 2, 
                       nout = 2, recode = "column")
 # recoded data
 recoded

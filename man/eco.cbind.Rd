@@ -2,7 +2,7 @@
 % Please edit documentation in R/eco.cbind.R
 \name{eco.cbind}
 \alias{eco.cbind}
-\title{Combining ecogen object by column}
+\title{Combining ecogen objects by column}
 \usage{
 eco.cbind(eco1, eco2, ..., missing = c("0", "MEAN", "NA"))
 }
@@ -25,7 +25,7 @@ of the corresponding allele).
 Missing elements are coded as 0 in the default option.}
 }
 \description{
-Combining ecogen object by column
+Combining ecogen objects by column
 }
 \examples{
 

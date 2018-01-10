@@ -48,7 +48,7 @@
 #' 
 #' data(eco.test)
 #' variog <- eco.variogram(Z = eco[["P"]][, 2],XY =  eco[["XY"]])
-#' plot(variog)
+#' eco.plotCorrelog(variog)
 #' 
 #' # variogram plots support the use of ggplot2 syntax
 #' require(ggplot2)
@@ -156,23 +156,25 @@ setGeneric("eco.variogram",
              tab[, 2] <- est
              colnames(tab) <- c("d.mean","obs")
              
-             salida <- new("eco.correlog")
+             output <- new("eco.correlog")
              
-             salida@OUT <- list(tab)
-             salida@IN <- list(XY = XY, Z = Z)
-             salida@BREAKS <- breakpoints
-             salida@CARDINAL <- cardinal
-             salida@METHOD <- "empirical variogram"
+             output@OUT <- list(tab)
+             output@IN <- list(XY = XY, Z = Z)
+             output@BREAKS <- breakpoints
+             output@CARDINAL <- cardinal
+             output@METHOD <- "empirical variogram"
              
              if(!is.null(angle)) {
-               salida@METHOD <- paste0(salida@METHOD, " (directional)")
+               output@METHOD <- paste0(output@METHOD, " (directional)")
              }
              
-             salida@DISTMETHOD <- listaw@METHOD
-             salida@TEST <- "none"
-             salida@ANGLE <- angle
+             output@DISTMETHOD <- listaw@METHOD
+             output@TEST <- "none"
+             output@ANGLE <- angle
+             output@BEARING <- FALSE
+             output@NSIM <- 0
              
-             salida
+             output
              
            })
 

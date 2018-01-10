@@ -444,7 +444,7 @@ aue.access <- function(ecoslot, X) {
   paste("ecoslot.",ecoslot,"(",X,")", sep = "")
 }
 
-#' .printaccess
+#' printaccess
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @keywords internal
 #' 
@@ -848,6 +848,73 @@ aue.dataAngle <- function(XY, maxpi = FALSE, deg = FALSE, latlon = FALSE) {
   angle
 }
 
+
+#' Split categorical variable into levels,  using a second factor (hierarchy) to aggregate the data
+#' @param  X factor
+#' @param hier hierarchy
+#' @author Leandro Roser \email{learoser@@gmail.com}
+#' @keywords export
+
+
+aue.split_categorical <- function(X, hier) {
+  out <-  as.data.frame.matrix(table(hier, X[, 1, drop = TRUE]))
+  colnames(out) <- paste(aue.rmspaces(colnames(X)), colnames(out), sep  = ".")
+  out
+}
+
+
+
+#' Obtain the classes for each column of a data frame 
+#' @param  X factor
+#' @author Leandro Roser \email{learoser@@gmail.com}
+#' @keywords export
+
+aue.check_class <- function(X) {
+  data.frame(lapply(X, "class"))
+}
+
+#' Generate aggregated dataframe
+#' @param  X data frame
+#' @param  hier hierarchy 
+#' @param  fun  function
+#' @param factor_to_counts split factor into counts for each level?
+#' @param ... additional parameters passed to fun 
+#' @author Leandro Roser \email{learoser@@gmail.com}
+#' @export
+
+aue.aggregated_df <- function(X, hier, fun, factor_to_counts = FALSE, ...) {
+  if(nrow(X) == 0)
+  {
+    out <- data.frame(matrix(nrow = 0, ncol = 0))
+    return(out)
+  }
+  if(factor_to_counts) {
+  aggregator_function <- function(x, ...) {
+    if(class(x[,1]) == "factor") {
+      return(aue.split_categorical(x[, 1, drop = FALSE], hier))
+    } else {
+      out <- data.frame(tapply(x[, 1, drop = TRUE], hier, function(y) fun(y, ...)), 
+                        stringsAsFactors = FALSE)
+      colnames(out) <- colnames(x)
+      return(out)
+    }
+  }
+} else {
+  aggregator_function <- function(x, ...) {
+    out <- data.frame(tapply(x[, 1, drop = TRUE], hier, function(y) fun(y, ...)), 
+                      stringsAsFactors = FALSE)
+    colnames(out) <- colnames(x)
+    return(out)
+  }
+}
+  temp <- list()
+  for(i in 1:ncol(X)) {
+    temp[[i]] <- aggregator_function(X[i])
+  }
+
+  do.call("cbind", temp)
+}
+
 #' EcoGenetic devel site
 #' @description The function opens the EcoGenetics-devel web site:
 #' https://github.com/leandroroser/EcoGenetics-devel
@@ -865,5 +932,7 @@ ecogenetics_tutorial <- function(){
   cat("Opening link: https://leandroroser.github.io/EcoGenetics-Tutorial \n")
   browseURL("https://leandroroser.github.io/EcoGenetics-Tutorial/")
 }
+
+
 
 

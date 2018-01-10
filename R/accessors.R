@@ -289,6 +289,11 @@ ecoslot.EXP <- function(X) X@EXP
 
 ecoslot.FREQUENCIES <- function(X) X@FREQUENCIES
 
+#' @rdname EcoGenetics-accessors
+#' @export 
+
+ecoslot.GF <- function(X) X@GF
+
 
 #' @rdname EcoGenetics-accessors
 #' @export 
@@ -448,9 +453,3 @@ ecoslot.UPPR <- function(X) X@UPPR
 #' @export 
 
 ecoslot.W <- function(X)  X@W
-
-#' @rdname EcoGenetics-accessors
-#' @export 
-
-ecoslot.XY <- function(X) X@XY
-
