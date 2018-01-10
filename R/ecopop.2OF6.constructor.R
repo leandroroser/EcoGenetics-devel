@@ -97,6 +97,9 @@
 #' my_ecopop3[["E"]] <- E_pop
 #' my_ecopop3[["S"]] <- S_pop
 #' 
+#' ## Subsetting by rows:
+#' my_ecopop3[1:10]
+#' 
 #' }
 #' 
 #' @author Leandro Roser \email{learoser@@gmail.com}

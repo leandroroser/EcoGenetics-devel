@@ -85,3 +85,5 @@ test_that("eco.slide.matrix works fine", {
   ras.square <- eco.slide.matrix(ras, 1, 1, mean, "square")
   expect_true(all(dim(ras.square) == c(13, 13)))
 })
+
+file.remove("Rplots.pdf")

@@ -111,6 +111,9 @@ my_ecopop3[["AF", ploidy = 2]] <- AF_pop
 my_ecopop3[["E"]] <- E_pop
 my_ecopop3[["S"]] <- S_pop
 
+## Subsetting by rows:
+my_ecopop3[1:10]
+
 }
 
 }

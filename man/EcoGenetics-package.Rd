@@ -14,8 +14,8 @@ Management and exploratory analysis of spatial data in landscape genetics. Easy 
  \tabular{ll}{
  Package: \tab EcoGenetics\cr
  Type: \tab Package\cr
- Version: \tab 1.2.1-2\cr
- Date: \tab 2017-11-21\cr
+ Version: \tab 1.2.1-3\cr
+ Date: \tab 2018-01-10\cr
  License: \tab GPL (>=2) \cr
  }
  
@@ -26,25 +26,22 @@ Management and exploratory analysis of spatial data in landscape genetics. Easy 
  
   \bold{\emph{I. STRUCTURE OF THE PACKAGE}}
 
-EcoGenetics has four basic modules. The \strong{base module} is composed by general functions (\link[=eco.lmtree]{multiple lm}, \link[=eco.detrend]{detrending spatial data utility}, etc.). 
-The \strong{general spatial module} computes global (\link[=eco.gsa]{Moran's I}, \link[=eco.mantel]{Mantel test}, etc.) and local (\link[=eco.lsa]{Getis-Ord's G*}, \link[=eco.lsa]{local Moran's I}, etc.) spatial tests. These analyses use a \link[=eco.weight]{spatial weights matrix}, provided by the  \strong{spatial weights module}.  The \strong{lag analysis module} performs two basic analyses: the obtention  of \link[=eco.variogram]{variograms} and \link[=eco.correlog]{correlograms} (see also \link[=eco.cormantel]{this link}). This module uses the other tool provided by the spatial weights module: a sequence of \link[=eco.lagweight]{spatial weights matrices}. 
+The \strong{spatial analysis module} of the package computes global (\link[=eco.gsa]{Moran's I}, \link[=eco.mantel]{Mantel test}, etc.) and local (\link[=eco.lsa]{Getis-Ord's G*}, \link[=eco.lsa]{local Moran's I}, etc.) spatial tests, \link[=eco.variogram]{variograms} and \link[=eco.correlog]{correlograms} (see also \link[=eco.cormantel]{this link}). These analyses  use other tool provided by the package: \link[=eco.weight]{spatial weights matrices} or a sequence of \link[=eco.lagweight]{spatial weights matrices}. 
 
-The package have also special plot methods, as \link[=eco.rankplot]{rankplot},  
-\link[=eco.forestplot]{forestplot}, \link[=eco.rasterplot]{rasterplot} (implemented the last two for 
-\link[=eco.lsa]{local spatial analysis}). Several conversor of data from/to other programs are available, (as to \link[=ecogen2genepop]{genepop} - an \link[=genepop2ecogen]{importer} tool is also defined for genepop-, \link[=ecogen2spagedi]{SPAGeDi}, etc.). Basic manipulation of genetic matrices is allowed by \link{eco.convert} and \link{eco.format}. Tools for computation of NDVI in Landsat imaginery, 
-post-process of rasters and temporal analysis can be found in \link{eco.NDVI}, \link{eco.NDVI.post} and \link{eco.theilsen}. Other useful functions are \link{aue.sort} (for ordering alleles), \link{eco.alfreq} (to comput histograms of allelic frequencies for detection of bottlenecks), \link{eco.post.geneland} and \link{eco.pairtest}. 
+The package have also special plot methods for each of the analyses. Several conversor of data from/to other programs are available, (as to \link[=ecogen2genepop]{genepop} - an \link[=genepop2ecogen]{importer} tool is also defined for genepop-, \link[=ecogen2spagedi]{SPAGeDi}, etc.). Basic manipulation of genetic matrices is allowed by \link{eco.convert} and \link{eco.format}. 
+
+Tools for computation of NDVI in Landsat imaginery, post-process of rasters and temporal analysis can be found in \link{eco.NDVI}, \link{eco.NDVI.post} and \link{eco.theilsen}. Several other useful functions are defined in the package.
 
 The results obtained with the main functions defined in EcoGenetics are
-object of class \link[=Methods]{S4}. As a default characteristic of the package design,
-these objects have a "show"" method for a general overview of the results, and methods to extract the results stored in slots (generic \link[=ecoslot.XY]{accessors} and double square brackets (\link[=Extract]{"[["}) definitions). 
+object of class \link[=Methods]{S4}. For these objects, the package defines a "show" method for a general overview of the results, and methods to extract the information (generic \link[=ecoslot.XY]{accessors} and double square brackets (\link[=Extract]{"[["}) definitions). 
 
-For storing and pre-processing the data to analyze, the package 
-defines a special class: the class \code{\link{ecogen}}.
+For storing and pre-processing the data, the package 
+defines two special classes: \link[=ecogen]{ecogen} and \link[=ecopop]{ecopop}
  
- \bold{\emph{II. STRUCTURE OF ECOGEN OBJECTS: HANDLING AND INTEGRATING INFORMATION}}
+ \bold{\emph{II.ECOGEN OBJECTS}}
 
 
-Landscape genetics research requires the integration of data originated in different sources. The class \code{\link{ecogen}} has been designed for handling multidimensional data. Its basic structure is the following:
+Landscape genetics research requires the integration of data originated in different sources. The class \link[=ecogen]{ecogen} has been designed for handling multidimensional data of individuals. Its basic structure is the following:
 
 - An \strong{XY} slot, storing a data frame with geographic coordinates.  
 
@@ -69,9 +66,6 @@ individuals.
 For dominant (presence-absence) markers, the slot A is empty.
 
 
-\bold{\emph{III. A BRIEF OVERVIEW OF THE DATA HANDLING METHODS DEFINED FOR ECOGEN OBJECTS}}
-
-
 The construction of a new "ecogen" object from a data frame is made with the homonymous function.
 
 \emph{library("EcoGenetics")}
@@ -81,155 +75,36 @@ The construction of a new "ecogen" object from a data frame is made with the hom
 \emph{eco <- ecogen(XY = coordinates, P = phenotype, G = genotype, E = environment, S = structure, order.G = TRUE)}
 
 
-# The following methods can be used with ecogen objects:
+The package defines several methods for manipulation of ecogen objects:
+\link[=eco.cbind]{eco.cbind}, to bind ecogen objects by column,
+\link[=eco.split]{eco.split}, to split ecogen objects by group,
+\link[=eco.rbind]{eco.rbind}, to bind ecogen objects by row and to re-bind previously splitted objects,
+\link[=eco.subset]{eco.subset}, to select a group of individuals, given a population,
+\link[=eco.merge]{eco.merge}, to merge ecogen objects with different composition of  individuals. 
+The functions nrow, ncol, dim, names, as.list, is.ecogen and show are also defined.
+Single brackets ("[") and double brackets ("[[") are also defined to select a subset of 
+individuals or to get/set the data of a particular slot, respectively. Conversors \link[=genind2ecogen]{from} and \link[=ecogen2genind]{to} genind,  \link[=spagedi2ecogen]{from} and \link[=ecogen2spagedi]{to} spagedi, \link[=gstudio2ecogen]{from} and \link[=ecogen2gstudio]{to}  genepop,  \link[=ecogen2hierfstat]{to} hierfstat and  \link[=ecogen2geneland]{to} geneland are included. See the \link[=ecogen]{ecogen constructor} documentation and the publication of the package, cited at the end of this document, for more information.
 
-# - - - - - - 
 
-\bold{# 1. subsetting/ordering by row-method, using single square brackets ("[")}
 
-\emph{eco.sub <- eco[1:50]}
+\bold{\emph{III. ECOPOP OBJECTS}}
 
-\emph{eco.ord <- eco[c(50:1)]}
+The class \link[=ecopop]{ecopop} is the population analogue of ecogen class: while ecogen rows represent individuals, ecopop rows represent populations.
+An ecopop object contains aggregated data for each population (mean or other statistics of cuantitative variables, and counts for each level of cualitative variables [including allele counts]).
+In normal situations, an ecopop object is obtained from an ecogen object as follows:
 
-\emph{eco.ord[["XY"]] # object ordered and subset rows.
-This is a powerful method for handling the stack of ecogen data frames}
+\emph{ecopop_object <- ecogen2ecopop(eco, hier = "pop")} # where pop is the name of the
+                                                         # column of the slot S with
+                                                         # the population of each
+                                                         # individual
 
-\emph{eco <- eco[order(eco[["S"]][, 1])] #ordering S[, 1] and then the object}
+ecopop objects can also be obtained from the \link[=ecopop]{ecopop constructor}, as detailed in the documentation of the function.
 
-\bold{# 2. \link[=eco.merge]{merging-method}, for two objects}
-
-\emph{eco1 <- eco}
-
-\emph{merged <- eco.merge(eco, eco1)}
-
-\bold{# 3. \link[=eco.subset]{subsetting-method}, in reference to a group in the S slot (in this case, "1")}
-
-\emph{eco.subS <- eco.subset(eco,"pop", 1)}
-
-
-\bold{# 4. \link[=eco.rbind]{binding by row-method} (duplicated row names not allowed)}
-
-\emph{eco2 <- eco; rownames(eco2[["P"]]) <-226:450}
-
-\emph{eco.r <- eco.rbind(eco, eco2)}
-
-\bold{# 5. \link[=eco.cbind]{binding by column-method}}
-
-\emph{eco.c <- eco.cbind(eco, eco1)}
-
-
-\bold{# 6. get-method using generic \link[=ecoslot.XY]{accessors} and "[[" (equivalent methods):}
-
-\emph{ecoslot.XY(eco) ; eco[["XY"]]}
-
-\emph{ecoslot.P(eco); eco[["P"]]}
-
-\emph{ecoslot.G(eco); eco[["G"]]}
-
-\emph{ecoslot.A(eco); eco[["A"]]  (only available for codominant data}
-
-\emph{ecoslot.E(eco); eco[["E"]]}
-
-\emph{ecoslot.S(eco); eco[["S"]]}
-
-\emph{ecoslot.C(eco); eco[["C"]]}
-
-\emph{ecoslot.OUT(eco); eco[["OUT"]]}
-
-
-\bold{# 7. set-method using \link[=ecoslot.XY]{accessors} and "[[" (equivalent methods):}
-
-\emph{eco.temp <- ecogen(XY = coordinates, P = phenotype)}
-
-\emph{eco.temp}
-
-\emph{ecoslot.G(eco.temp, order.G = TRUE) <- genotype}
-
-## this is equivalent, in square brackets notation, to:
-
-\emph{eco[["G", order.G=TRUE]] <- genotype}
-
-\emph{ecoslot.E(eco.temp) <- environment}
-
-## identical to eco[["E"]] <- environment
-
-\emph{ecoslot.S(eco.temp) <- structure}
-
-## identical to eco[["S"]] <- structure
-
-\emph{eco.temp}
-
-\bold{# 8. appending-method (storing information generated via \link[=ecoslot.XY]{accessors)}}
-
-## fitting a multiple linear regression model:
-
-\emph{linear.analysis <- eco.lmtree(eco[["P"]], eco[["E"]], "mlm")}
-
-## storing the results:
-
-\emph{ecoslot.OUT(eco) <- linear.analysis}
-
-\emph{eco}
-
-## Storing multiple result at once:
- 
-\emph{a <- c(1:10)}
-
-\emph{b <- c(2:30)}
-  
-\emph{ecoslot.OUT(eco) <- list(eco, a, b)}
-
-\emph{eco}
-
-## the use of the accessor OUT has its equivalence in double
-square brackets notation:
-
-\emph{eco[["OUT"]] <- list(eco, a, b)}
-
-
-## summary table
-
-\emph{ecoslot.OUT(eco)}
-  
-## the data frame shows the results stored in alphabetical order and their classes. The specification of a second name, return the corresponding stored object:
-
-\emph{ecoslot.OUT(eco, "a")} 
-
-## note that the append method is a particular case of the
-## set method with accessors / "[[" for the slot OUT.
-
-\bold{# 9. \link[=eco.remove]{removing-method}}
-
-## removing objects a and b from eco
-
-\emph{eco <- eco.remove(eco, a, b)}
-
-
-
-
-- - - - - - 
-
-The workspace can be \link[=eco.clear]{cleared}, only storing the desired object:
-
-\emph{ls()}
-
-\emph{eco.clear(eco)}
-
-\emph{ls()}
-
-The cleaner and compact option, is to save the object as \link[=saveRDS]{RDS},
-which is a way to save R objects as a file:
-
-\emph{saveRDS(eco, "myObject.rds")}
-
-The object can be loaded in the future with the function readRDS:
-
-\emph{eco <- readRDS("myObject.rds")}
-
- ----------------------- o -----------------------
+The functions nrow, ncol, dim, names, as.list, is.ecogen and show are defined for ecopop objects.
+Single brackets ("[") and double brackets ("[[") are also defined to select a subset of 
+individuals or to get/set the data of a particular slot, respectively. See \link[=ecopop]{ecopop constructor} documentation for more information. Conversion \link[=genpop2ecopop]{from} and \link[=ecopop2genpop]{to} \link[adegenet]{genpop} is defined.
 
 }
-
 
 \author{
 

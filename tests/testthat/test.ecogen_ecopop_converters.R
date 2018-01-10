@@ -1,6 +1,8 @@
 context("Test ecogen-ecopop importation/exportation methods")
 
 require("hierfstat")
+require("gstudio")
+require("adegenet")
 data(eco.test)
 data(eco3)
 
@@ -65,6 +67,7 @@ test_that("spagedi importation/exportation works", {
   expect_true(all(dim(toeco[["E"]]) == c(0, 0)))
   expect_true(all(dim(toeco[["S"]]) == c(225, 1)))
   expect_true(all(dim(toeco[["C"]]) == c(0, 0)))
+  file.remove("infile.spagedi.txt")
   
 })
 
