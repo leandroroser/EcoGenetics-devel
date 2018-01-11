@@ -191,8 +191,7 @@ int.ecoslot.INT(object) <- value
 
 \S4method{ecoslot.AF}{ecopop}(X)
 
-\S4method{ecoslot.AF}{ecopop}(object, type = c("codominant", "dominant"),
-  ploidy, order.rows = FALSE) <- value
+\S4method{ecoslot.AF}{ecopop}(object, order.rows = FALSE) <- value
 
 \S4method{ecoslot.E}{ecopop}(X)
 

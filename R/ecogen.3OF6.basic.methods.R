@@ -2,6 +2,13 @@
 #### BASIC METHODS
 ################################################
 
+# Initialize ------------------------------------------------------------------#
+
+setMethod("initialize", "ecogen", 
+          function(.Object) {
+            .Object
+          })
+
 # Names -----------------------------------------------------------------------#
 
 #' names 
@@ -249,53 +256,3 @@ setMethod("show",
             cat("\n", "|", "slot OUT:", e(2), "|", "-->", l8, e(1), e(13 - nchar(l8)), l8.1)
             cat("\n----------------------------------------------------------------------------\n")
           })
-
-
-# Summary----------------------------------------------------------------------#
-# UNDER DEVELOPMENT-------#
-
-#' Summary for ecogen objects
-#' @param object Object of class "ecogen".
-#' @param x.in The name of the S slot column with the grouping factor 
-#' when a summary taking in account groups is required.
-#' @return Mean and sd table for the P data frame.
-#' @return allelic frequencies for the genetic data.
-#' @author Leandro Roser \email{learoser@@gmail.com}
-#' @examples
-#' 
-#' \dontrun{
-#' 
-#' data(eco.test)
-#' summary(eco, "structure")
-#' }
-#' 
-# @rdname ecogen-summary
-# @aliases summary,ecogen,ANY-method
-
-
-#setMethod("summary", "ecogen", function(object, grp = NULL) { 
-#cat("\n\n")
-
-#cat(paste("==================================="), "\n")
-#if(is.null(grp)) {
-#cat(paste("P mean and sd","\n"))
-#}
-#cat(paste("==================================="), "\n\n")
-#Pstats <- eco.meansd(object)
-#print(Pstats$tab)
-#cat(paste("-------------------------------------------"), "\n\n")
-
-
-#cat(paste("========================================="), "\n")
-#cat(paste("Allelic frequencies", "\n")
-#cat(paste("========================================="), "\n\n")
-
-#gensum <- aue.fqal(object, grp)
-#print(gensum)
-
-
-#resultados <- list(P_mean = Pstats$Pmean, P_sd = Pstats$Psd, 
-#                   P_mean.and.sd = Pstats$tab, G_frequencies = gensum)
-#
-#invisible(resultados)
-#})

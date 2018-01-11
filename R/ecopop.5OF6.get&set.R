@@ -66,11 +66,8 @@ setMethod("ecoslot.AF", "ecopop", function(X) X@AF)
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.AF<-
 
-setReplaceMethod("ecoslot.AF", "ecopop", function(object, value, 
-                                                  type = c("codominant", "dominant"), 
-                                                  ploidy, order.rows = FALSE) {
+setReplaceMethod("ecoslot.AF", "ecopop", function(object, value, order.rows = FALSE) {
   
-  type <- match.arg(type)
   object@AF <- as.matrix(value)
   mode(object@AF) <- "integer"
   
@@ -79,9 +76,6 @@ setReplaceMethod("ecoslot.AF", "ecopop", function(object, value,
   } else {
     object@S <- factor(rownames(value))
   }
-  
-  object@INT@type <- type
-  object@INT@ploidy <- ploidy
   #check validity
   validObject(object)
   

@@ -68,8 +68,11 @@ setMethod("[", c("ecogen", "numericORmissing", "missing", "ANY"),
             }
             
             # create an int.genind object if nrow(G) != 0
-            if(all(dim(x@G) != 0)) {
-              tempo <- int.df2genind(x@G[i, , drop = FALSE], 
+            
+              this_G <- x@G[i, , drop = FALSE]
+              if(all(dim(this_G) != 0)) {
+
+              tempo <- int.df2genind(this_G, 
                                      missing = x@INT@missing,
                                      ploidy = x@INT@ploidy,
                                      type =  x@INT@type,
@@ -84,12 +87,15 @@ setMethod("[", c("ecogen", "numericORmissing", "missing", "ANY"),
             # dimension 0 generates a matrix of dimension i x 0 (undesired)
             if(all(dim(x@XY) != 0)) {
             z@XY <- x@XY[i, , drop =FALSE]
-            }
-            if(all(dim(x@P) != 0)) {
-            z@P <- x@P[i, , drop =FALSE]
+            if(nrow(z@XY) == 0) z@XY <- data.frame()
             }
             
-            if(all(dim(x@G) != 0)) {
+            if(all(dim(x@P) != 0)) {
+            z@P <- x@P[i, , drop =FALSE]
+            if(nrow(z@P) == 0) z@P <- data.frame()
+            }
+            
+            if(all(dim(this_G) != 0)) {
             z@G <- as.data.frame(int.genind2df(tempo), 
                                  stringsAsFactors = FALSE)
             }
@@ -103,6 +109,7 @@ setMethod("[", c("ecogen", "numericORmissing", "missing", "ANY"),
             
             if(all(dim(x@E) != 0)) {
             z@E <- x@E[i, , drop =FALSE]
+            if(nrow(z@E) == 0) z@E <- data.frame()
             }
             
             # all S columns as factors
@@ -117,9 +124,11 @@ setMethod("[", c("ecogen", "numericORmissing", "missing", "ANY"),
               Sout <- data.frame()
             }
             z@S <- Sout
+            if(nrow(z@S) == 0) z@S <- data.frame()
             
             if(all(dim(x@C) != 0)) {
             z@C  <- x@C[i, , drop =FALSE]
+            if(nrow(z@C) == 0) z@C <- data.frame()
             }
             z@OUT  <- list()
             z@INT <- int.genind2gendata(tempo)
@@ -171,8 +180,10 @@ setMethod("[", c("ecogen", "logicalORmissing", "missing", "ANY"),
             }
               
             # create an int.genind object if nrow(G) != 0
-            if(all(dim(x@G) != 0)) {
-              tempo <- int.df2genind(x@G[i, , drop = FALSE], 
+            this_G <- x@G[i, , drop = FALSE]
+            if(all(dim(this_G) != 0)) {
+              
+              tempo <- int.df2genind(this_G, 
                                      missing = x@INT@missing,
                                      ploidy = x@INT@ploidy,
                                      type =  x@INT@type,
@@ -181,18 +192,21 @@ setMethod("[", c("ecogen", "logicalORmissing", "missing", "ANY"),
               tempo <- new("int.genind")
             }
             
+            
             z <- new("ecogen")
             
             # if(all...) condition required because subsetting over matrices of 
             # dimension 0 generates a matrix of dimension i x 0 (undesired)
             if(all(dim(x@XY) != 0)) {
               z@XY <- x@XY[i, , drop =FALSE]
+              if(nrow(z@XY) == 0) z@XY <- data.frame()
             }
             if(all(dim(x@P) != 0)) {
               z@P <- x@P[i, , drop =FALSE]
+              if(nrow(z@P) == 0) z@P <- data.frame()
             }
             
-            if(all(dim(x@G) != 0)) {
+            if(all(dim(this_G) != 0)) {
               z@G <- as.data.frame(int.genind2df(tempo), 
                                    stringsAsFactors = FALSE)
             }
@@ -206,6 +220,7 @@ setMethod("[", c("ecogen", "logicalORmissing", "missing", "ANY"),
             
             if(all(dim(x@E) != 0)) {
               z@E <- x@E[i, , drop =FALSE]
+              if(nrow(z@E) == 0) z@E <- data.frame()
             }
             
             # all S columns as factors
@@ -220,9 +235,11 @@ setMethod("[", c("ecogen", "logicalORmissing", "missing", "ANY"),
               Sout <- data.frame()
             }
             z@S <- Sout
+            if(nrow(z@S) == 0) z@S <- data.frame()
             
             if(all(dim(x@C) != 0)) {
               z@C  <- x@C[i, , drop =FALSE]
+              if(nrow(z@C) == 0) z@C <- data.frame()
             }
             z@OUT  <- list()
             z@INT <- int.genind2gendata(tempo)

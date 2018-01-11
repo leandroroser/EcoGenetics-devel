@@ -110,7 +110,7 @@ eco.plotGlobal <- function(input, interactivePlot = TRUE,
     #this trick is used to change the order of the labels in ggplot2
     mycol <- as.factor(mycol)
     if(length(levels(mycol)) == 2) {
-    my_labs <- c("NS", paste0("P < ", alpha))
+    my_labs <- c(paste0("P < ", alpha), "NS")
     # solution to color inversion in ggplot2: scale manually colors
     #    scale_col <- ggplot2::scale_color_manual(values =  c("#F8766D", "#00B0F6"))
     } else {
