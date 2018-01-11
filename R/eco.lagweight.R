@@ -178,19 +178,24 @@ setGeneric("eco.lagweight",
                }
                distancia <- dist(SoDA::geoXY(XY[,2], XY[,1], unit=1))
              }
+             
+             maxdist <- max(distancia)
+             mindist <- min(distancia)
+             
              distancia <- as.matrix(distancia)
              logdistancia <- log(distancia)
-             
+
              #method control
              match.control <- sum(!is.null(smax), !is.null(kmax), !is.null(seqvec))
              
              if(match.control == 0) {
-               smax <- max(distancia)
+               smax <- maxdist
              } else if (match.control != 1) {
                stop("Only one of smax, kmax, nclass or seqvec should be given")
              }
              
-             
+           
+            
              meandist <- vector()
              logdist <- vector()
              cardinal <- vector()
@@ -204,7 +209,6 @@ setGeneric("eco.lagweight",
              
              #based on distance between individuals, different size
              if(is.null(kmax) & is.null(size)) {
-               
                
                input <- int.break(XY = XY, 
                                   int = int, 
@@ -335,7 +339,7 @@ setGeneric("eco.lagweight",
              }
              
              #control
-             if(any(cardinal == 0)) {
+             if(any(cardinal == 0) || length(cardinal) == 0) {
                stop("empty classes. Change parameters setting")
              }
              

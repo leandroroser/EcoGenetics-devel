@@ -13,6 +13,8 @@
 #' @param E Data frame with n rows (populations), and n columns (environmental variables).
 #' @param S Vector (factor) with n items (population hierarchical levels).
 #' @param C Data frame with n rows (populations), and m columns (custom variables).
+#' @param ploidy Ploidy of the AF data frame. 
+#' @param type Marker type: "codominant" or "dominant".
 #' @param order.df Order populations of data frames by row? 
 #' (all data frames with a same row order).
 #' Defalut FALSE. The row names of all the data frames must be ordered. In this case,
@@ -82,11 +84,12 @@
 #' S_pop <- my_ecopop[["S"]]
 #' 
 #' ## 2) Creating a new ecopop object
-#' my_ecopop2 <- ecopop(XY = XY_pop, P = XY_pop, AF = AF_pop, E = E_pop, S = S_pop)
+#' my_ecopop2 <- ecopop(XY = XY_pop, P = XY_pop, AF = AF_pop, E = E_pop, S = S_pop,
+#'                      ploidy = 2, type = "codominant")
 #' 
 #' ## 3) From an empty object
 #' # new empty object
-#' my_ecopop3 <- ecopop()
+#' my_ecopop3 <- ecopop(ploidy = 2, type = "codominant")
 #' 
 #' set slots, using as example the data generated above
 #' 
@@ -113,11 +116,19 @@ setGeneric("ecopop",
                     E = data.frame(),
                     S = factor(),
                     C = data.frame(),
+                    ploidy,
+                    type = c("codominant", "dominant"),
                     order.df = FALSE) {				
              
+            
+             type <- match.arg(type)
+             if(is.null(ploidy) || missing(ploidy)) {
+               stop("Please provide the ploidy of your data")
+             }
              
              # creating a new ecopop object
-             object <- new("ecopop")
+             object <- new("ecopop", ploidy, type)
+            
              # set object environment
              object@ATTR$whereIs <- parent.frame()
              object@ATTR$.call <- match.call()

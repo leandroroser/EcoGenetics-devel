@@ -318,6 +318,11 @@ setGeneric("eco.weight", function(XY,
     if(is.null(d2)) {
       stop("A d2 argument must be given")
     }
+    
+    if(d1 > max(distancia ) || d2 < min(distancia) || d1 > d2) {
+      stop("d1 > maximum distance between points, d2 < minimum distance between points or d1 > d2")
+    }
+    
     temp <- which((distancia <= d2) & (distancia > d1))
     y <- distancia
     y <- y - distancia
@@ -332,6 +337,10 @@ setGeneric("eco.weight", function(XY,
   } else if(method == "circle.inverse") {
     if(is.null(d2)) {
       stop("The argument d2 is missing")
+    }
+    
+    if(d1 > max(distancia ) || d2 < min(distancia) || d1 > d2) {
+      stop("d1 > maximum distance between points, d2 < minimum distance between points or d1 > d2")
     }
     
     temp <- which((distancia <= d2) & (distancia >= d1))
@@ -355,6 +364,11 @@ setGeneric("eco.weight", function(XY,
     if(is.null(d2)) {
       stop("The argument d2 is missing")
     }
+    
+    if(d1 > max(distancia ) || d2 < min(distancia) || d1 > d2) {
+      stop("d1 > maximum distance between points, d2 < minimum distance between points or d1 > d2")
+    }
+    
     
     temp <- which((distancia <= d2) & (distancia > d1))
     dummy <- distancia - distancia

@@ -29,7 +29,7 @@ if(length(which_pop) == 0) {
 
 pop <- from@S[, hier]
 
-to <- new("ecopop")
+to <- new("ecopop", ploidy = from@INT@ploidy, type = from@INT@type)
 
 to@XY <-  aue.aggregated_df(from@XY, pop, aggregator, factor_to_counts = FALSE)
 
@@ -120,7 +120,13 @@ setGeneric("genpop2ecopop", function(from) {
   
   if(!require(adegenet)) stop("Please install the adegenet package first")
   
-  to <- ecopop(AF = from@tab, S = as.factor(rownames(from@tab)))
+  this_ploidy <- unique(from@ploidy)
+  if(length(this_ploidy) > 1) {
+    stop("multiple ploidy levels are not supported by ecopop objects")
+  }
+  
+  to <- ecopop(AF = from@tab, S = as.factor(rownames(from@tab)), ploidy = this_ploidy,
+               type =  ifelse(from@type == "codom", "codominant", "dominant"))
   to@INT@loc.fac <- from@loc.fac
   
   counts <- lapply(from@all.names, length)
@@ -128,14 +134,7 @@ setGeneric("genpop2ecopop", function(from) {
   xnames <- rep(xnames, counts)
   to@INT@all.names <- unlist(from@all.names)
   names(to@INT@all.names) <- xnames
-  
-  to@INT@ploidy <- unique(from@ploidy)
-  if(length(to@INT@ploidy) > 1) {
-    stop("multiple ploidy levels are not supported by ecopop objects")
-  }
-  
-  to@INT@type <- ifelse(from@type == "codom", "codominant", "dominant")
-  
+
   if(!is.null(from@other$xy)) {
     to@XY <- from@other$xy
   }

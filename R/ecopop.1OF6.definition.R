@@ -19,7 +19,7 @@
 
 
 setClass("int.popdata", 
-         representation(ploidy = "numeric",
+         representation(ploidy = "intORnull",
                         type = "character",
                         aggregator = "function",
                         factor_to_counts = "logical",
@@ -27,7 +27,7 @@ setClass("int.popdata",
                         all.names = "characterORnull"
          ), 
                        
-         prototype(ploidy = 2,
+         prototype(ploidy = NULL,
                    type = "codominant",
                    aggregator = function(){},
                    factor_to_counts = TRUE,
@@ -85,6 +85,10 @@ check_ecopop <- function(object) {
       msg <- "data frames with invalid row names"
       errors <- c(errors, msg)
     }
+  }
+  if(is.null(object@INT@ploidy)) {
+    msg <- "null ploidy in object"
+    errors <- c(errors, msg)
   }
   
   if(length(errors) == 0) TRUE else errors

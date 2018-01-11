@@ -5,7 +5,8 @@
 \title{Creating a new ecopop object}
 \usage{
 ecopop(XY = data.frame(), P = data.frame(), AF = data.frame(),
-  E = data.frame(), S = factor(), C = data.frame(), order.df = FALSE)
+  E = data.frame(), S = factor(), C = data.frame(), ploidy,
+  type = c("codominant", "dominant"), order.df = FALSE)
 }
 \arguments{
 \item{XY}{Data frame with n rows (populations) and m columns (coordinates).}
@@ -23,6 +24,10 @@ with other methods of the package.}
 \item{S}{Vector (factor) with n items (population hierarchical levels).}
 
 \item{C}{Data frame with n rows (populations), and m columns (custom variables).}
+
+\item{ploidy}{Ploidy of the AF data frame.}
+
+\item{type}{Marker type: "codominant" or "dominant".}
 
 \item{order.df}{Order populations of data frames by row? 
 (all data frames with a same row order).
@@ -96,11 +101,12 @@ E_pop <- my_ecopop[["E"]]
 S_pop <- my_ecopop[["S"]]
 
 ## 2) Creating a new ecopop object
-my_ecopop2 <- ecopop(XY = XY_pop, P = XY_pop, AF = AF_pop, E = E_pop, S = S_pop)
+my_ecopop2 <- ecopop(XY = XY_pop, P = XY_pop, AF = AF_pop, E = E_pop, S = S_pop,
+                     ploidy = 2, type = "codominant")
 
 ## 3) From an empty object
 # new empty object
-my_ecopop3 <- ecopop()
+my_ecopop3 <- ecopop(ploidy = 2, type = "codominant")
 
 set slots, using as example the data generated above
 
