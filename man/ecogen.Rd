@@ -6,10 +6,11 @@
 \usage{
 ecogen(XY = data.frame(), P = data.frame(), G = data.frame(),
   E = data.frame(), S = data.frame(), C = data.frame(),
-  G.processed = TRUE, order.G = FALSE, type = c("codominant", "dominant"),
-  ploidy = 2, sep = "", ncod = NULL, missing = c("0", "NA", "MEAN"),
-  NA.char = "NA", poly.level = 5, rm.empty.ind = FALSE, order.df = TRUE,
-  set.names = NULL, valid.names = FALSE)
+  G.processed = TRUE, order.G = FALSE, ploidy = 2,
+  type = c("codominant", "dominant"), sep = "", ncod = NULL,
+  missing = c("0", "NA", "MEAN"), NA.char = "NA", poly.level = 5,
+  rm.empty.ind = FALSE, order.df = TRUE, set.names = NULL,
+  valid.names = FALSE)
 }
 \arguments{
 \item{XY}{Data frame with m columns (coordinates) and n rows (individuals).}
@@ -37,9 +38,9 @@ order.}
 \item{order.G}{Genotypes must be ordered in G slot? (codominant data) 
 Default FALSE.}
 
-\item{type}{Marker type: "codominant" or "dominant".}
-
 \item{ploidy}{Ploidy of the G data frame. Default ploidy = 2.}
+
+\item{type}{Marker type: "codominant" or "dominant".}
 
 \item{sep}{Character separating alleles (codominant data). 
 Default option is no character separating alleles.}

@@ -66,7 +66,6 @@ int.check.numeric <- function(mat) {
 #' Check row names
 #' @param X Matrix or data frame.
 #' @param lab String used as label.
-#' @author Thibaut Jombart. Adapted by Leandro Roser. 
 #' @keywords internal
 
 int.check.rownames <- function(X, lab = "") {
@@ -85,7 +84,6 @@ int.check.rownames <- function(X, lab = "") {
 #' Check column names
 #' @param X Matrix or data frame.
 #' @param lab String used as label.
-#' @author Thibaut Jombart. Adapted by Leandro Roser. 
 #' @keywords internal
 
 int.check.colnames <- function(X, lab = "L") {
@@ -208,7 +206,6 @@ int.check.ncod <- function(X, ploidy, ncod = NULL, sep = "", numeric.dat = FALSE
 #' Check factor name consistency in a data frame and returns the corresponding column
 #' @param X Matrix or data frame
 #' @param lab String used as label
-#' @author Thibaut Jombart. Adapted by Leandro Roser. 
 #' @keywords internal
 
 int.check.group <- function(X, grp = NULL, dummy = TRUE, exp.l = NULL) {

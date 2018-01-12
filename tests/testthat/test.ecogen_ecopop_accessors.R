@@ -48,9 +48,9 @@ test_that("test ecopop get", {
 
 test_that("test ecopop set", {
   skip_on_cran()
-  new_eco <- ecopop()
+  new_eco <- ecopop(ploidy = 2)
   expect_true(all(dim(new_eco[["P"]] <- my_ecopop@P) == c(4, 8)))
-  expect_true(all(dim(new_eco[["AF", ploidy = 2, type = "codominant"]] <- my_ecopop@AF) == c(4, 40)))
+  expect_true(all(dim(new_eco[["AF"]] <- my_ecopop@AF) == c(4, 40)))
   expect_true(all(dim(new_eco[["E"]] <- my_ecopop@E) == c(4, 8)))
   expect_true(all(dim(new_eco[["S"]] <- my_ecopop@S) == 4))
   expect_true(all(dim(new_eco[["C"]] <- my_ecopop@C) == c(0, 0)))

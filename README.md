@@ -4,6 +4,10 @@
 </h1> </span>  
 
 <br/>
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 
 <h3><a href=https://leandroroser.github.io/EcoGenetics-Tutorial/> Tutorial </a></h3>
 

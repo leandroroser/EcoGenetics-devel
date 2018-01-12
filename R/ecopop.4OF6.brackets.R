@@ -64,27 +64,31 @@ setMethod("[", c("ecopop", "numericORmissing", "missing", "ANY"),
             
             # length(i) == 0 or i == 0, return empty object
             if(length(i) == 0 || i == 0) {
-             return(new("ecopop"))
+             return(new("ecopop", ploidy = x@INT@ploidy, type = x@INT@type))
             }
             
       
-            z <- new("ecopop")
+            z <- new("ecopop", ploidy = x@INT@ploidy, type = x@INT@type)
             
             # if(all...) condition required because subsetting over matrices of 
             # dimension 0 generates a matrix of dimension i x 0 (undesired)
             if(all(dim(x@XY) != 0)) {
-            z@XY <- x@XY[i, , drop =FALSE]
+            z@XY <- x@XY[i, , drop = FALSE]
+            if(nrow(z@XY) == 0)  z@XY <- data.frame()
             }
             if(all(dim(x@P) != 0)) {
-            z@P <- x@P[i, , drop =FALSE]
+            z@P <- x@P[i, , drop = FALSE]
+            if(nrow(z@P) == 0)  z@P <- data.frame()
             }
             
             if(all(dim(x@AF) != 0)) {
-            z@AF <- x@AF[i, , drop =FALSE]
+            z@AF <- x@AF[i, , drop = FALSE]
+            if(nrow(z@AF) == 0)  z@AF <- matrix(nrow = 0, ncol = 0)
             }
             
             if(all(dim(x@E) != 0)) {
-            z@E <- x@E[i, , drop =FALSE]
+            z@E <- x@E[i, , drop = FALSE]
+            if(nrow(z@E) == 0)  z@E <- data.frame()
             }
             
             # all S columns as factors
@@ -92,6 +96,7 @@ setMethod("[", c("ecopop", "numericORmissing", "missing", "ANY"),
 
             if(all(dim(x@C) != 0)) {
             z@C  <- x@C[i, , drop =FALSE]
+            if(nrow(z@C) == 0)  z@C <- data.frame()
             }
             z@ATTR$names <- x@ATTR$names[i]
             
@@ -118,7 +123,7 @@ setMethod("[", c("ecopop", "logicalORmissing", "missing", "ANY"),
             
             # length(i) == 0 or all i == FALSE, return empty object
             if(length(i) == 0 || all(i == FALSE)) {
-              return(new("ecopop"))
+              return(new("ecopop", ploidy = x@INT@ploidy, type = x@INT@type))
             }
             
             # check row number with the nrow ecopop method
@@ -140,23 +145,27 @@ setMethod("[", c("ecopop", "logicalORmissing", "missing", "ANY"),
               
             # create an int.genind object if nrow(G) != 0
           
-            z <- new("ecopop")
+            z <- new("ecopop",  ploidy = x@INT@ploidy, type = x@INT@type)
             
             # if(all...) condition required because subsetting over matrices of 
             # dimension 0 generates a matrix of dimension i x 0 (undesired)
             if(all(dim(x@XY) != 0)) {
               z@XY <- x@XY[i, , drop =FALSE]
+              if(nrow(z@XY) == 0)  z@XY <- data.frame()
             }
             if(all(dim(x@P) != 0)) {
               z@P <- x@P[i, , drop =FALSE]
+              if(nrow(z@P) == 0)  z@P <- data.frame()
             }
             
             if(all(dim(x@AF) != 0)) {
               z@AF <- x@AF[i, , drop =FALSE]
+              if(nrow(z@AF) == 0)  z@AF <- matrix(nrow = 0, ncol = 0)
             }
             
             if(all(dim(x@E) != 0)) {
               z@E <- x@E[i, , drop =FALSE]
+              if(nrow(z@E) == 0)  z@E <- data.frame()
             }
             
             # all S columns as factors
@@ -164,6 +173,7 @@ setMethod("[", c("ecopop", "logicalORmissing", "missing", "ANY"),
  
             if(all(dim(x@C) != 0)) {
               z@C  <- x@C[i, , drop =FALSE]
+              if(nrow(z@C) == 0)  z@C <- data.frame()
             }
           
             z@ATTR$names <- x@ATTR$names[i]

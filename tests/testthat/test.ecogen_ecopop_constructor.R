@@ -56,7 +56,8 @@ test_that("test that ecogen constructor creates a new valid object from data", {
 
 test_that("test that ecopop constructor works fine", {
   skip_on_cran()
-  out <- new("ecopop")
+  expect_error(new("ecopop"), ".*")
+  out <- new("ecopop", ploidy = 2, type = "codominant")
   expect_that(out, is_a("ecopop"))
   expect_true(all(dim(out[["P"]]) == c(0, 0)))
   expect_true(all(dim(out[["AF"]]) == c(0, 0)))
@@ -75,13 +76,13 @@ test_that("ecogen2ecopop works fine", {
   E_pop <- my_ecopop[["E"]]
   S_pop <- my_ecopop[["S"]]
  
-  my_ecopop2 <- ecopop(XY = XY_pop, P = P_pop, AF = AF_pop, E = E_pop, S = S_pop)
+  my_ecopop2 <- ecopop(XY = XY_pop, P = P_pop, AF = AF_pop, E = E_pop, S = S_pop, ploidy = 2)
   
-  my_ecopop3 <- ecopop()
+  my_ecopop3 <- ecopop(ploidy = 2)
   
   my_ecopop3[["XY"]] <- XY_pop
   my_ecopop3[["P"]] <- P_pop
-  my_ecopop3[["AF", ploidy = 2]] <- AF_pop
+  my_ecopop3[["AF"]] <- AF_pop
   my_ecopop3[["E"]] <- E_pop
   my_ecopop3[["S"]] <- S_pop
   

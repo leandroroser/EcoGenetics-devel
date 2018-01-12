@@ -2,6 +2,15 @@
 #### BASIC METHODS
 ################################################
 
+# Initialize ------------------------------------------------------------------#
+
+setMethod("initialize", "ecopop", 
+          function(.Object, ploidy, type) {
+            .Object@INT@ploidy <- as.integer(ploidy)
+            .Object@INT@type <- type
+            .Object
+          })
+
 # Names -----------------------------------------------------------------------#
 
 #' names 

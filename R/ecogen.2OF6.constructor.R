@@ -20,8 +20,8 @@
 #' order. 
 #' @param order.G Genotypes must be ordered in G slot? (codominant data) 
 #' Default FALSE.
-#' @param type Marker type: "codominant" or "dominant".
 #' @param ploidy Ploidy of the G data frame. Default ploidy = 2.
+#' @param type Marker type: "codominant" or "dominant".
 #' @param sep Character separating alleles (codominant data). 
 #' Default option is no character separating alleles. 
 #' @param ncod Number of characters coding each allele (codominant data).
@@ -165,8 +165,8 @@ setGeneric("ecogen",
                     C = data.frame(),
                     G.processed = TRUE,
                     order.G = FALSE,
-                    type = c("codominant", "dominant"),
                     ploidy = 2,
+                    type = c("codominant", "dominant"),
                     sep = "", 
                     ncod = NULL,
                     missing = c("0", "NA", "MEAN"),
