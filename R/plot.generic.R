@@ -13,7 +13,6 @@
 # then plot 1 will go in the upper left, 2 will go in the upper right, and
 # 3 will go all the way across the bottom.
 #'@export
-# author: Hadley Wickham
 
 setGeneric("grf.multiplot", function(..., plotlist = NULL, 
                                      cols = 1, layout = NULL) {

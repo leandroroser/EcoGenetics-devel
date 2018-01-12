@@ -346,7 +346,6 @@ aue.seqlist <- function(from, to, by, out.format = c("matrix", "list")) {
 #' Remove spaces and tabs at the begining and the end of each element of charvec
 #' @param charvec character vector
 #' @keywords internal
-# author: Thibaut Jombart
 
 aue.rmspaces <- function(charvec){
   charvec <- gsub("^([[:blank:]]*)([[:space:]]*)","",charvec)
