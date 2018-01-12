@@ -6,16 +6,6 @@
 <br/>
 
 
-<br/>
-
-<h3>Installation:</h3>
-
-```
-library(devtools)
-'install_github("leandroroser/EcoGenetics-devel")
-```
-
-
 <h3><a href=https://leandroroser.github.io/EcoGenetics-Tutorial/> Tutorial </a></h3>
 
 <br/>
@@ -23,6 +13,9 @@ library(devtools)
 <h3><a href=https://leandroroser.github.io/EcoGenetics-documentation/> Online documentation </a></h3>
 
 
+<h3>Installation of devel version:</h3>
 
-
-
+```
+library(devtools)
+'install_github("leandroroser/EcoGenetics-devel")
+```
