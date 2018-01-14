@@ -376,11 +376,21 @@ setGeneric("genind2ecogen", function(from) {
   to <- ecogen(G = to)
  
   if(!is.null(from@other$xy)) {
-    to@XY <- from@other$xy
+    if(nrow(from@other$xy) != nrow(to@G)) {
+    message("Note: other$xy slot with a different number of rows 
+    than the present in the genetic data table. Skipping this data\n")  
+    } else {
+    ecoslot.XY(to) <- from@other$xy
+    }
   }
  
   if(!is.null(from@strata)) {
-    to@S <- from@strata
+    if(nrow(from@strata) != nrow(to@G)) {
+      message("Note: strata slot with a different number of rows 
+      than the present in the genetic data table. Skipping this data\n")  
+    } else {
+    ecoslot.S(to) <- from@strata
+    }
   }
   to
 })

@@ -14,7 +14,4 @@ int.check.colnames(X, lab = "L")
 \description{
 Check column names
 }
-\author{
-Thibaut Jombart. Adapted by Leandro Roser.
-}
 \keyword{internal}

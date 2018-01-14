@@ -14,7 +14,4 @@ int.check.group(X, grp = NULL, dummy = TRUE, exp.l = NULL)
 \description{
 Check factor name consistency in a data frame and returns the corresponding column
 }
-\author{
-Thibaut Jombart. Adapted by Leandro Roser.
-}
 \keyword{internal}

@@ -359,7 +359,6 @@ aue.rmspaces <- function(charvec){
 #' @param base a character string
 #' @param n number of labels
 #' @keywords internal
-# author: Thibaut Jombart
 
 aue.genlab <- function(base, n) {
   f1 <- function(cha, n){

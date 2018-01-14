@@ -5,10 +5,10 @@ require("gstudio")
 require("adegenet")
 data(eco.test)
 data(eco3)
+data(nancycats)
 
 test_that("genepop importation/exportation works", {
   skip_on_cran()
-  data(eco.test)
   expect_that(ecogen2genepop(eco, dir = "", outName = "infile.genepop.txt", 
                              grp = "pop"), prints_text("File written to"))
   ingpop <- genepop2ecogen("infile.genepop.txt")
@@ -29,18 +29,21 @@ test_that("genind importation/exportation works", {
   expect_that(outEco, is_a("ecogen"))
   expect_true(all(dim(outEco[["G"]]) == c(225, 10)))
   expect_true(all(dim(outEco[["S"]]) == c(225, 1)))
-})
   
+  expect_that(genind2ecogen(nancycats), is_a("ecogen"))
+  
+})
+
 
 test_that("gstudio importation/exportation works", {
   skip_on_cran()
   togstudio <- ecogen2gstudio(eco, type = "codominant")
-  toeco <- gstudio2ecogen(togstudio, ID = "ID", lat = "Latitude", 
+  toeco <- gstudio2ecogen(togstudio, ID = "ID", lat = "Latitude",
                           lon = "Longitude", struct = "pop")
- 
-  expect_that(togstudio[, 5], is_a("locus"))
+
+  expect_true(class(togstudio[, 5]) == "locus")
   expect_true(all(dim(togstudio) == c(225, 14)))
-  
+
   expect_that(toeco, is_a("ecogen"))
   expect_true(all(dim(toeco[["XY"]]) == c(225, 2)))
   expect_true(all(dim(toeco[["P"]]) == c(0, 0)))

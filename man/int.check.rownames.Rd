@@ -14,7 +14,4 @@ int.check.rownames(X, lab = "")
 \description{
 Check row names
 }
-\author{
-Thibaut Jombart. Adapted by Leandro Roser.
-}
 \keyword{internal}

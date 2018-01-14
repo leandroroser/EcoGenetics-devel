@@ -22,20 +22,6 @@ The program used the row names data that was set during the
 construction of the object. Then, the program then aligns 
 all the data frames by coincidence of row names of the reference vector.
 }
-\examples{
-
-\dontrun{
-
-data(eco.test)
-eco1 <- eco
-eco1[["P"]] <- eco[["P"]][sample(1:225), ]  #object with shuffled rows
-eco1[["E"]] <- eco[["E"]][sample(1:225), ]
-ordered <- int.order(eco1)
-head(ordered[["P"]]); head(eco[["P"]])
-
-}
-
-}
 \author{
 Leandro Roser \email{learoser@gmail.com}
 }
