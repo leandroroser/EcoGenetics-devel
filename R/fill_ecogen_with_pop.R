@@ -13,8 +13,8 @@
 #' @param P Population data for slot P. Defaul NULL.
 #' @param E Population data for slot E. Defaul NULL.
 #' @param C Population data for slot C. Defaul NULL.
-#' @param bind_columns Bind columns of slots P, E and C 
-#' with preexisting columns in the ecogen object?
+#' @param bind_columns Bind columns of the generated tables 
+#' with the preexisting in the ecogen slots?
 #' Default FALSE (overwrite the slot).
 #' 
 #' @examples
@@ -151,8 +151,8 @@ eco.fill_ecogen_with_df <- function(from, pop, pop_levels,  XY = NULL, P = NULL,
 #' @param to ecogen object.
 #' @param pop Column in slot S of ecogen object, with the population of each individual.
 #' @param what Data frames to add into the the ecogen object. Can be one of c("all", "XY", "P", "E", "C")
-#' @param bind_columns Bind columns of the tables to be aded into P, E and C slots.
-#' with preexisting columns? default FALSE.
+#' @param bind_columns Bind columns of the generated tables 
+#' with the preexisting in the ecogen slots?
 #' 
 #' @examples
 #' 

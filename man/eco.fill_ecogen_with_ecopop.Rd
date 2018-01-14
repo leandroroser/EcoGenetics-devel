@@ -16,8 +16,8 @@ eco.fill_ecogen_with_ecopop(from, to, pop, what = c("all", "XY", "P", "E",
 
 \item{what}{Data frames to add into the the ecogen object. Can be one of c("all", "XY", "P", "E", "C")}
 
-\item{bind_columns}{Bind columns of the tables to be aded into P, E and C slots.
-with preexisting columns? default FALSE.}
+\item{bind_columns}{Bind columns of the generated tables 
+with the preexisting in the ecogen slots?}
 }
 \description{
 This function imports into an ecogen object the population data contained in  ecopop object.

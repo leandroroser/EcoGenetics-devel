@@ -24,8 +24,8 @@ the levels of the column of the slot S used for the argument pop.}
 
 \item{C}{Population data for slot C. Defaul NULL.}
 
-\item{bind_columns}{Bind columns of slots P, E and C 
-with preexisting columns in the ecogen object?
+\item{bind_columns}{Bind columns of the generated tables 
+with the preexisting in the ecogen slots?
 Default FALSE (overwrite the slot).}
 }
 \description{
