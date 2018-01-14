@@ -1,4 +1,4 @@
- context("Test ecogen-ecopop operations")
+context("Test ecogen-ecopop operations")
 
 data(eco.test)
 data(eco3)
@@ -61,7 +61,6 @@ test_that("eco.merge works", {
   expect_true(all(dim(obj[["C"]]) == c(0, 0)))
   expect_error(eco.rbind(eco, eco), "Duplicated row names found")
 })
-
 
 test_that("slot OUT works", {
   skip_on_cran()

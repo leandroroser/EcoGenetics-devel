@@ -950,4 +950,3 @@ setGeneric("spagedi2ecogen",
   ecogen(XY = XY, G = G, S = S, missing = miss, type = type, ...)
   
 })
-

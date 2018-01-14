@@ -4,6 +4,8 @@
 \docType{methods}
 \name{names,ecopop-method}
 \alias{names,ecopop-method}
+\alias{names<-,ecopop,any_vector-method}
+\alias{names,ecopop-method}
 \alias{is.ecopop}
 \alias{is,ecopop-method}
 \alias{nrow,ecopop-method}
@@ -25,6 +27,8 @@
 \title{names}
 \usage{
 \S4method{names}{ecopop}(x)
+
+\S4method{names}{ecopop,any_vector}(x) <- value
 
 is.ecopop(x)
 
@@ -81,6 +85,8 @@ $<-
 [[<-
 }
 \author{
+Leandro Roser \email{learoser@gmail.com}
+
 Leandro Roser \email{learoser@gmail.com}
 
 Leandro Roser \email{learoser@gmail.com}

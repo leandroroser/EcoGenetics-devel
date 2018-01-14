@@ -108,3 +108,26 @@ test_that("genpop and ecopop interconversion works", {
   expect_true(all(dim(my_genpop@tab) == c(4, 40)))
 })
 
+test_that("data frames with population data can fill ecogen object", {
+  skip_on_cran()
+
+  # Add all the population data to the ecogen object
+  out <- ecogen(S=eco[["S"]])
+  obj  <- eco.fill_ecogen_with_df(out, "pop", c(1,2,3,4), 
+                                   XY = my_ecopop[["XY"]], P = my_ecopop[["P"]], 
+                                   E = my_ecopop[["E"]])
+  expect_that(nrow(obj[["XY"]]), equals(225))
+  expect_that(nrow(obj[["P"]]), equals(225))
+  expect_that(nrow(obj[["E"]]), equals(225))
+                                                
+})
+
+test_that("Population data of ecopop objects can be used to fill ecogen object", {
+  skip_on_cran()
+  obj <- ecogen(S = eco[["S"]])
+  obj <- eco.fill_ecogen_with_ecopop(my_ecopop, obj, "pop")
+  expect_that(nrow(obj[["XY"]]), equals(225))
+  expect_that(nrow(obj[["P"]]), equals(225))
+  expect_that(nrow(obj[["E"]]), equals(225))
+})
+  

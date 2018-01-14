@@ -41,7 +41,7 @@ Collate: 'ZZZ.R' 'generics.R' 'auxiliar.R' 'int.genind.R'
         'int.geary.R' 'int.jackknife.R' 'int.joincount.R'
         'int.kin.loiselle.R' 'int.mantel.R' 'int.moran.R'
         'int.multitable.R' 'int.order.R' 'int.random.test.R'
-        'miscellaneous.R' 'plot.generic.R' 'plot.methods.R'
+        'miscellaneous.R' 'fill_ecogen_with_pop.R' 'plot.generic.R' 'plot.methods.R'
         'roxygen.auxiliar.R' 'show_summary.methods.R'
 RoxygenNote: 6.0.1
 NeedsCompilation: no

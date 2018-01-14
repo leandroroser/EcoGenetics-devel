@@ -15,6 +15,7 @@ setMethod("initialize", "ecogen",
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @rdname ecogen-methods
 #' @aliases names,ecogen-method
+#' @exportMethod names
 
 setMethod("names", "ecogen",
           function(x){
@@ -25,14 +26,52 @@ setMethod("names", "ecogen",
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @rdname ecogen-methods
 #' @aliases names,ecogen-method
+#' @exportMethod names<-
 
-setReplaceMethod("names", c(x="ecogen", value="character"), function(x, value) {
-  x@ATTR$names <- value
-  out <- try(int.order(x), silent = TRUE)
-  if(attr(out, "class") == "try-error") {
-    warning("Names can not be set. Incongruence with row names of data frames")
+setReplaceMethod("names", c(x = "ecogen", value = "character"), function(x, value) {
+  
+  if(length(x@ATTR$names) != length(value)) {
+    stop("Length of input names different of the length of the names present in the object")
   }
-  out
+  
+  if(length(value) != length(unique(value))) {
+    stop("Duplicate values found in the input names")
+  }
+  
+  x@ATTR$names <- value
+  nrow_data <- nrow(x)
+ 
+  if(nrow_data["XY"] != 0) {
+    rownames(x@XY) <- value
+  }
+  
+  if(nrow_data["P"] != 0) {
+    rownames(x@P) <- value
+  }
+  
+  if(nrow_data["G"] != 0) {
+    rownames(x@G) <- value
+  }
+  
+  if(x@INT@type == "codominant") {
+    if(nrow_data["A"] != 0) {
+      rownames(x@A) <- value
+    }
+  }
+  
+  if(nrow_data["E"] != 0) {
+    rownames(x@E) <- value
+  }
+  
+  if(nrow_data["S"] != 0) {
+    rownames(x@S) <- value
+  }
+  
+  if(nrow_data["C"] != 0) {
+    rownames(x@C) <- value
+  }
+
+  x
 })
 
 
@@ -54,6 +93,7 @@ is.ecogen <- function(x) {
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @rdname ecogen-methods
 #' @aliases nrow,ecogen-method
+#' @exportMethod nrow
 
 setMethod("nrow", "ecogen",
           function(x){
@@ -66,6 +106,7 @@ setMethod("nrow", "ecogen",
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @rdname ecogen-methods
 #' @aliases ncol,ecogen-method
+#' @exportMethod ncol
 
 setMethod("ncol", "ecogen",
           function(x){
@@ -78,6 +119,7 @@ setMethod("ncol", "ecogen",
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @rdname ecogen-methods
 #' @aliases dim,ecogen-method
+#' @exportMethod dim
 
 setMethod("dim", "ecogen",
           function(x){
@@ -149,6 +191,7 @@ setMethod("as.int.list",
 #' @keywords internal 
 #' @rdname ecogen-methods
 #' @aliases show,ecogen-method
+#' @exportMethod show
 
 setMethod("show", 
           "ecogen", 

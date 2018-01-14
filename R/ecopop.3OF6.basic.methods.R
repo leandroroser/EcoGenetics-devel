@@ -17,11 +17,56 @@ setMethod("initialize", "ecopop",
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @rdname ecopop-methods
 #' @aliases names,ecopop-method
+#' @exportMethod names
 
 setMethod("names", "ecopop",
           function(x){
             return(x@S)
           })
+
+
+# names<- -----------------------------------------------------------------------#
+#' @author Leandro Roser \email{learoser@@gmail.com}
+#' @rdname ecopop-methods
+#' @aliases names,ecopop-method
+#' @exportMethod names<-
+
+setReplaceMethod("names", c(x = "ecopop", value = "any_vector"), function(x, value) {
+  
+  if(length(x@S) != length(value)) {
+    stop("Length of input names different of the length of the names present in the object")
+  }
+  
+  if(length(value) != length(unique(value))) {
+    stop("Duplicate values found in the input names")
+  }
+  
+  nrow_data <- nrow(x)
+  x@S <- as.factor(value)
+  
+  if(nrow_data["XY"] != 0) {
+    rownames(x@XY) <- value
+  }
+  
+  if(nrow_data["P"] != 0) {
+    rownames(x@P) <- value
+  }
+  
+  if(nrow_data["AF"] != 0) {
+    rownames(x@AF) <- value
+  }
+ 
+  
+  if(nrow_data["E"] != 0) {
+    rownames(x@E) <- value
+  }
+
+  if(nrow_data["C"] != 0) {
+    rownames(x@C) <- value
+  }
+  
+  x
+})
 
 
 
@@ -43,10 +88,11 @@ is.ecopop <- function(x) {
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @rdname ecopop-methods
 #' @aliases nrow,ecopop-method
+#' @exportMethod nrow
 
 setMethod("nrow", "ecopop",
           function(x){
-            c(XY=nrow(x@XY), P=nrow(x@P), AF=nrow(x@AF), E=nrow(x@E), C=nrow(x@C))
+            c(XY = nrow(x@XY), P = nrow(x@P), AF = nrow(x@AF), E = nrow(x@E), C = nrow(x@C))
           })
 
 # ncol -----------------------------------------------------------------------#
@@ -55,6 +101,7 @@ setMethod("nrow", "ecopop",
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @rdname ecopop-methods
 #' @aliases ncol,ecopop-method
+#' @exportMethod ncol
 
 setMethod("ncol", "ecopop",
           function(x){
@@ -71,6 +118,7 @@ setMethod("ncol", "ecopop",
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @rdname ecopop-methods
 #' @aliases dim,ecopop-method
+#' @exportMethod dim
 
 setMethod("dim", "ecopop",
           function(x){
@@ -110,6 +158,7 @@ setMethod("as.list",
 #' @keywords internal 
 #' @rdname ecopop-methods
 #' @aliases show,ecopop-method
+#' @exportMethod show
 
 setMethod("show", 
           "ecopop", 

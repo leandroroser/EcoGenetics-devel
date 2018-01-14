@@ -3,6 +3,7 @@ EcoGenetics 1.2.1-5 (Release date: CURRENTLY DEVEL)
 Changes:
 
 * Correction in genind2ecogen
+* Correction in the exportation of methods for ecogen and ecopop objects
 
 
 EcoGenetics 1.2.1-4 (Release date: 2018-01-13)

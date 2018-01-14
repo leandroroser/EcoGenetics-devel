@@ -4,7 +4,8 @@
 
 #------------------------------------------------------------------------------#
 # Union of classes
-
+setClassUnion("any_vector",
+              c("character", "numeric", "integer", "factor"))
 setClassUnion("dataframeORmatrix",
 							c("data.frame", "matrix"))
 setClassUnion("matrixORnull",
