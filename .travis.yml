@@ -15,7 +15,7 @@ warnings_are_errors: true
 
 os:
 - linux
-- osx
+#- osx # infinite time for os in travis
 
 #r_github_packages:
 #  - r-lib/covr
