@@ -4,14 +4,16 @@
 \alias{eco.theilsen}
 \title{Theil-sen regression for a raster time series}
 \usage{
-eco.theilsen(stacked, date, adjust = "none")
+eco.theilsen(stacked, date, adjust = "none", na_omit = TRUE)
 }
 \arguments{
 \item{stacked}{Stacked images ("RasterLayer"  or "RasterBrick").}
 
 \item{date}{data vector with decimal dates for each image.}
 
-\item{adjust}{P-values correction method for multiple tests 
+\item{adjust}{P-values correction method for multiple tests.}
+
+\item{na_omit}{Omit NA values? Default TRUE.
 passed to \code{\link[stats]{p.adjust}}. Defalut is "none".}
 }
 \description{

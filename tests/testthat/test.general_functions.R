@@ -206,6 +206,7 @@ test_that("eco.theilsen works fine", {
   temp <- list()
   for(i in 1:100) {
     temp[[i]] <- runif(36,-1, 1)
+    temp[[i]][sample(1:36, 10)] <- NA
     temp[[i]] <- matrix(temp[[i]], 6, 6)
     temp[[i]] <- raster(temp[[i]])
   }
@@ -226,6 +227,13 @@ test_that("eco.theilsen works fine", {
   
   expect_true(file.exists("slope.tif"))
   expect_true(file.exists("pvalue.tif"))
+  expect_true(all(!is.na(as.matrix(slope))))
+  expect_true(all(!is.na(as.matrix(pvalue))))
+ 
+  eco.theilsen(ndvisim, date, na_omit = FALSE)
+  
+  pvalue <- raster("pvalue.tif")
+  slope <- raster("slope.tif")
   
   file.remove(c("temporal.tif", "slope.tif", "pvalue.tif"))
 })

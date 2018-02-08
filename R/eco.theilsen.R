@@ -9,7 +9,8 @@
 #' 
 #' @param stacked Stacked images ("RasterLayer"  or "RasterBrick").
 #' @param date data vector with decimal dates for each image.
-#' @param adjust P-values correction method for multiple tests 
+#' @param adjust P-values correction method for multiple tests.
+#' @param na_omit Omit NA values? Default TRUE.
 #' passed to \code{\link[stats]{p.adjust}}. Defalut is "none".
 #' 
 #' @seealso \code{\link[rkt]{rkt}}.
@@ -61,9 +62,9 @@
 
 setGeneric("eco.theilsen", 
            function(stacked, date, 
-                    adjust = "none") {
+                    adjust = "none",
+                    na_omit = TRUE) {
 
-  
   adjust <- match.arg(adjust)
              
              
@@ -75,13 +76,13 @@ setGeneric("eco.theilsen",
   ts <- pval <- rep(NA, ncell(stacked))
  
   # compute slope and p value
-   for(i in 1:ncell(stacked)) {
+  
+   for(i in seq_len(ncell(stacked))) {
     temporal <- stacked[i]
-    if(!any(is.na(temporal))) {
-	this_result <- rkt::rkt(date, stacked[i])
+    this_result <- rkt::rkt(date, temporal)
     ts[i] <- this_result[3]
     pval[i] <- this_result[1]
-    }
+    
     cat ("\r", ceiling(100 * i / cellnumber), "% ", "completed", sep = "")
    }
   cat("\n")
@@ -93,7 +94,7 @@ setGeneric("eco.theilsen",
   
   if(adjust != "none") {
     cat(paste("adjusting p values with", adjust, "method"), "\n\n")
-    pval <- p.adjust(pval, "adjust")
+    pval <- p.adjust(pval, method = adjust)
   }
   pout[] <- unlist(pval)
   
