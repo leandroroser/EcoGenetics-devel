@@ -10,7 +10,6 @@
 #' @param stacked Stacked images ("RasterLayer"  or "RasterBrick").
 #' @param date data vector with decimal dates for each image.
 #' @param adjust P-values correction method for multiple tests.
-#' @param na_omit Omit NA values? Default TRUE.
 #' passed to \code{\link[stats]{p.adjust}}. Defalut is "none".
 #' 
 #' @seealso \code{\link[rkt]{rkt}}.
@@ -62,8 +61,7 @@
 
 setGeneric("eco.theilsen", 
            function(stacked, date, 
-                    adjust = "none",
-                    na_omit = TRUE) {
+                    adjust = "none") {
 
   adjust <- match.arg(adjust)
              
