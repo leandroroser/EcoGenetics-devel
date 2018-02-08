@@ -32,5 +32,5 @@
 
 ```
 library(devtools)
-'install_github("leandroroser/EcoGenetics-devel")
+install_github("leandroroser/EcoGenetics-devel")
 ```
