@@ -220,6 +220,7 @@ test_that("eco.theilsen works fine", {
   
   date <- seq(from = 1990.1, length.out = 100, by = 0.2)
   
+  # parallel
   eco.theilsen(ndvisim, date)
   
   pvalue <- raster("pvalue.tif")
@@ -227,13 +228,21 @@ test_that("eco.theilsen works fine", {
   
   expect_true(file.exists("slope.tif"))
   expect_true(file.exists("pvalue.tif"))
-  expect_true(all(!is.na(as.matrix(slope))))
-  expect_true(all(!is.na(as.matrix(pvalue))))
- 
-  eco.theilsen(ndvisim, date, na_omit = FALSE)
+  expect_true(!all(is.na(as.matrix(slope))))
+  expect_true(!all(is.na(as.matrix(pvalue))))
+  
+  file.remove(c("slope.tif", "pvalue.tif"))
+  
+  ## serial
+  eco.theilsen(ndvisim, date, run_parallel  = FALSE)
   
   pvalue <- raster("pvalue.tif")
   slope <- raster("slope.tif")
+  
+  expect_true(file.exists("slope.tif"))
+  expect_true(file.exists("pvalue.tif"))
+  expect_true(!all(is.na(as.matrix(slope))))
+  expect_true(!all(is.na(as.matrix(pvalue))))
   
   file.remove(c("temporal.tif", "slope.tif", "pvalue.tif"))
 })

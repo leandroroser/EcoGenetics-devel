@@ -57,6 +57,9 @@
 #'@importFrom grDevices heat.colors
 #'@importFrom graphics barplot legend
 #'@importFrom stats sd
+#'@importFrom foreach foreach "%dopar%" getDoParWorkers getDoParName
+#'@importFrom parallel makeCluster stopCluster detectCores
+#'@importFrom doParallel registerDoParallel stopImplicitCluster
 0
 
 #--------------------
@@ -216,4 +219,14 @@
 #' @export
 #' @importFrom magrittr %>%
 #' @usage lhs \%>\% rhs
+NULL
+
+#' dopar operator
+#'
+#' @name %dopar%
+#' @rdname dopar
+#' @keywords internal
+#' @export
+#' @importFrom foreach %dopar%
+#' @usage lhs \%dopar\% rhs
 NULL
