@@ -10,7 +10,7 @@
 #' The program can compute the result using parallel (default) or serial evaluation.
 #' 
 #' @param stacked Stacked images ("RasterLayer"  or "RasterBrick").
-#' @param date Data vector with decimal dates for each image.
+#' @param dates Data vector with decimal dates for each image.
 #' @param adjust P-values correction method for multiple tests.
 #' passed to \code{\link[stats]{p.adjust}}. Defalut is "none".
 #' @param run_parallel Run code in parallel? Default TRUE
@@ -149,7 +149,7 @@ if(run_parallel) {
         }}
       }
       output <- parallel_ts(data)
-      ts <- pval <- raster(nrow=nrow(data$stacked), ncol = ncol(data$stacked), crs=crs(data$stacked))
+      ts <- pval <- raster(nrow=nrow(data$stacked), ncol = ncol(data$stacked), crs= raster::crs(data$stacked))
       raster::extent(ts) <- raster::extent(pval) <- raster::extent(data$stacked) 
       ts[] <- unlist(output[, 2])
         
@@ -179,8 +179,8 @@ if(run_parallel) {
       }
       cat("\n")
       
-      ts <- pval <- raster(nrow=nrow(stacked), ncol =ncol(stacked), crs=crs(stacked))
-      extent(ts) <- extent(pval) <- extent(stacked) 
+      ts <- pval <- raster(nrow=nrow(stacked), ncol =ncol(stacked), crs=raster::crs(stacked))
+      raster::extent(ts) <- raster::extent(pval) <- raster::extent(stacked) 
       
       if(adjust != "none") {
         cat(paste("Adjusting p values with ", adjust, " method"), "\n")

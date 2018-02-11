@@ -11,6 +11,8 @@ eco.theilsen(stacked, dates, adjust = "none", run_parallel = TRUE,
 \arguments{
 \item{stacked}{Stacked images ("RasterLayer"  or "RasterBrick").}
 
+\item{dates}{Data vector with decimal dates for each image.}
+
 \item{adjust}{P-values correction method for multiple tests.
 passed to \code{\link[stats]{p.adjust}}. Defalut is "none".}
 
@@ -21,8 +23,6 @@ the program uses N - 1, where N is the total number of available
 logical cores.}
 
 \item{physical}{Use only physical cores for parallel evaluation? Default FALSE.}
-
-\item{date}{Data vector with decimal dates for each image.}
 }
 \description{
 This function computes the theil-sen estimator and 

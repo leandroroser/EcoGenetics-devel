@@ -21,10 +21,12 @@
 #'@importFrom party where
 #'@importFrom raster addLayer
 #'@importFrom raster brick
+#'@importFrom raster crs
 #'@importFrom raster calc
 #'@importFrom raster crop
 #'@importFrom raster extent
 #'@importFrom raster intersect
+#'@importFrom raster ncell
 #'@importFrom raster raster
 #'@importFrom raster writeRaster
 #'@importFrom rkt rkt
@@ -221,12 +223,13 @@
 #' @usage lhs \%>\% rhs
 NULL
 
-#' dopar operator
-#'
-#' @name %dopar%
-#' @rdname dopar
-#' @keywords internal
-#' @export
-#' @importFrom foreach %dopar%
-#' @usage lhs \%dopar\% rhs
-NULL
+ 
+# #' dopar operator
+# #'
+# #' @name %dopar%
+# #' @rdname dopar
+# #' @keywords internal
+# #' @export
+# #' @importFrom foreach %dopar%
+# #' @usage obj %dopar% ex
+# NULL
