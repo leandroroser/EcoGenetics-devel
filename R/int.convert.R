@@ -1,3 +1,4 @@
+
 #' INTERNAL CONVERSION TOOLS FOR GENETIC DATA
 #' @param X Input
 #' @param ncod Number of digits coding each allele
@@ -36,7 +37,6 @@
 # allele list to locus matrix
 # allele list to allele matrix
 
-
 #--------------------------------------------------------------------#
 # locus matrix to allele matrix
 
@@ -53,19 +53,22 @@ int.loc2al <- function(X,
   
   X <- as.matrix(X, rownames.force = TRUE)
   mode(X) <- "character"
-  X <- gsub(sep.in, "", X)
+  # X <- gsub(sep.in, "", X)
   
   if(chk.names) {
     X <- int.check.colnames(X)
     X <- int.check.rownames(X)
-  }
+    }
   
-  coldata <- int.loc2loc(X, ncod = ncod, ploidy = ploidy, 
-                         sep.out = "/", chk.names = FALSE,
+  coldata <- int.loc2loc(X, ncod = ncod, 
+                         ploidy = ploidy,
+                         sep.in = sep.in, 
+                         sep.out = "/", 
+                         chk.names = FALSE, 
                          chk.plocod =  chk.plocod)
   
   # unfolding and creating a matrix with one allele per column
-  coldata[is.na(coldata)]<-"NA/NA"
+  coldata[is.na(coldata)]<- paste(rep(NA, ploidy), collapse = "/")
   coldata <- as.vector(t(coldata))
   coldata <- unlist(strsplit(coldata, "/"))
   coldata <- matrix(coldata, ncol = ploidy * nloc, nrow = nind, byrow = TRUE)
@@ -73,7 +76,8 @@ int.loc2al <- function(X,
   
   # column names configuration
   if(ploidy != 1) {
-    nombres <- lapply(colnames(X), function(x) paste(rep(x, ploidy), 1:ploidy, sep = "."))
+    nombres <- lapply(colnames(X), 
+                      function(x) paste(rep(x, ploidy), 1:ploidy, sep = "."))
     nombres <- unlist(nombres)
   } else {
     nombres <- colnames(X)
@@ -89,7 +93,7 @@ int.loc2al <- function(X,
   coldata <- aue.rmspaces(coldata)
   coldata <- gsub("(NA)+", NA, coldata)
   
-  coldata <- matrix(coldata, nrow = nind)
+  #coldata <- matrix(coldata, nrow = nind)
   
   colnames(coldata) <- nombres
   rownames(coldata) <- rownames(X)
@@ -160,7 +164,7 @@ int.loc2loc <- function(X,
   
   X <- as.matrix(X, rownames.force = TRUE)
   mode(X) <- "character"
-  X <- gsub(sep.in, "", X)
+ # X <- gsub(sep.in, "", X)
   
   # control and configuration
   if(length(sep.out) != 1) {
@@ -173,13 +177,19 @@ int.loc2loc <- function(X,
   }
   
   if(chk.plocod) {
-    ncod <- int.check.ncod(X, ploidy = ploidy, ncod = ncod)
+    ncod <- int.check.ncod(X, ploidy = ploidy, ncod = ncod, sep = sep.in)
   }
   
   # separate alleles with the character "sep.out" 
+  if(sep.in != sep.out) {
+  if(sep.in == "") {
   X <- gsub(paste("([[:alnum:]]{",ncod,"})",sep = ""), 
             paste("\\1", meta2char(sep.out), sep = ""),  X)
   X <- sub(paste(meta2char(sep.out), "$", sep = ""), "", X)
+  } else {
+  X <- gsub(sep.in, sep.out, X)  
+  }
+  }
   X[is.na(X)] <- paste(rep("NA", ploidy), sep.out, collapse = "", sep = "")
   X <- sub(paste(meta2char(sep.out), "$", sep = ""), "", X)
   
@@ -252,7 +262,7 @@ int.loc2listal <- function(X,
   }
   
   X <- int.loc2al(X, ncod = ncod, ploidy = ploidy, chk.names = FALSE,
-                  chk.plocod = chk.plocod)
+                  chk.plocod = chk.plocod, sep.in = sep.in, sep.out = sep.out )
   
   X.list <- list()
   

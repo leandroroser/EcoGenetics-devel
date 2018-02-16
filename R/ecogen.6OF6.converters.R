@@ -475,7 +475,8 @@ setGeneric("ecogen2gstudio",
 #' @export
 
 
-setGeneric("gstudio2ecogen", function(from, ID = "ID", lat = "Latitude", lon = "Longitude",
+setGeneric("gstudio2ecogen", function(from, ID = "ID", 
+                                      lat = "Latitude", lon = "Longitude",
                                       struct = NULL) {
   
   myID <- myLat <- myLon <- NULL
@@ -516,8 +517,8 @@ setGeneric("gstudio2ecogen", function(from, ID = "ID", lat = "Latitude", lon = "
   myloc <- as.matrix(myloc)
   rownames(myloc) <- myID
   myloc[myloc == ""] <- NA
-  G <- eco.convert(myloc, sep.in = ":", sep.out = "")
-  ecoslot.G(to) <- G
+  #G <- eco.convert(myloc, sep.in = ":", sep.out = "")
+  ecoslot.G(to, sep =":") <- myloc
   
   if(!is.na(myLat) && !is.na(myLon)) {
     XY <- data.frame(Longitude = from[, myLon], Latitude = from[, myLat])

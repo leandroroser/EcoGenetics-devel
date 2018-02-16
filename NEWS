@@ -4,6 +4,8 @@ Changes:
 
 * Correction in genind2ecogen
 * Correction in the exportation of methods for ecogen and ecopop objects
+* EcoGen objects now are allowing genetic data with alleles coded with a different character length
+* Changes in eco.format to allow genetic data with alleles coded with different character lengths
 
 
 EcoGenetics 1.2.1-4 (Release date: 2018-01-13)

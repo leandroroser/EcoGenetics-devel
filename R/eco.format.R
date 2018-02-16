@@ -147,12 +147,6 @@ setGeneric("eco.format", function(data,
 
   data <- as.matrix(data, rownames.force = TRUE)
   
-  #stop if <sep.loc> is present in the data
-  if((sep.out != "") && any(grep(sep.out, data))) {
-    stop(paste(sep.out, "is already in use in the matrix. 
-               Choose other <sep.out> character"))
-  }
-  
   mode(data) <- "character"
   data <- aue.rmspaces(data)
   data <- int.check.colnames(data)
@@ -173,7 +167,7 @@ setGeneric("eco.format", function(data,
   } else {
     ncode_in <- TRUE
   }
-  ncod <- int.check.ncod(data, ploidy = ploidy, ncod = ncod)
+  ncod <- int.check.ncod(data, ploidy = ploidy, ncod = ncod, sep= sep.in)
   
   if(recode == "none" && nout < ncod) {
     stop("nout (output number of digits) < ncod 
@@ -236,7 +230,9 @@ setGeneric("eco.format", function(data,
     #--------------------------------------------------#
     
     #alleles in columns
-    X <- int.loc2al(X = data, ncod = ncod, ploidy = ploidy)
+    X <- int.loc2al(X = data, ncod = ncod, ploidy = ploidy, 
+                    sep.in = sep.in, chk.plocod = FALSE,
+                    chk.names = FALSE)
     X <- gsub("(NA)+", NA, X)
     # for recoding all data
     
@@ -251,7 +247,9 @@ setGeneric("eco.format", function(data,
       
       cat(paste0("Levels found in the data: ", paste(nlev, collapse = ", ")), "\n")
       cat(paste0("Replacements: ", paste(replace_in, replace_out, sep = "=", collapse=", ")), "\n")
-      conv_list <- matrix( c(replace_in, replace_out), nrow= length(replace_in), dimnames = list(seq_len(nin_len), c("original_code", "new_code")))
+      conv_list <- matrix( c(replace_in, replace_out), 
+                           nrow= length(replace_in),
+                           dimnames = list(seq_len(nin_len), c("original_code", "new_code")))
       
       
       X[] <- replace_out[match(X, replace_in)]
@@ -306,6 +304,5 @@ setGeneric("eco.format", function(data,
   }
   
   X
-  
-  })
+})
 
