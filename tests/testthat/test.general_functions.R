@@ -221,7 +221,8 @@ test_that("eco.theilsen works fine", {
   date <- seq(from = 1990.1, length.out = 100, by = 0.2)
   
   # parallel
-  eco.theilsen(ndvisim, date)
+  # For some reason, the check allows up to 2 workers
+  eco.theilsen(ndvisim, date, workers = 2)
   
   pvalue <- raster("pvalue.tif")
   slope <- raster("slope.tif")

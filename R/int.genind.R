@@ -445,7 +445,7 @@ int.df2genind <- function(indata,
     ## unfold data for each cell of the table
     if (ploidy > 1) {
       allele.data <- strsplit(X, "/")
-      n.items <- sapply(allele.data, length)
+      n.items <- vapply(allele.data, length, numeric(1))
       locus.data <- rep(rep(loc.names, each = nind), n.items)
       ind.data <- rep(rep(ind.names,ncol(X)), n.items)
       allele.data <- unlist(allele.data)

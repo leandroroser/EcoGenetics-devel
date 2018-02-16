@@ -19,10 +19,11 @@
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @export
 
-setGeneric("ecogen2ecopop", function(from, hier, factor_to_counts = TRUE,
+setGeneric("ecogen2ecopop", function(from, hier, 
+                                     factor_to_counts = TRUE,
                                      aggregator = function(x) mean(x, na.rm = TRUE)) { 
   
-which_pop <- which(colnames(from@S)== hier)
+which_pop <- which(colnames(from@S) == hier)
 if(length(which_pop) == 0) {
   stop("non matching S column name")
 }
@@ -41,11 +42,12 @@ if(from@INT@type == "codominant") {
   to@AF <-  as.matrix(apply(from@G, 2, tapply, pop, sum, na.rm = TRUE))
 }
 
-to@E <-  aue.aggregated_df(from@P, pop, aggregator, factor_to_counts = factor_to_counts )
+to@E <-  aue.aggregated_df(from@E, pop, aggregator, factor_to_counts = factor_to_counts)
 
-to@S <-  factor(levels(pop))
+to@S <-  apply(from@S, 2, factor(levels(x)))
 
-to@C <-   aue.aggregated_df(from@C, pop, aggregator, factor_to_counts = factor_to_counts )
+to@C <-   aue.aggregated_df(from@C, pop, aggregator, factor_to_counts = factor_to_counts)
+
 
 popdat <- new("int.popdata")
 popdat@ploidy <- from@INT@ploidy
@@ -55,6 +57,11 @@ popdat@factor_to_counts <- factor_to_counts
 popdat@loc.fac <- from@INT@loc.fac
 popdat@all.names <- from@INT@all.names
 to@INT <- popdat
+
+# set attributes
+to@ATTR$names <- levels(pop)
+to@ATTR$whereIs <- parent.frame()
+to@ATTR$.call <- match.call()
 
 to
 })

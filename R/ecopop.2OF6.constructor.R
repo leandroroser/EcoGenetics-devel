@@ -114,8 +114,9 @@ setGeneric("ecopop",
                     P = data.frame(),
                     AF = data.frame(), 
                     E = data.frame(),
-                    S = factor(),
+                    S = data.frame(),
                     C = data.frame(),
+                    pop_names_column = 1L,
                     ploidy,
                     type = c("codominant", "dominant"),
                     order.df = FALSE) {				
@@ -126,28 +127,68 @@ setGeneric("ecopop",
                stop("Please provide the ploidy of your data")
              }
              
+             if(!(active_group %in% seq_len(ncol(S)))) {
+               stop("Invalid active group column")
+             }
+  
              # creating a new ecopop object
              object <- new("ecopop", ploidy, type)
-            
-             # set object environment
-             object@ATTR$whereIs <- parent.frame()
-             object@ATTR$.call <- match.call()
-             
+
              object@XY <- as.data.frame(XY)
              object@P <- as.data.frame(P)
              object@AF <- as.matrix(AF)
              mode(object@AF)<- "integer"
              object@E <- as.data.frame(E)
-             object@S <- as.factor(S)
+             
+             # all S columns as factors
+             S <- as.data.frame(S)
+             if(dim(S)[1] != 0) S[] <- lapply(S, factor)
+             
+             object@S <- S
              object@C <- as.data.frame(C)
+             
+             # set object environment
+ 
+             # set row names
+             
+             # object.names <- list(XY=rownames(object@XY), P=rownames(object@P),
+             #                      AF=rownames(object@AF), E=rownames(object@E), 
+             #                      S=rownames(object@S), C=rownames(object@C))
+             # 
+             # object.names <- object.names[unlist(lapply(object.names, function(x) length(x)  != 0))]
+             # 
+             # if(length(object.names) != 0) {
+             #   rownumber <- unique(unlist(lapply(object.names, length)))
+             #   # check nrow consistency
+             #   if(length(rownumber)> 1) {
+             #     stop("Non unique row number found")
+             #   }
+             # }
+             # 
+             # 
+             
+             ## set names
+             S_ncol <- ncol(S)
+             if(S_ncol > 0) {
+               if(!(pop_names_column %in% S_ncol)) {
+                 stop("Incorrect value for pop_names_column")
+               }
+             obj@ATTR$names <- as.factor(objectS[, pop_names_column])
+             } else {
+             obj@ATTR$names <- paste0("P.", seq_len(rownumber))
+             }
+         
+             object@ATTR$whereIs <- parent.frame()
+             object@ATTR$.call <- match.call()
              
              # order rows
              if(order.df) {
-               object@XY = object@XY[ , match(rownames(object@XY), object@S) ]
-               P = object@P[ , match(rownames(object@P), object@S) ]
-               AF = object@AF[ , match(rownames(object@AF), object@S) ]
-               E = object@E[ , match(rownames(object@E), object@S) ]
-               C = object@C[ , match(rownames(object@C), object@S) ]
+               object@XY = object@XY[ , match(rownames(object@XY),  obj@ATTR$names) ]
+               P = object@P[ , match(rownames(object@P),  obj@ATTR$names) ]
+               AF = object@AF[ , match(rownames(object@AF),  obj@ATTR$names) ]
+               E = object@E[ , match(rownames(object@E),  obj@ATTR$names) ]
+               S = object@S[ , match(rownames(object@S),  obj@ATTR$names) ]
+               C = object@C[ , match(rownames(object@C),  obj@ATTR$names) ]
              }
              
              validObject(object)

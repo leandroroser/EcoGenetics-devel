@@ -132,7 +132,8 @@ setClass("ecopop",
                    E = data.frame(),
                    S = factor(), 
                    C = data.frame(),
-                   ATTR = list(whereIs = new.env(emptyenv()), 
+                   ATTR = list(names = character(0),
+                               whereIs = new.env(emptyenv()), 
                                .call = call("."))
          ),
          validity = check_ecopop

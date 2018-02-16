@@ -1,4 +1,5 @@
 context("Test ecogen-ecopop basic methods")
+skip_on_cran()
 
 test_that("ecogen basic methods", {
   expect_true(is.ecogen(eco))

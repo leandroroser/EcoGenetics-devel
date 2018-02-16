@@ -13,7 +13,7 @@
 #' @param dates Data vector with decimal dates for each image.
 #' @param adjust P-values correction method for multiple tests.
 #' passed to \code{\link[stats]{p.adjust}}. Defalut is "none".
-#' @param run_parallel Run code in parallel? Default TRUE
+#' @param run_parallel Run code in parallel? Default FALSE
 #' @param workers Number of workers used for parallel evaulation. If NULL,
 #' the program uses N - 1, where N is the total number of available 
 #' logical cores. 
@@ -83,7 +83,7 @@
 setGeneric("eco.theilsen", 
   function(stacked, dates, 
            adjust = "none",
-           run_parallel = TRUE,
+           run_parallel = FALSE,
            workers = NULL,
            physical = FALSE) {
              

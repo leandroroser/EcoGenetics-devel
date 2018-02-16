@@ -110,7 +110,7 @@ eco.fill_ecogen_with_df <- function(from, pop, pop_levels,  XY = NULL, P = NULL,
     }
     
     if(!is.null(P)) {
-      P_out[pop == pop_levels[i], ]<- P[i, ]
+      P_out[pop == pop_levels[i], ] <- P[i, ]
       if(bind_columns && from_ncol["P"] > 0) {
         ecoslot.P(from) <- cbind(ecoslot.P(from) , P_out)
       } else {
@@ -180,7 +180,9 @@ eco.fill_ecogen_with_df <- function(from, pop, pop_levels,  XY = NULL, P = NULL,
 #' 
 #' 
 
-eco.fill_ecogen_with_ecopop <- function(from, to, pop, what = c("all", "XY", "P", "E", "C"), bind_columns = FALSE) {
+eco.fill_ecogen_with_ecopop <- function(from, to, pop, 
+                                        what = c("all", "XY", "P", "E", "C"), 
+                                        bind_columns = FALSE) {
   
   what <- match.arg(what)
   

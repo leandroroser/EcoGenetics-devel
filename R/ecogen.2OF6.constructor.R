@@ -208,7 +208,7 @@ setGeneric("ecogen",
                
                ## coherence between data ploidy and ncod is checked for int.df2genind
                
-               tempo <- int.df2genind(G, 
+               temporal_int_genind <- int.df2genind(G, 
                                       sep = sep, 
                                       ncod =  ncod,
                                       NA.char = NA.char, 
@@ -218,36 +218,33 @@ setGeneric("ecogen",
                                       rm.empty.ind = rm.empty.ind,
                                       poly.level = poly.level)
                
-               # unfolding tempo ------------------
+               # unfolding temporal_int_genind ------------------
               
                ## if marker type is "dominant", A is a pointer to G for assignments
                ## and extraction methods, and the slot is empty
-               if(tempo@type == "codominant") {
+               if(temporal_int_genind@type == "codominant") {
                  
                # matrix is lighter than data frame. LR 9/12/2016
-               object@A <- tempo@tab
+               object@A <- temporal_int_genind@tab
                } 
  
-               object@INT <- int.genind2gendata(tempo)
+               object@INT <- int.genind2gendata(temporal_int_genind)
                
-               ncod <- tempo@ncod
-               ploidy <- tempo@ploidy
+               ncod <- temporal_int_genind@ncod
+               ploidy <- temporal_int_genind@ploidy
                
                # G processed case ~-~-~-~-~~-~-~-~-~
                if(G.processed) {
-                 tmp <- int.genind2df(tempo)
+                 #temporal_df <- int.genind2df(temporal_int_genind,sep = sep)
                  # order data
                  if(order.G && type == "codominant") {
-                   tmp <- aue.sort(tmp, 
-                                   ncod = ncod, ploidy = ploidy, 
+                   G    <- aue.sort(G, 
+                                   ncod = ncod, 
+                                   ploidy = ploidy,
+                                   sep.loc = sep,
                                    chk.plocod = FALSE)
                  } 
-                 
-                 # G processed data frame 
-                 G <- as.data.frame(tmp, stringsAsFactors = FALSE)
-                 
-                 # G changes messages 
-                 
+       
                  if(order.G && type == "codominant") {
                    message("Note: ordered genotypes in slot G")
                  }
@@ -255,7 +252,7 @@ setGeneric("ecogen",
                # END G processed case ~-~-~-~-~~-~-~-~-~
                
                # fill now the G slot
-               object@G <- G
+               object@G <-  as.data.frame(G, stringsAsFactors = FALSE)
              }
              
              
@@ -268,15 +265,14 @@ setGeneric("ecogen",
              
              # all S columns as factors
              S <- as.data.frame(S)
-             if(dim(S)[1] != 0) {
-               # better this way. 2016/01/04 L.R.
+             if(dim(S)[1] != 0)  S[] <- lapply(S, factor)
+               # better the above way. 2016/01/04 L.R.
                # 'factor' is better than 'as.factor' because
                # it drops unused levels.
-             S[] <- lapply(S, factor)
-            #   for(i in 1:(ncol(S))) {
+              #   for(i in 1:(ncol(S))) {
             #     S[, i] <- factor(S[, i])
             #   }
-             }
+            
              object@S <- S
              object@C <- as.data.frame(C)
              
@@ -325,11 +321,16 @@ setGeneric("ecogen",
                # use nrow method
                
             
-               object.names <- list(XY=rownames(object@XY), P=rownames(object@P), G=rownames(object@G), 
-                                    A=rownames(object@A), E=rownames(object@E), S=rownames(object@S), 
+               object.names <- list(XY=rownames(object@XY), 
+                                    P=rownames(object@P), 
+                                    G=rownames(object@G), 
+                                    A=rownames(object@A),
+                                    E=rownames(object@E),
+                                    S=rownames(object@S), 
                                     C=rownames(object@C))
                
-               object.names <- object.names[unlist(lapply(object.names, function(x) length(x)  != 0))]
+               object.names <- object.names[unlist(lapply(object.names,
+                                                          function(x) length(x)  != 0))]
                
                if(length(object.names) != 0) {
                  rownumber <- unique(unlist(lapply(object.names, length)))

@@ -41,7 +41,8 @@
 
 
 setGeneric("ecogen2geneland", 
-           function(eco, dir = "", ncod = NULL, ploidy = 2,  to_numeric = FALSE, nout = 3, 
+           function(eco, dir = "", ncod = NULL, ploidy = 2,  
+                    to_numeric = FALSE, nout = 3, 
                     recode = c("all", "column", "paired"),
                     replace_in = NULL,
                     replace_out =NULL, ...) {
