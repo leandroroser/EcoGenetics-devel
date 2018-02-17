@@ -21,7 +21,7 @@ setMethod("initialize", "ecopop",
 
 setMethod("names", "ecopop",
           function(x){
-            return(x@S)
+            return(x@ATTR$names)
           })
 
 
@@ -33,7 +33,7 @@ setMethod("names", "ecopop",
 
 setReplaceMethod("names", c(x = "ecopop", value = "any_vector"), function(x, value) {
   
-  if(length(x@S) != length(value)) {
+  if(nrow(x@S) != length(value)) {
     stop("Length of input names different of the length of the names present in the object")
   }
   
@@ -42,7 +42,7 @@ setReplaceMethod("names", c(x = "ecopop", value = "any_vector"), function(x, val
   }
   
   nrow_data <- nrow(x)
-  x@S <- as.factor(value)
+  x@ATTR$names <- value
   
   if(nrow_data["XY"] != 0) {
     rownames(x@XY) <- value
@@ -60,6 +60,12 @@ setReplaceMethod("names", c(x = "ecopop", value = "any_vector"), function(x, val
   if(nrow_data["E"] != 0) {
     rownames(x@E) <- value
   }
+  
+  
+  if(nrow_data["S"] != 0) {
+    rownames(x@S) <- value
+  }
+  
 
   if(nrow_data["C"] != 0) {
     rownames(x@C) <- value
@@ -92,7 +98,7 @@ is.ecopop <- function(x) {
 
 setMethod("nrow", "ecopop",
           function(x){
-            c(XY = nrow(x@XY), P = nrow(x@P), AF = nrow(x@AF), E = nrow(x@E), C = nrow(x@C))
+            c(XY = nrow(x@XY), P = nrow(x@P), AF = nrow(x@AF), E = nrow(x@E),  S = nrow(x@S), C = nrow(x@C))
           })
 
 # ncol -----------------------------------------------------------------------#
@@ -109,6 +115,7 @@ setMethod("ncol", "ecopop",
               P=ncol(x@P), 
               AF=ncol(x@AF), 
               E=ncol(x@E),
+              S = ncol(x@S),
               C=ncol(x@C))
           })
 
@@ -126,6 +133,7 @@ setMethod("dim", "ecopop",
                  P=c(nrow(x@P), ncol(x@P)), 
                  AF=c(nrow(x@AF), ncol(x@AF)), 
                  E=c(nrow(x@E), ncol(x@E)), 
+                 S=c(nrow(x@S), ncol(x@S)), 
                  C=c(nrow(x@C), ncol(x@C)))
           })
 
@@ -148,6 +156,7 @@ setMethod("as.list",
             to$P <- x@P
             to$AF <- x@AF
             to$E <- x@E
+            to$S <- x@S
             to$C <- x@C
             return(to)
           })
@@ -197,11 +206,10 @@ setMethod("show",
             l4.1 <-  ifelse(ncol(object@E) > 1 || ncol(object@E) == 0, 
                             "environmental variables", "environmental variable")
             #---S slot---
-            l5 <- paste(length(object@S))
-            l5.1 <- paste(">>", length(object@S), 
-                            ifelse(length(object@S) > 1, 
-                                   "populations found", 
-                                   "population found"))
+            l5 <- paste(nrow(object@S), "x", ncol(object@S))
+            l5.1 <-  ifelse(ncol(object@S) > 1 || ncol(object@S) == 0, 
+                            "populations found", 
+                            "population found")
       
             #---C slot---
             l6 <- paste(nrow(object@C), "x", ncol(object@C))

@@ -5,7 +5,7 @@
 \title{Theil-sen regression for a raster time series, 
 with parallelization available}
 \usage{
-eco.theilsen(stacked, dates, adjust = "none", run_parallel = TRUE,
+eco.theilsen(stacked, dates, adjust = "none", run_parallel = FALSE,
   workers = NULL, physical = FALSE)
 }
 \arguments{
@@ -16,7 +16,7 @@ eco.theilsen(stacked, dates, adjust = "none", run_parallel = TRUE,
 \item{adjust}{P-values correction method for multiple tests.
 passed to \code{\link[stats]{p.adjust}}. Defalut is "none".}
 
-\item{run_parallel}{Run code in parallel? Default TRUE}
+\item{run_parallel}{Run code in parallel? Default FALSE}
 
 \item{workers}{Number of workers used for parallel evaulation. If NULL,
 the program uses N - 1, where N is the total number of available 

@@ -1,6 +1,8 @@
 context("Test ecogen-ecopop basic methods")
 skip_on_cran()
 
+data(eco.test)
+
 test_that("ecogen basic methods", {
   expect_true(is.ecogen(eco))
   expect_that(length(nrow(eco)), equals(7))
@@ -17,10 +19,10 @@ expect_true(na.omit(unique(c(rownames(eco@XY)[1], rownames(eco@P)[1], rownames(e
 
 test_that("ecopop basic methods work", {
   expect_true(is.ecopop(my_ecopop))
-  expect_that(length(nrow(my_ecopop)), equals(5))
-  expect_that(length(ncol(my_ecopop)), equals(5))
-  expect_that(length(dim(my_ecopop)), equals(5))
-  expect_that(length(as.list(my_ecopop)), equals(5))
+  expect_that(length(nrow(my_ecopop)), equals(6))
+  expect_that(length(ncol(my_ecopop)), equals(6))
+  expect_that(length(dim(my_ecopop)), equals(6))
+  expect_that(length(as.list(my_ecopop)), equals(6))
   expect_that(names(as.list(eco))[1], equals("XY"))
   
   names(my_ecopop) <- paste0("test", names(my_ecopop))

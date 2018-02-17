@@ -4,7 +4,8 @@
 \alias{int.check.ncod}
 \title{Check ploidy and number of digits per allele}
 \usage{
-int.check.ncod(X, ploidy, ncod = NULL, sep = "", numeric.dat = FALSE)
+int.check.ncod(X, ploidy, ncod = NULL, sep = "", numeric.dat = FALSE,
+  strict_nchar = FALSE)
 }
 \arguments{
 \item{X}{Matrix to check.}
@@ -16,6 +17,8 @@ int.check.ncod(X, ploidy, ncod = NULL, sep = "", numeric.dat = FALSE)
 \item{sep}{Character string separating alleles.}
 
 \item{numeric.dat}{Numeric data checks. Default FALSE.}
+
+\item{strict_nchar}{Test if the number of characters is uniform when sep != "". Default FALSE}
 }
 \description{
 Check ploidy and number of digits per allele

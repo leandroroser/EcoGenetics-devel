@@ -162,6 +162,19 @@
 
 0
 
+#' Eco4
+#' @name eco4
+#' @docType data
+#' @description data frames with simulated data of 173 individuals. 
+#' The data frams can be used to construct an ecogen object that includes
+#' genetic data separated by a character ad with non uniform of number of characters
+#' @author Leandro Roser \email{learoser@@gmail.com}
+#' @usage
+#' data(eco3)
+#' eco3
+#' @keywords data
+
+0
 #' environment
 #' @name environment
 #' @docType data

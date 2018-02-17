@@ -5,8 +5,9 @@
 \title{Creating a new ecopop object}
 \usage{
 ecopop(XY = data.frame(), P = data.frame(), AF = data.frame(),
-  E = data.frame(), S = factor(), C = data.frame(), ploidy,
-  type = c("codominant", "dominant"), order.df = FALSE)
+  E = data.frame(), S = data.frame(), C = data.frame(),
+  pop_names_column = 1L, ploidy, type = c("codominant", "dominant"),
+  order.df = FALSE)
 }
 \arguments{
 \item{XY}{Data frame with n rows (populations) and m columns (coordinates).}

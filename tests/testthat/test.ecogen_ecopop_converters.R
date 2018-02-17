@@ -92,8 +92,8 @@ test_that("genpop and ecopop interconversion works", {
   expect_true(all(dim(my_ecopop[["XY"]]) == c(4, 2)))
   expect_true(all(dim(my_ecopop[["P"]]) == c(4, 8)))
   expect_true(all(dim(my_ecopop[["AF"]]) == c(4, 40)))
-  expect_true(all(dim(my_ecopop[["E"]]) == c(4, 8)))
-  expect_true(length(my_ecopop[["S"]]) == 4)
+  expect_true(all(dim(my_ecopop[["E"]]) == c(4, 6)))
+  expect_true(all(dim(my_ecopop[["S"]]) == c(4, 1)))
   expect_true(all(dim(my_ecopop[["C"]]) == c(0, 0)))
   
   expect_that(my_ecopop2, is_a("ecopop"))
@@ -101,7 +101,7 @@ test_that("genpop and ecopop interconversion works", {
   expect_true(all(dim(my_ecopop2[["P"]]) == c(0, 0)))
   expect_true(all(dim(my_ecopop2[["AF"]]) == c(4, 40)))
   expect_true(all(dim(my_ecopop2[["E"]]) == c(0, 0)))
-  expect_true(length(my_ecopop2[["S"]]) == 4)
+  expect_true(all(dim(my_ecopop2[["S"]]) == c(4, 1)))
   expect_true(all(dim(my_ecopop2[["C"]]) == c(0, 0)))
   
   expect_that(my_genpop, is_a("genpop"))

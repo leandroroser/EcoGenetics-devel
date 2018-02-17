@@ -41,7 +41,7 @@ test_that("test ecopop get", {
   expect_true(all(dim(my_ecopop[["P"]]) == c(4, 8)))
   expect_true(all(dim(my_ecopop[["AF"]]) == c(4, 40)))
   expect_true(all(dim(my_ecopop[["E"]]) == c(4, 8)))
-  expect_true(length(my_ecopop[["S"]]) == (4))
+  expect_true(all(dim(my_ecopop[["S"]]) == c(4,2)))
   expect_true(all(dim(my_ecopop[["C"]]) == c(0, 0)))
 })
 
@@ -52,7 +52,7 @@ test_that("test ecopop set", {
   expect_true(all(dim(new_eco[["P"]] <- my_ecopop@P) == c(4, 8)))
   expect_true(all(dim(new_eco[["AF"]] <- my_ecopop@AF) == c(4, 40)))
   expect_true(all(dim(new_eco[["E"]] <- my_ecopop@E) == c(4, 8)))
-  expect_true(all(dim(new_eco[["S"]] <- my_ecopop@S) == 4))
+  expect_true(all(dim(new_eco[["S"]] <- my_ecopop@S) == c(4, 2)))
   expect_true(all(dim(new_eco[["C"]] <- my_ecopop@C) == c(0, 0)))
 })
 

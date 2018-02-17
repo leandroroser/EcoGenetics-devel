@@ -17,10 +17,10 @@ setReplaceMethod("ecoslot.XY", "ecopop", function(object, value, order.rows = FA
   
   object@XY <- as.data.frame(value)
   
-  if(length(object@S) != 0) {
+  if(length(object@ATTR$names) != 0) {
     if(order.rows) object <- int.order(object)
   } else {
-    object@S <- factor(rownames(value))
+    object@ATTR$names <- rownames(value)
   }
   
   #check validity
@@ -44,10 +44,10 @@ setReplaceMethod("ecoslot.P", "ecopop", function(object, value, order.rows = FAL
   
   object@P <- as.data.frame(value)
   
-  if(length(object@S) != 0) {
+  if(length(object@ATTR$names) != 0) {
     if(order.rows) object <- int.order(object)
   } else {
-    object@S <- factor(rownames(value))
+    object@ATTR$names <- rownames(value)
   }
   
   #check validity
@@ -71,10 +71,10 @@ setReplaceMethod("ecoslot.AF", "ecopop", function(object, value, order.rows = FA
   object@AF <- as.matrix(value)
   mode(object@AF) <- "integer"
   
-  if(length(object@S) != 0) {
+  if(length(object@ATTR$names) != 0) {
     if(order.rows) object <- int.order(object)
   } else {
-    object@S <- factor(rownames(value))
+    object@ATTR$names <- rownames(value)
   }
   #check validity
   validObject(object)
@@ -97,10 +97,10 @@ setReplaceMethod("ecoslot.E", "ecopop", function(object, value, order.rows = FAL
   
   object@E <- as.data.frame(value)
   
-  if(length(object@S) != 0) {
+  if(length(object@ATTR$names) != 0) {
     if(order.rows) object <- int.order(object)
   } else {
-    object@S <- factor(rownames(value))
+    object@ATTR$names <- rownames(value)
   }
   
   #check validity
@@ -123,12 +123,13 @@ setMethod("ecoslot.S", "ecopop", function(X) X@S)
 # PARA QUE NO CAMBIE TODO PORQUE ES EL NOMBRE!!
 setReplaceMethod("ecoslot.S", "ecopop", function(object, value, order.rows = FALSE) {
   
-  object@S <- as.factor(value)
+  object@S <- value
   
-  if(length(object@S) != 0) {
+  if(length(object@ATTR$names) != 0) {
     if(order.rows) object <- int.order(object)
+  } else {
+    object@ATTR$names <- rownames(value)
   }
-  
   #check validity
   validObject(object)
   
@@ -149,10 +150,10 @@ setReplaceMethod("ecoslot.C", "ecopop", function(object, value, order.rows = FAL
   
   object@C <- as.data.frame(value)
   
-  if(length(object@S) != 0) {
+  if(length(object@ATTR$names) != 0) {
     if(order.rows) object <- int.order(object)
   } else {
-    object@S <- factor(rownames(value))
+    object@ATTR$names <- rownames(value)
   }
   
   #check validity

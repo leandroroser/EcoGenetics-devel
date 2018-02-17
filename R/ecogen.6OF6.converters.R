@@ -434,7 +434,7 @@ setGeneric("ecogen2gstudio",
              if(type == "codominant") {
                dat <- eco.convert(from@G, "matrix", sep.out = ":")
                dat <- as.data.frame(dat, stringsAsFactors = FALSE)
-               for(i in 1:ncol(dat)) {  
+               for(i in 1:ncol(dat)) {
                  class(dat[, i]) <- "locus"
                  #out[[i]] <- gstudio::locus(dat[, i, drop = FALSE], type = "separated")
                }

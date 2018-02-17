@@ -22,7 +22,8 @@
 #' In both cases, the program set the content of the S slots as the reference names of the object
 #' using the row names of the first non-empty data frame found in the following order: 
 #' XY, P, AF, E, C. This attribute is used as reference to order rows when order.df = TRUE. 
-#' 
+#' @param pop_names_column Column with the population in the slot S that represents used
+#' to create the name of the object. Dafault is the first column.
 #' @details This is a generic function for creation of ecopop objects.
 #' Missing data should be coded as "NA". 
 #' 
@@ -126,11 +127,7 @@ setGeneric("ecopop",
              if(is.null(ploidy) || missing(ploidy)) {
                stop("Please provide the ploidy of your data")
              }
-             
-             if(!(active_group %in% seq_len(ncol(S)))) {
-               stop("Invalid active group column")
-             }
-  
+
              # creating a new ecopop object
              object <- new("ecopop", ploidy, type)
 
@@ -142,7 +139,14 @@ setGeneric("ecopop",
              
              # all S columns as factors
              S <- as.data.frame(S)
-             if(dim(S)[1] != 0) S[] <- lapply(S, factor)
+             if(dim(S)[1] != 0) {
+               S[] <- lapply(S, factor)
+               
+               if(!( pop_names_column %in% seq_len(ncol(S)))) {
+                 stop("Invalid pop column")
+               }
+               
+             }
              
              object@S <- S
              object@C <- as.data.frame(C)
@@ -151,19 +155,19 @@ setGeneric("ecopop",
  
              # set row names
              
-             # object.names <- list(XY=rownames(object@XY), P=rownames(object@P),
-             #                      AF=rownames(object@AF), E=rownames(object@E), 
-             #                      S=rownames(object@S), C=rownames(object@C))
+              object.names <- list(XY=rownames(object@XY), P=rownames(object@P),
+                                   AF=rownames(object@AF), E=rownames(object@E), 
+                                   S=rownames(object@S), C=rownames(object@C))
              # 
-             # object.names <- object.names[unlist(lapply(object.names, function(x) length(x)  != 0))]
+              object.names <- object.names[unlist(lapply(object.names, function(x) length(x)  != 0))]
              # 
-             # if(length(object.names) != 0) {
-             #   rownumber <- unique(unlist(lapply(object.names, length)))
-             #   # check nrow consistency
-             #   if(length(rownumber)> 1) {
-             #     stop("Non unique row number found")
-             #   }
-             # }
+              if(length(object.names) != 0) {
+                rownumber <- unique(unlist(lapply(object.names, length)))
+                # check nrow consistency
+                if(length(rownumber)> 1) {
+                  stop("Non unique row number found")
+                }
+              }
              # 
              # 
              
@@ -173,9 +177,11 @@ setGeneric("ecopop",
                if(!(pop_names_column %in% S_ncol)) {
                  stop("Incorrect value for pop_names_column")
                }
-             obj@ATTR$names <- as.factor(objectS[, pop_names_column])
+             object@ATTR$names <- as.factor(S[, pop_names_column])
              } else {
-             obj@ATTR$names <- paste0("P.", seq_len(rownumber))
+               if(length(object.names) != 0) {
+             object@ATTR$names <- factor(paste0("P.", seq_len(rownumber)))
+               }
              }
          
              object@ATTR$whereIs <- parent.frame()

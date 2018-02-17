@@ -44,7 +44,7 @@ if(from@INT@type == "codominant") {
 
 to@E <-  aue.aggregated_df(from@E, pop, aggregator, factor_to_counts = factor_to_counts)
 
-to@S <-  apply(from@S, 2, factor(levels(x)))
+to@S <-  data.frame(pop = factor(levels(pop)))
 
 to@C <-   aue.aggregated_df(from@C, pop, aggregator, factor_to_counts = factor_to_counts)
 
@@ -132,7 +132,8 @@ setGeneric("genpop2ecopop", function(from) {
     stop("multiple ploidy levels are not supported by ecopop objects")
   }
   
-  to <- ecopop(AF = from@tab, S = as.factor(rownames(from@tab)), ploidy = this_ploidy,
+  to <- ecopop(AF = from@tab, S = data.frame(pop = as.factor(rownames(from@tab))), 
+               ploidy = this_ploidy,
                type =  ifelse(from@type == "codom", "codominant", "dominant"))
   to@INT@loc.fac <- from@loc.fac
   
@@ -146,6 +147,7 @@ setGeneric("genpop2ecopop", function(from) {
     to@XY <- from@other$xy
   }
   
+  to@ATTR$names <- rownames(from@tab)
   to@ATTR$whereIs <- parent.frame()
   to@ATTR$.call <- match.call()
 

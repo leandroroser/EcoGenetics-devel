@@ -61,31 +61,29 @@ check_ecopop <- function(object) {
   
   names_object <- list(rownames(object@XY), rownames(object@P), 
                        rownames(object@AF), rownames(object@E),
-                       rownames(object@C))
+                       rownames(object@S), rownames(object@C))
   
   names_object <- names_object[vapply(names_object, function(i) length(i) != 0, 
                                       logical(1))]
-  # check valid length of names 
-  n_length <- length(object@S)
+  # # check valid length of names 
+  # n_length <- length(object@S)
+  # 
+  # check_n_length <- vapply(names_object, function(i) n_length == length(i),
+  #                          logical(1))
   
-  check_n_length <- vapply(names_object, function(i) n_length == length(i),
-                           logical(1))
+  # if(!all(check_n_length)) {
+  #   msg <- "invalid length in object names"
+  #   errors <- c(errors, msg)
+  # }
   
-  if(!all(check_n_length)) {
-    msg <- "invalid length in object names"
-    errors <- c(errors, msg)
-  }
-  
-  # check equality in names
-  if(all(check_n_length)) {
-    check_names <- vapply(names_object, function(i) all(i == object@S), 
+    check_names <- vapply(names_object, function(i) all(i == object@ATTR$names), 
                           logical(1))
     
     if(!all(check_names)) {
-      msg <- "data frames with invalid row names"
+      msg <- "data frames with different row names"
       errors <- c(errors, msg)
     }
-  }
+    
   if(is.null(object@INT@ploidy)) {
     msg <- "null ploidy in object"
     errors <- c(errors, msg)
@@ -120,7 +118,7 @@ setClass("ecopop",
                         P = "data.frame",
                         AF = "matrix",
                         E = "data.frame",
-                        S = "factor",
+                        S = "data.frame",
                         C = "data.frame",
                         INT = "int.popdata",
                         ATTR = "list"
@@ -130,7 +128,7 @@ setClass("ecopop",
                    P = data.frame(),
                    AF = matrix(nrow = 0, ncol = 0),
                    E = data.frame(),
-                   S = factor(), 
+                   S = data.frame(), 
                    C = data.frame(),
                    ATTR = list(names = character(0),
                                whereIs = new.env(emptyenv()), 
