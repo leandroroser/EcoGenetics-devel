@@ -43,7 +43,7 @@ Collate: 'ZZZ.R' 'generics.R' 'auxiliar.R' 'int.genind.R'
         'int.multitable.R' 'int.order.R' 'int.random.test.R'
         'miscellaneous.R' 'fill_ecogen_with_pop.R' 'plot.generic.R' 'plot.methods.R'
         'roxygen.auxiliar.R' 'show_summary.methods.R' 'eco.pop_alfreq.R' 
-        'eco.rhardy.R'
+        'eco.kin.hardy.R'
 RoxygenNote: 6.0.1
 NeedsCompilation: no
 Packaged: 2018-01-12 08:12:58 UTC; leandro
