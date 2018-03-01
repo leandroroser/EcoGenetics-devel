@@ -24,7 +24,8 @@ setClass("int.popdata",
                         aggregator = "function",
                         factor_to_counts = "logical",
                         loc.fac = "factorORnull",
-                        all.names = "characterORnull"
+                        all.names = "characterORnull",
+                        allele_data = "characterORnull"
          ), 
                        
          prototype(ploidy = NULL,
@@ -32,7 +33,8 @@ setClass("int.popdata",
                    aggregator = function(){},
                    factor_to_counts = TRUE,
                    loc.fac = NULL,
-                   all.names = NULL
+                   all.names = NULL,
+                   allele_data = NULL
          )
 )
 

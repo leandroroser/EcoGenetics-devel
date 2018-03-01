@@ -7,7 +7,7 @@
 ecopop(XY = data.frame(), P = data.frame(), AF = data.frame(),
   E = data.frame(), S = data.frame(), C = data.frame(),
   pop_names_column = 1L, ploidy, type = c("codominant", "dominant"),
-  order.df = FALSE)
+  order.df = FALSE, allele_data = c("counts", "frequencies"))
 }
 \arguments{
 \item{XY}{Data frame with n rows (populations) and m columns (coordinates).}
@@ -25,6 +25,9 @@ with other methods of the package.}
 \item{S}{Vector (factor) with n items (population hierarchical levels).}
 
 \item{C}{Data frame with n rows (populations), and m columns (custom variables).}
+
+\item{pop_names_column}{Column with the population in the slot S that represents used
+to create the name of the object. Dafault is the first column.}
 
 \item{ploidy}{Ploidy of the AF data frame.}
 

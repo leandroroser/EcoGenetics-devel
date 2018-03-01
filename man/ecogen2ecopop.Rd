@@ -5,7 +5,7 @@
 \title{Conversion form ecogen to ecopop}
 \usage{
 ecogen2ecopop(from, hier, factor_to_counts = TRUE, aggregator = function(x)
-  mean(x, na.rm = TRUE))
+  mean(x, na.rm = TRUE), allele_data = c("counts", "frequencies"))
 }
 \arguments{
 \item{from}{Object of class "ecogen"}
@@ -15,6 +15,9 @@ ecogen2ecopop(from, hier, factor_to_counts = TRUE, aggregator = function(x)
 \item{factor_to_counts}{Convert factors into counts for each level?}
 
 \item{aggregator}{Function used to aggregate data}
+
+\item{allele_data}{Genetic data should be created as counts ("counts") 
+or allele frequencies("frequencies")? Default is "counts".}
 }
 \description{
 This function creates an ecopop object from an ecogen object

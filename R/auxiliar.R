@@ -914,6 +914,19 @@ aue.aggregated_df <- function(X, hier, fun, factor_to_counts = FALSE, ...) {
   do.call("cbind", temp)
 }
 
+
+#' Converion from dummy allele matrix to frequencies
+#' @param df data frame with alleles coded in dummy format
+#' @param loc_fac factor with the locus of each allele
+#' @export
+
+aue.dummy2af <- function(df, loc_fac) {
+out <- apply(df, 1, function(x) tapply(x, loc_fac, function(y) y / sum(y, na.rm =  TRUE)))
+out <- lapply(out, function(x) unlist(unname(x)))
+do.call("rbind", out)
+}
+
+
 #' EcoGenetic devel site
 #' @description The function opens the EcoGenetics-devel web site:
 #' https://github.com/leandroroser/EcoGenetics-devel

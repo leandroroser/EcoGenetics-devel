@@ -120,13 +120,15 @@ setGeneric("ecopop",
                     pop_names_column = 1L,
                     ploidy,
                     type = c("codominant", "dominant"),
-                    order.df = FALSE) {				
+                    order.df = FALSE,
+                    allele_data = c("counts", "frequencies")) {				
              
             
              type <- match.arg(type)
              if(is.null(ploidy) || missing(ploidy)) {
                stop("Please provide the ploidy of your data")
              }
+             allele_data <- match.arg(allele_data)
 
              # creating a new ecopop object
              object <- new("ecopop", ploidy, type)
@@ -134,7 +136,10 @@ setGeneric("ecopop",
              object@XY <- as.data.frame(XY)
              object@P <- as.data.frame(P)
              object@AF <- as.matrix(AF)
+             
+             if(allele_data == "counts") {
              mode(object@AF)<- "integer"
+             }
              object@E <- as.data.frame(E)
              
              # all S columns as factors
@@ -158,9 +163,9 @@ setGeneric("ecopop",
               object.names <- list(XY=rownames(object@XY), P=rownames(object@P),
                                    AF=rownames(object@AF), E=rownames(object@E), 
                                    S=rownames(object@S), C=rownames(object@C))
-             # 
+             
               object.names <- object.names[unlist(lapply(object.names, function(x) length(x)  != 0))]
-             # 
+              
               if(length(object.names) != 0) {
                 rownumber <- unique(unlist(lapply(object.names, length)))
                 # check nrow consistency
@@ -168,8 +173,6 @@ setGeneric("ecopop",
                   stop("Non unique row number found")
                 }
               }
-             # 
-             # 
              
              ## set names
              S_ncol <- ncol(S)

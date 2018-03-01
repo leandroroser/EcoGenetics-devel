@@ -98,7 +98,12 @@ is.ecopop <- function(x) {
 
 setMethod("nrow", "ecopop",
           function(x){
-            c(XY = nrow(x@XY), P = nrow(x@P), AF = nrow(x@AF), E = nrow(x@E),  S = nrow(x@S), C = nrow(x@C))
+            c(XY = nrow(x@XY), 
+              P = nrow(x@P),
+              AF = nrow(x@AF), 
+              E = nrow(x@E),  
+              S = nrow(x@S), 
+              C = nrow(x@C))
           })
 
 # ncol -----------------------------------------------------------------------#

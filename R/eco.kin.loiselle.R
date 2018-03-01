@@ -38,7 +38,7 @@ eco.kin.loiselle <- function(eco) {
   nal <- ncol(geno)
   N <- nrow(geno)
   alelos <- nrow(geno)
-  p.la <- apply(geno, 2, sum, na.rm = TRUE)
+  p.la <- colSums(geno, na.rm = TRUE)
   p.locus <- tapply(p.la,locus, sum, na.rm = TRUE)
   p.la <- p.la / p.locus[locus]
   
@@ -56,12 +56,12 @@ eco.kin.loiselle <- function(eco) {
   
   #LEFT TERM
   out <- list()
-  for(i in 1:nal) {
+  for(i in seq_len(nal)) {
     out[[i]] <- outer(p.center[,i], p.center[,i])
   }
   
   numer <- matrix(0, N , N)
-  for(i in 1:nal){
+  for(i in seq_len(nal)){
     numer <- numer + ifelse(is.na(out[[i]]), 0, out[[i]] + matrix(T2[i], N, N))
   }
   
