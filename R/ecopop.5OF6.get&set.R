@@ -1,7 +1,6 @@
 ################################################
 #### GETTERS AND SETTERS
 ################################################
-t 
 
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.XY

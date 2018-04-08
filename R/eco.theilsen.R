@@ -7,7 +7,9 @@
 #' The output consists of two rasters (one for the estimators and one for 
 #' the P-values). It is recommended to use a "RasterBrick", which
 #' is more efficient in memory management. 
-#' The program can compute the result using parallel (default) or serial evaluation.
+#' The program can compute the result using serial (default) or parallel evaluation.
+#' For parallel evaluation, the program uses PSOCK cluster for windows, and FORK cluster for 
+#' other operative systems.
 #' 
 #' @param stacked Stacked images ("RasterLayer"  or "RasterBrick").
 #' @param dates Data vector with decimal dates for each image.
@@ -18,6 +20,9 @@
 #' the program uses N - 1, where N is the total number of available 
 #' logical cores. 
 #' @param physical Use only physical cores for parallel evaluation? Default FALSE.
+#' @param cl_type Cluster type. If not specified, "PSOCK" will be used for windows
+#' and "FORK" otherwise. The value is passed as the parameter "type" 
+#' to the function \code{\link[parallel]{makeCluster}}.
 #' @seealso \code{\link[rkt]{rkt}}.
 #' 
 #' @examples
@@ -85,7 +90,8 @@ setGeneric("eco.theilsen",
            adjust = "none",
            run_parallel = FALSE,
            workers = NULL,
-           physical = FALSE) {
+           physical = FALSE,
+           cl_type = NULL) {
              
     adjust <- match.arg(adjust)
     
@@ -121,8 +127,18 @@ if(run_parallel) {
         data$dates <- dates
         data$cellnumber <- cellnumber
         data$theilsen <- rkt::rkt
+        
+        # use psock or fork depending on OS
+        
+        if(is.null(cl_type)) {
+        if(this_os == "windows") {
+          cl_type <- "PSOCK"
+        } else {
+          cl_type <- "FORK"
+        }
+        }
 
-      cl <- parallel::makeCluster(workers, outfile = "")
+      cl <- parallel::makeCluster(workers, outfile = "", type = cl_type)
       doParallel::registerDoParallel(cl, cores = workers)
       
       on.exit((function(){

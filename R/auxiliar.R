@@ -786,6 +786,7 @@ aue.geom.dist <- function(XY, geometry = c("ellipse", "square"),  d = 1,
 #' @param x eco.correlog object
 #' @description convert a eco.correlog  output into a list for degrees 
 #' @keywords internal
+
 int.corvarToDeg <- function(x, angle) {
   outlist <- list()
   mynames <- colnames(x[[1]])
@@ -927,6 +928,10 @@ do.call("rbind", out)
 }
 
 
+
+#---------------------------------------------------------------------------------------------
+
+
 #' EcoGenetic devel site
 #' @description The function opens the EcoGenetics-devel web site:
 #' https://github.com/leandroroser/EcoGenetics-devel
@@ -944,7 +949,6 @@ ecogenetics_tutorial <- function(){
   cat("Opening link: https://leandroroser.github.io/EcoGenetics-Tutorial \n")
   browseURL("https://leandroroser.github.io/EcoGenetics-Tutorial/")
 }
-
 
 
 

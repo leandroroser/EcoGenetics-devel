@@ -225,4 +225,4 @@ setGeneric("eco.lmtree",
                return(tre.new)
              }
              
-           })
+  })

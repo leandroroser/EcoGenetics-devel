@@ -33,7 +33,7 @@ setGeneric("int.order",
                
                this_order <- match(.refnames, rownames(df_to_order), nomatch = 0)
                if(length(this_order) != length(.refnames)) {
-                 stop("invalid object: some row names not matching")
+                 stop("invalid object: some row names do not match")
                }
                
                if(!all(this_order == seq_len(length(.refnames))) && !all(this_order == 0)) {
@@ -63,7 +63,7 @@ setGeneric("int.order",
              }
              } else {
                
-               refnames <- eco@S
+               refnames <- eco@ATTR$names
                if(length(refnames) != 0) {
                  
                  eco@XY <- .order(refnames, eco@XY)

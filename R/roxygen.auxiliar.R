@@ -112,7 +112,7 @@
 
 0
 
-#' Coordinates
+#' coordinates
 #' @name coordinates
 #' @docType data
 #' @description Data frame with cartesian coordinates of 
@@ -126,10 +126,10 @@
 
 0
 
-#' Eco
+#' eco
 #' @name eco
 #' @docType data
-#' @description ecogen object with simulated data of 225 individuals.
+#' @description ecogen object with simulated data of 225 individuals, with codiminant markers
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @usage
 #' data(eco.test)
@@ -138,7 +138,19 @@
 
 0
 
-#' Eco2
+#' eco_dom
+#' @name eco
+#' @docType data
+#' @description ecogen object with simulated data of 225 individuals, with dominant markers
+#' @author Leandro Roser \email{learoser@@gmail.com}
+#' @usage
+#' data(eco.test)
+#' eco
+#' @keywords data
+
+0
+
+#' eco2
 #' @name eco2
 #' @docType data
 #' @description ecogen object with simulated data of 900 individuals.
@@ -150,7 +162,7 @@
 
 0
 
-#' Eco3
+#' eco3
 #' @name eco3
 #' @docType data
 #' @description ecogen object with simulated data of 173 individuals.
@@ -162,7 +174,7 @@
 
 0
 
-#' Eco4
+#' eco4
 #' @name eco4
 #' @docType data
 #' @description data frames with simulated data of 173 individuals. 
@@ -201,6 +213,20 @@
 #' @keywords data
 
 0
+
+#' genotype_dom
+#' @name genotype_dom
+#' @docType data
+#' @description Data frame with simulated dominant data
+#' data of 225 individuals.
+#' @author Leandro Roser \email{learoser@@gmail.com}
+#' @usage
+#' data(eco.test)
+#' genotype_dom
+#' @keywords data
+
+0
+
 
 #' my_ecopop
 #' @name my_ecopop

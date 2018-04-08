@@ -47,6 +47,7 @@ check_ecopop <- function(object) {
   
   errors <- character()
   
+  if(object@ATTR$lock.rows) {
   # check number of rows  = 0 or unique -----
   
   dim_eco <- list(dim(object@XY), dim(object@P), 
@@ -85,6 +86,8 @@ check_ecopop <- function(object) {
       msg <- "data frames with different row names"
       errors <- c(errors, msg)
     }
+    
+  }
     
   if(is.null(object@INT@ploidy)) {
     msg <- "null ploidy in object"
@@ -133,6 +136,7 @@ setClass("ecopop",
                    S = data.frame(), 
                    C = data.frame(),
                    ATTR = list(names = character(0),
+                               lock.rows = TRUE,
                                whereIs = new.env(emptyenv()), 
                                .call = call("."))
          ),

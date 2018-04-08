@@ -11,7 +11,6 @@ data(tab)
 set.seed(6)
 
 
-
 test_that("eco.alfreq works fine", {
   skip_on_cran()
   expect_true(class(eco.alfreq(eco)[[1]])[2] == "ggplot")
@@ -247,4 +246,11 @@ test_that("eco.theilsen works fine", {
   # 
   file.remove(c("temporal.tif", "slope.tif", "pvalue.tif"))
 })
+
+test_that("eco.pop_alfreq works fine", {
+  skip_on_cran()
+  expect_true(class(obj) == "eco.detrend")
+  expect_true(all(dim(obj@RES) == c(900, 1)))
+})
+
 

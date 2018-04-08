@@ -3,15 +3,23 @@
 \docType{data}
 \name{eco}
 \alias{eco}
-\title{Eco}
+\alias{eco}
+\title{eco}
 \usage{
+data(eco.test)
+eco
+
 data(eco.test)
 eco
 }
 \description{
-ecogen object with simulated data of 225 individuals.
+ecogen object with simulated data of 225 individuals, with codiminant markers
+
+ecogen object with simulated data of 225 individuals, with dominant markers
 }
 \author{
+Leandro Roser \email{learoser@gmail.com}
+
 Leandro Roser \email{learoser@gmail.com}
 }
 \keyword{data}

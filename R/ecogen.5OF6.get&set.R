@@ -107,7 +107,7 @@ setReplaceMethod("ecoslot.G", "ecogen",
                      
                      ## coherence between data ploidy and ncod is checked for int.df2genind
                      
-                     tempo <- int.df2genind(as.data.frame(value), 
+                     temporal_int_genind <- int.df2genind(as.data.frame.matrix(value), 
                                             sep = sep, 
                                             ncod =  ncod,
                                             NA.char = NA.char, 
@@ -115,29 +115,35 @@ setReplaceMethod("ecoslot.G", "ecogen",
                                             type = type,
                                             missing = missing,
                                             rm.empty.ind = rm.empty.ind,
-                                            poly.level = poly.level)
+                                            poly.level = poly.level,
+                                            free.rows = object@ATTR$free.rows)
                      
-                     # unfolding tempo
+                     # unfolding temporal_int_genind
                      
                      ## if marker type is "dominant", A is a pointer to G for assignments
                      ## and extraction methods, and the slot is empty
-                     if(tempo@type == "codominant") {
-                       object@A <- tempo@tab
+                     if(type == "codominant") {
+                       
+                       # matrix is lighter than data frame. LR 9/12/2016
+                       object@A <- temporal_int_genind@tab
+                     }  else {
+                       object@G <- temporal_int_genind@tab
                      }
-                   
-                     object@INT <- int.genind2gendata(tempo)
                      
-                     ncod <- tempo@ncod
-                     ploidy <- tempo@ploidy
+                     object@INT <- int.genind2gendata(temporal_int_genind)
+                     
+                     ncod <- temporal_int_genind@ncod
+                     ploidy <- temporal_int_genind@ploidy
                      
                      # G processed case ~-~-~-~-~~-~-~-~-~
                      if(G.processed) {
-                       tmp <- int.genind2df(tempo)
+                       tmp <- int.genind2df(temporal_int_genind, sep = sep, NA.char = NA.char)
                        # order data
-                       if(order.G) {
+                       if(order.G && type == "codominant") {
                          tmp <- aue.sort(tmp, 
                                          ncod = ncod,
                                          ploidy = ploidy, 
+                                         sep.loc = sep,
                                          chk.plocod = FALSE)
                        } 
                        

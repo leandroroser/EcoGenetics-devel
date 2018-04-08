@@ -6,7 +6,7 @@
 with parallelization available}
 \usage{
 eco.theilsen(stacked, dates, adjust = "none", run_parallel = FALSE,
-  workers = NULL, physical = FALSE)
+  workers = NULL, physical = FALSE, cl_type = NULL)
 }
 \arguments{
 \item{stacked}{Stacked images ("RasterLayer"  or "RasterBrick").}
@@ -23,6 +23,10 @@ the program uses N - 1, where N is the total number of available
 logical cores.}
 
 \item{physical}{Use only physical cores for parallel evaluation? Default FALSE.}
+
+\item{cl_type}{Cluster type. If not specified, "PSOCK" will be used for windows
+and "FORK" otherwise. The value is passed as the parameter "type" 
+to the function \code{\link[parallel]{makeCluster}}.}
 }
 \description{
 This function computes the theil-sen estimator and 
@@ -30,7 +34,9 @@ the associated P-value, for each pixel over time in a stack of images.
 The output consists of two rasters (one for the estimators and one for 
 the P-values). It is recommended to use a "RasterBrick", which
 is more efficient in memory management. 
-The program can compute the result using parallel (default) or serial evaluation.
+The program can compute the result using serial (default) or parallel evaluation.
+For parallel evaluation, the program uses PSOCK cluster for windows, and FORK cluster for 
+other operative systems.
 }
 \examples{
 \dontrun{

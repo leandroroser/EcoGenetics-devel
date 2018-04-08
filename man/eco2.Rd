@@ -3,7 +3,7 @@
 \docType{data}
 \name{eco2}
 \alias{eco2}
-\title{Eco2}
+\title{eco2}
 \usage{
 data(eco2)
 eco2

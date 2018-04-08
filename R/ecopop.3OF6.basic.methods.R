@@ -21,7 +21,12 @@ setMethod("initialize", "ecopop",
 
 setMethod("names", "ecopop",
           function(x){
-            return(x@ATTR$names)
+            if(x@ATTR$lock.rows) {
+              x@ATTR$names
+            } else {
+              cat("Free rows object, with empty 'names' attribute\n")
+              invisible(NULL)
+            }
           })
 
 
@@ -33,7 +38,9 @@ setMethod("names", "ecopop",
 
 setReplaceMethod("names", c(x = "ecopop", value = "any_vector"), function(x, value) {
   
-  if(nrow(x@S) != length(value)) {
+  
+  if(x@ATTR$lock.rows) {
+  if(nrow(x@ATTR$names) != length(value)) {
     stop("Length of input names different of the length of the names present in the object")
   }
   
@@ -71,7 +78,12 @@ setReplaceMethod("names", c(x = "ecopop", value = "any_vector"), function(x, val
     rownames(x@C) <- value
   }
   
-  x
+  return(x)
+} else {
+  cat("Free rows object, with empty 'names' attribute\n")
+  invisible(NULL)
+}
+  
 })
 
 
@@ -247,3 +259,122 @@ setMethod("show",
             cat("\n", "#", "slot C:", e(3), "", "#", "=> ", l6, e(1), e(13 - nchar(l6)),  l6.1)
             cat("\n****************************************************************************\n")
           })
+
+
+#' Lock rows in an ecogen object
+#' @description  This methods locks the rows in an ecogen object.  When rows are locked,
+#' the object requires rows with identical indviduals in the non empty data frames, and
+#' identity in the row names of the data frames.
+#' @param set.names Character vector with names for the rows of the non-empty data frames. 
+#' This argument is incompatible with valid.names
+#' @param valid.names Logical. Create valid row names? This argument is incompatible with 
+#' set.names. The program will name individuals with valid tags I.1, I.2, etc.
+#' @export
+
+eco.lock_rows <- function(object, set.names, valid.names) {
+  
+  object.names <- list(XY=rownames(object@XY), 
+                       P=rownames(object@P), 
+                       G=rownames(object@G), 
+                       A=rownames(object@A),
+                       E=rownames(object@E),
+                       S=rownames(object@S), 
+                       C=rownames(object@C))
+    
+    # set names--------------------------------------------
+    # case: use data frames names---->
+    if(is.null(set.names) && !valid.names) {
+      
+      while(TRUE) {
+        
+        if(nrow(object@XY) != 0) {
+          object@ATTR$names <- list(object.names$XY)
+          break
+        }
+        if(nrow(object@P) != 0) {
+          object@ATTR$names <- list(object.names$P)
+          break
+        }
+        if(nrow(object@G) != 0) {
+          object@ATTR$names <- list(object.names$G)
+          break
+        }
+        if(nrow(object@E) != 0) {
+          object@ATTR$names <- list(object.names$E)
+          break
+        }
+        if(nrow(object@S) != 0) {
+          object@ATTR$names <- list(object.names$S)
+          break
+        }
+        if(nrow(object@C) != 0) {
+          object@ATTR$names <- list(object.names$C)
+          break
+        }
+        object@ATTR$names <- list(character(0))
+        break
+      }
+      
+      # order rows
+      if(order.df) {
+        object <- int.order(object)
+      }
+      
+      # case: use set.names or valid.names---->
+    } else {
+      # use nrow method
+      
+      object.names <- object.names[unlist(lapply(object.names,
+                                                 function(x) length(x)  != 0))]
+      
+      if(length(object.names) != 0) {
+        rownumber <- unique(unlist(lapply(object.names, length)))
+        # check nrow consistency
+        if(length(rownumber)> 1) {
+          stop("Non unique row number found")
+        }
+        
+        # set.names case --
+        if(!is.null(set.names)) {
+          
+          #check length consistency
+          if(length(set.names) != rownumber) {
+            stop("the length of valid.names do not match 
+                 with the number of rows in the object")
+          }
+          
+          the.names <- set.names
+          
+          # valid.names case --
+          } else if(valid.names) {
+            the.names <- paste0("I.", seq_len(rownumber))
+          }
+        
+        # set data frames names and object names --
+        for(i in names(object.names)) {
+          eval(expr = parse(text=paste0("rownames(object@", i, ") <- the.names")))
+        }
+        
+        object@ATTR$names <- list(the.names)
+        
+      } 
+  }
+  
+  object@ATTR$lock_rows <- TRUE
+  # check validity 
+  validObject(object)
+  
+  object
+}
+
+#' Unlock rows in an ecogen object
+#' @description  This methods unlocks the rows in an ecogen object. This means that 
+#' different data frames in the object can have different rows, with different row names.
+#' @export
+
+eco.unlock_rows <- function(object) {
+  object@ATTR$names <- list(character(0))
+  object@ATTR$lock_rows <- FALSE
+  object
+}
+

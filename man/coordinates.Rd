@@ -3,7 +3,7 @@
 \docType{data}
 \name{coordinates}
 \alias{coordinates}
-\title{Coordinates}
+\title{coordinates}
 \usage{
 data(eco.test)
 coordinates

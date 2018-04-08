@@ -238,7 +238,8 @@ int.df2genind <- function(indata,
                           type = c("codominant","dominant"),
                           missing = c("0", "NA", "MEAN"),
                           rm.empty.ind = FALSE,
-                          poly.level = 5) {
+                          poly.level = 5,
+                          lock.rows = TRUE) {
   
   
   
@@ -350,9 +351,16 @@ int.df2genind <- function(indata,
     ## NA individuals. In case of rm.empty.ind = FALSE,
     ## reset removed image for these individuals 
     ## (because removed image is defined as is.na(X))
+    
+    if(rm.empty.ind && lock.rows) {
+     stop("Remotion of empty individuals only available if the paramter lock.rows = FALSE")  
+    }
+    
     if(!rm.empty.ind) {
       removed.image[remove.ind, ] <- 0
-    }
+    } 
+    
+
     ## preserve order
     old.order.row <- seq(nrow(indata))
     new.order.ind <- old.order.row[-remove.ind]

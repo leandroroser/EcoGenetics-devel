@@ -19,7 +19,12 @@ setMethod("initialize", "ecogen",
 
 setMethod("names", "ecogen",
           function(x){
-            return(x@ATTR$names)
+            if(x@ATTR$lock.rows) {
+            x@ATTR$names
+            } else {
+              cat("Free rows object, with empty 'names' attribute\n")
+              invisible(NULL)
+            }
           })
 
 #' names<- 
@@ -30,6 +35,7 @@ setMethod("names", "ecogen",
 
 setReplaceMethod("names", c(x = "ecogen", value = "character"), function(x, value) {
   
+  if(x@ATTR$lock.rows) {
   if(length(x@ATTR$names) != length(value)) {
     stop("Length of input names different of the length of the names present in the object")
   }
@@ -71,7 +77,11 @@ setReplaceMethod("names", c(x = "ecogen", value = "character"), function(x, valu
     rownames(x@C) <- value
   }
 
-  x
+  return(x)
+  } else {
+    cat("Free rows object, with empty 'names' attribute\n")
+    invisible(NULL)
+  }
 })
 
 

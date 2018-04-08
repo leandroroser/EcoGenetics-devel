@@ -1,3 +1,4 @@
+
 ################################################
 #### ECOPOP CONSTRUCTOR
 ################################################
@@ -24,6 +25,9 @@
 #' XY, P, AF, E, C. This attribute is used as reference to order rows when order.df = TRUE. 
 #' @param pop_names_column Column with the population in the slot S that represents used
 #' to create the name of the object. Dafault is the first column.
+#' @param lock.rows Turn on row names check. Data frames require indentical individuals in rows.
+#' Default TRUE.
+#' 
 #' @details This is a generic function for creation of ecopop objects.
 #' Missing data should be coded as "NA". 
 #' 
@@ -121,7 +125,8 @@ setGeneric("ecopop",
                     ploidy,
                     type = c("codominant", "dominant"),
                     order.df = FALSE,
-                    allele_data = c("counts", "frequencies")) {				
+                    allele_data = c("counts", "frequencies"),
+                    lock.rows = FALSE) {				
              
             
              type <- match.arg(type)
@@ -160,6 +165,11 @@ setGeneric("ecopop",
  
              # set row names
              
+             
+             if(lock.rows) {
+               object@ATTR$names <- list(character(0))
+               object@ATTR$lock.rows <- TRUE
+             } else {
               object.names <- list(XY=rownames(object@XY), P=rownames(object@P),
                                    AF=rownames(object@AF), E=rownames(object@E), 
                                    S=rownames(object@S), C=rownames(object@C))
@@ -186,20 +196,16 @@ setGeneric("ecopop",
              object@ATTR$names <- factor(paste0("P.", seq_len(rownumber)))
                }
              }
-         
-             object@ATTR$whereIs <- parent.frame()
-             object@ATTR$.call <- match.call()
-             
-             # order rows
-             if(order.df) {
-               object@XY = object@XY[ , match(rownames(object@XY),  obj@ATTR$names) ]
-               P = object@P[ , match(rownames(object@P),  obj@ATTR$names) ]
-               AF = object@AF[ , match(rownames(object@AF),  obj@ATTR$names) ]
-               E = object@E[ , match(rownames(object@E),  obj@ATTR$names) ]
-               S = object@S[ , match(rownames(object@S),  obj@ATTR$names) ]
-               C = object@C[ , match(rownames(object@C),  obj@ATTR$names) ]
+             }
+        
+             if(order.df && lock.rows) {
+               object <- int.order(object)
+             } else if(order.df && !lock.rows) {
+               message("Note: data frames will not be sorted by row in an unlock object\n")
              }
              
+             object@ATTR$whereIs <- parent.frame()
+             object@ATTR$.call <- match.call()
              validObject(object)
              
              object

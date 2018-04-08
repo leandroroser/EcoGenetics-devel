@@ -7,7 +7,8 @@
 ecopop(XY = data.frame(), P = data.frame(), AF = data.frame(),
   E = data.frame(), S = data.frame(), C = data.frame(),
   pop_names_column = 1L, ploidy, type = c("codominant", "dominant"),
-  order.df = FALSE, allele_data = c("counts", "frequencies"))
+  order.df = FALSE, allele_data = c("counts", "frequencies"),
+  lock.rows = FALSE)
 }
 \arguments{
 \item{XY}{Data frame with n rows (populations) and m columns (coordinates).}
@@ -40,6 +41,9 @@ the use of data frames with row names in different order will return an error.
 In both cases, the program set the content of the S slots as the reference names of the object
 using the row names of the first non-empty data frame found in the following order: 
 XY, P, AF, E, C. This attribute is used as reference to order rows when order.df = TRUE.}
+
+\item{lock.rows}{Turn on row names check. Data frames require indentical individuals in rows.
+Default TRUE.}
 }
 \description{
 Creating a new ecopop object

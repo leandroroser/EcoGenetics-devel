@@ -10,7 +10,7 @@ ecogen(XY = data.frame(), P = data.frame(), G = data.frame(),
   type = c("codominant", "dominant"), sep = "", ncod = NULL,
   missing = c("0", "NA", "MEAN"), NA.char = "NA", poly.level = 5,
   rm.empty.ind = FALSE, order.df = TRUE, set.names = NULL,
-  valid.names = FALSE)
+  valid.names = FALSE, lock.rows = TRUE)
 }
 \arguments{
 \item{XY}{Data frame with m columns (coordinates) and n rows (individuals).}
@@ -30,13 +30,12 @@ The program converts non-factor data into factor.}
 
 \item{C}{Data frame with n rows (individuals), and custom variables in columns.}
 
-\item{G.processed}{If TRUE, the slot G will include a processed data frame (
-removed non informative loci (the data non available for all the individuals),
-removed non polymorphic loci (for dominant data) and ordered alleles in ascending
-order.}
+\item{G.processed}{If TRUE, the slot G will include a processed data frame:
+removed non informative loci  (the data non available for all the individuals),
+or non polymorphic loci (for dominant data).}
 
 \item{order.G}{Genotypes must be ordered in G slot? (codominant data) 
-Default FALSE.}
+Default FALSE. If true alleles are ordered in ascending order.}
 
 \item{ploidy}{Ploidy of the G data frame. Default ploidy = 2.}
 
@@ -58,13 +57,12 @@ and "MEAN" options, respectively.}
 for remotion of non polymorphic loci (for dominant data). Default is 5 (5\%).}
 
 \item{rm.empty.ind}{Remotion of noinformtive individuals (row of "NAs").
-Default if FALSE.}
+Default if FALSE. This option is only available when the 'lock.rows' parameter is FALSE.}
 
 \item{order.df}{Order individuals of data frames by row? (all data frames with a same order in row names).
- This 
-option works when the names of the data frames are used 
-(i.e., set.names and valid.names are NULL), otherwise the TRUE/FALSE value of this parameter
- has no effect in the function. 
+ This option is only available when the 'lock.rows' parameter is TRUE. 
+If the names of the data frames are not used (i.e., set.names and valid.names are not NULL),
+setting this parameter to TRUE/FALSE has no effect in the function. 
 Defalut TRUE. If FALSE, the row names of all the data frames must be ordered. The use of data frames 
 with row names in different order will return an error.
 In both cases, the program sets an internal names attribute of the object
@@ -76,6 +74,9 @@ This argument is incompatible with valid.names}
 
 \item{valid.names}{Logical. Create valid row names? This argument is incompatible with 
 set.names. The program will name individuals with valid tags I.1, I.2, etc.}
+
+\item{lock.rows}{Turn on row names check. Data frames require indentical individuals in rows.
+Default TRUE.}
 }
 \description{
 Creating a new ecogen object
