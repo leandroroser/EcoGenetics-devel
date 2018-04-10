@@ -8,7 +8,13 @@ check_ecogen <- function(object) {
   
   errors <- character()
   
-  if(!object@ATTR$free.rows) {
+  if(object@ATTR$ver != '1.2.1-5' || is.null(object@ATTR$ver)) {
+    msg <- "This object was created with an old version of EcoGenetics.
+            Please actualize it using the function eco.old2new"
+    errors <- c(errors, msg)
+  }
+  
+  if(object@ATTR$lock.rows) {
   
   # check number of rows  = 0 or unique -----
   
@@ -80,7 +86,7 @@ setClass("ecogen",
          
          representation(XY = "data.frame",
                         P = "data.frame",
-                        G = "data.frame",
+                        G = "matrix",
                         A = "matrix",
                         E = "data.frame",
                         S = "data.frame",
@@ -91,7 +97,7 @@ setClass("ecogen",
          
          prototype(XY = data.frame(), 
                    P = data.frame(),
-                   G = data.frame(),
+                   G = matrix(nrow = 0, ncol = 0),
                    A = matrix(nrow = 0, ncol = 0),
                    E = data.frame(),
                    S = data.frame(), 
@@ -101,9 +107,9 @@ setClass("ecogen",
                    ATTR = list(names = character(0),
                                lock.rows = TRUE,
                                whereIs = new.env(emptyenv()), 
-                               .call = call("."))
+                               .call = call("."),
+                               ver = utils::packageDescription("EcoGenetics", fields = "Version"))
                    ),
-         
          validity = check_ecogen
 )
 

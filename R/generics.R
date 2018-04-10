@@ -159,3 +159,14 @@ setGeneric("ecoslot.OUT<-", function(object, value) standardGeneric("ecoslot.OUT
 # slot INT-Internal- non public accessor
 
 setGeneric("int.ecoslot.INT", function(X) standardGeneric("int.ecoslot.INT"))
+
+
+# is.locked
+
+setGeneric("is.locked", function(object) standardGeneric("is.locked"))
+
+
+# eco.old2new
+setGeneric("eco.old2new", function(object) standardGeneric("eco.old2new"))
+
+

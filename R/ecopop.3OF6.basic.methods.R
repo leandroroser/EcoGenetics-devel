@@ -1,3 +1,4 @@
+
 ################################################
 #### BASIC METHODS
 ################################################
@@ -189,7 +190,13 @@ setMethod("as.list",
 setMethod("show", 
           "ecopop", 
           function(object) {
-            # check validity using a temporal element to pass environment
+           
+             # check validity using a temporal element to pass environment
+            
+            if(object@ATTR$ver != '1.2.1-5' || is.null(object@ATTR$ver)) {
+              stop("This object was created with an old version of EcoGenetics. 
+                    Please actualize it using the function eco.old2new")
+            }
             validObject(object)
 
             
@@ -378,3 +385,45 @@ eco.unlock_rows <- function(object) {
   object
 }
 
+
+#' Test if rows of an ecopop object are locked
+#' @description  Test if rows of an ecopop object are locked 
+#' @aliases is.locked,ecopop
+#' @exportMethod is.locked
+
+setMethod("is.locked", "ecopop", 
+          function(object) {
+            object@ATTR$lock.rows
+          })
+
+
+#' Update an old ecogen or ecopop object to a version compatible with EcoGenetics >= 1.5.0-1
+#' @description Update an old ecogen or ecopop object to a version compatible with EcoGenetics >= 1.5.0-1
+#' @aliases eco.old2new,ecopop
+#' @exportMethod eco.old2new
+
+setMethod("eco.old2new", "ecopop", 
+          function(object) {
+            
+            ver <- as.numeric(gsub("[.]|-", "", object@ATTR$ver))
+            
+            if(ver < 1215 || is.null(eco@ATTR$ver)) {
+              
+              out <- new("ecogen")
+              out@XY <- object@XY
+              out@P <- object@P
+              out@AF <- object@AF
+              out@E <- object@E
+              out@S <- object@S
+              out@C <- object@C
+              out@INT <- object@INT
+              out@ATTR$names <- object@ATTR$names
+              out@ATTR$lock.rows <- TRUE
+              out@ATTR$whereIs <- object@ATTR$whereIs 
+              out@ATTR$ver <- utils::packageDescription("EcoGenetics", fields = "Version")
+              out@ATTR$.call <- match.call()
+            } else {
+              message("The object is already compatible with EcoGenetics >= 1.5.0-1")
+            }
+            out
+          })

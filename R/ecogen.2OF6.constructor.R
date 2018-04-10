@@ -159,7 +159,7 @@
 setGeneric("ecogen",      	 
            function(XY = data.frame(),
                     P = data.frame(),
-                    G = data.frame(), 
+                    G = matrix(nrow = 0, ncol = 0), 
                     E = data.frame(),
                     S = data.frame(),
                     C = data.frame(),
@@ -199,7 +199,7 @@ setGeneric("ecogen",
              # G configuration-------------------------------------------------#
              
              if(any(dim(G) == 0)) { # empty G
-               object@G <- data.frame()
+               object@G <- matrix(nrow = 0, ncol = 0)
                object@A <- matrix(nrow = 0, ncol = 0)
                object@INT <- new("int.gendata")
                
@@ -249,7 +249,7 @@ setGeneric("ecogen",
                  } 
                  
                  # G processed data frame
-                 G <- as.data.frame(tmp, stringsAsFactors = FALSE)
+                 G <- tmp
                  
                  # G changes messages 
                  if(dim(tmp)[1] != dim(G)[1]) {
@@ -264,7 +264,7 @@ setGeneric("ecogen",
                } 
                
                # fill now the G slot for
-               object@G <-  as.data.frame(G, stringsAsFactors = FALSE)
+               object@G <-  G
              }
              
              
@@ -288,11 +288,10 @@ setGeneric("ecogen",
              
              object@S <- S
              object@C <- as.data.frame(C)
-            
              
-             if(lock.rows) {
+             if(!lock.rows) {
                object@ATTR$names <- character(0)
-               object@ATTR$lock.rows <- TRUE
+               object@ATTR$lock.rows <- FALSE
              } else {
                
                object.names <- list(XY=rownames(object@XY), 
