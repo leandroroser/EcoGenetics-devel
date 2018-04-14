@@ -47,13 +47,9 @@ check_ecopop <- function(object) {
   
   errors <- character()
   
-  if(object@ATTR$ver != '1.2.1-5' || is.null(object@ATTR$ver)) {
-    msg <- "This object was created with an old version of EcoGenetics.
-            Please actualize it using the function eco.old2new"
-    errors <- c(errors, msg)
-  }
+  locked <- is.locked(object)
   
-  if(object@ATTR$lock.rows) {
+  if(locked) {
   # check number of rows  = 0 or unique -----
   
   dim_eco <- list(dim(object@XY), dim(object@P), 

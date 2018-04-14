@@ -116,7 +116,7 @@ setReplaceMethod("ecoslot.G", "ecogen",
                                             missing = missing,
                                             rm.empty.ind = rm.empty.ind,
                                             poly.level = poly.level,
-                                            free.rows = object@ATTR$free.rows)
+                                            lock.rows = object@ATTR$lock.rows)
                      
                      # unfolding temporal_int_genind
                      
@@ -127,7 +127,7 @@ setReplaceMethod("ecoslot.G", "ecogen",
                        # matrix is lighter than data frame. LR 9/12/2016
                        object@A <- temporal_int_genind@tab
                      }  else {
-                       object@G <- temporal_int_genind@tab
+                       object@G <- as.data.frame(temporal_int_genind@tab)
                      }
                      
                      object@INT <- int.genind2gendata(temporal_int_genind)
@@ -409,12 +409,11 @@ setReplaceMethod("ecoslot.OUT", "ecogen", function(object, value) {
   
 })
 
-setMethod("int.ecoslot.INT", "ecogen", function(X) X@INT)
-
 #' @rdname EcoGenetics-accessors
 #' @keywords internal
 
-setGeneric("int.ecoslot.INT<-", function(object, value) standardGeneric("int.ecoslot.INT<-"))
+setMethod("int.ecoslot.INT", "ecogen", function(X) X@INT)
+
 setReplaceMethod("int.ecoslot.INT", "ecogen", function(object, value) { 
   slot(object, "INT") <- value
   object

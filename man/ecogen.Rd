@@ -4,13 +4,13 @@
 \alias{ecogen}
 \title{Creating a new ecogen object}
 \usage{
-ecogen(XY = data.frame(), P = data.frame(), G = matrix(nrow = 0, ncol =
-  0), E = data.frame(), S = data.frame(), C = data.frame(),
+ecogen(XY = data.frame(), P = data.frame(), G = data.frame(),
+  E = data.frame(), S = data.frame(), C = data.frame(),
   G.processed = TRUE, order.G = FALSE, ploidy = 2,
   type = c("codominant", "dominant"), sep = "", ncod = NULL,
   missing = c("0", "NA", "MEAN"), NA.char = "NA", poly.level = 5,
   rm.empty.ind = FALSE, order.df = TRUE, set.names = NULL,
-  valid.names = FALSE, lock.rows = TRUE)
+  valid.names = FALSE, lock.rows = TRUE, sort.alleles = FALSE)
 }
 \arguments{
 \item{XY}{Data frame with m columns (coordinates) and n rows (individuals).}

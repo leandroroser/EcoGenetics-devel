@@ -129,7 +129,19 @@
 #' eco
 #' @name eco
 #' @docType data
-#' @description ecogen object with simulated data of 225 individuals, with codiminant markers
+#' @description ecogen object with simulated data of 225 individuals, with codominant markers
+#' @author Leandro Roser \email{learoser@@gmail.com}
+#' @usage
+#' data(eco.test)
+#' eco
+#' @keywords data
+
+0
+
+#' eco_dom
+#' @name eco_dom
+#' @docType data
+#' @description ecogen object with simulated data of 225 individuals, with dominant markers
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @usage
 #' data(eco.test)

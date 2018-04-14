@@ -19,7 +19,7 @@ setMethod("initialize", "ecogen",
 
 setMethod("names", "ecogen",
           function(x){
-            if(x@ATTR$lock.rows) {
+            if(is.locked(x)) {
             x@ATTR$names
             } else {
               cat("Free rows object, with empty 'names' attribute\n")
@@ -35,7 +35,10 @@ setMethod("names", "ecogen",
 
 setReplaceMethod("names", c(x = "ecogen", value = "character"), function(x, value) {
   
-  if(x@ATTR$lock.rows) {
+  if(!is.locked(x)) {
+    stop("Free rows object, with empty 'names' attribute\n")
+  }
+  
   if(length(x@ATTR$names) != length(value)) {
     stop("Length of input names different of the length of the names present in the object")
   }
@@ -78,10 +81,6 @@ setReplaceMethod("names", c(x = "ecogen", value = "character"), function(x, valu
   }
 
   return(x)
-  } else {
-    cat("Free rows object, with empty 'names' attribute\n")
-    invisible(NULL)
-  }
 })
 
 
@@ -206,11 +205,7 @@ setMethod("as.int.list",
 setMethod("show", 
           "ecogen", 
           function(object) {
-            # check validity using a temporal element to pass environment
-            if(object@ATTR$ver != '1.2.1-5' || is.null(object@ATTR$ver)) {
-              stop("This object was created with an old version of EcoGenetics. 
-                    Please actualize it using the function eco.old2new")
-            }
+
             validObject(object)
 
             
@@ -322,12 +317,21 @@ setMethod("show",
 
 setMethod("is.locked", "ecogen", 
           function(object) {
-            object@ATTR$lock.rows
-          })
+            if(object@ATTR$ver < '1.2.1-5' || is.null(object@ATTR$ver)) {
+              out <- TRUE
+            } else {
+              if(object@ATTR$lock.rows) {
+                out <- TRUE
+              } else {
+                out <- FALSE
+              }
+            }
+            out
+            })
 
 
-#' Update an old ecogen or ecopop object to a version compatible with EcoGenetics >= 1.5.0-1
-#' @description Update an old ecogen or ecopop object to a version compatible with EcoGenetics >= 1.5.0-1
+#' Update an old ecogen or ecopop object to version  >= 1.5.0-1
+#' @description Update an old ecogen or ecopop object to version  >= 1.5.0-1
 #' @aliases eco.old2new,ecogen
 #' @exportMethod eco.old2new
 
@@ -336,12 +340,12 @@ setMethod("eco.old2new", "ecogen",
             
             ver <- as.numeric(gsub("[.]|-", "", object@ATTR$ver))
             
-            if(ver < 1215 || is.null(eco@ATTR$ver)) {
+            if(ver < 1215 || is.null(object@ATTR$ver)) {
               
               out <- new("ecogen")
               out@XY <- object@XY
               out@P <- object@P
-              out@G <- as.matrix.data.frame(object@G, rownames.force = TRUE)
+              out@G <- object@G
               out@A <- object@A
               out@E <- object@E
               out@S <- object@S
@@ -354,7 +358,134 @@ setMethod("eco.old2new", "ecogen",
               out@ATTR$ver <- utils::packageDescription("EcoGenetics", fields = "Version")
               out@ATTR$.call <- match.call()
             } else {
-              message("The object is already compatible with EcoGenetics >= 1.5.0-1")
+              message("The object was already created with EcoGenetics >= 1.5.0-1")
             }
             out
           })
+
+
+#' Lock rows in an ecogen object
+#' @description  This methods locks the rows in an ecogen object.  When rows are locked,
+#' the object requires rows with identical indviduals in the non empty data frames, and
+#' identity in the row names of the data frames.
+#' @param set.names Character vector with names for the rows of the non-empty data frames. 
+#' This argument is incompatible with valid.names
+#' @param valid.names Logical. Create valid row names? This argument is incompatible with 
+#' set.names. The program will name individuals with valid tags I.1, I.2, etc.
+#' @param order.df Order individuals of data frames by row? (all data frames with a same order in row names).
+#'  This option is only available when the 'lock.rows' parameter is TRUE. 
+#' If the names of the data frames are not used (i.e., set.names and valid.names are not NULL),
+#' setting this parameter to TRUE/FALSE has no effect in the function. 
+#' Defalut TRUE. If FALSE, the row names of all the data frames must be ordered. The use of data frames 
+#' with row names in different order will return an error.
+#' In both cases, the program sets an internal names attribute of the object
+#' using the row names of the first non-empty data frame found in the following order: 
+#' XY, P, G, E, S, C. This attribute is used as reference to order rows when order.df = TRUE. 
+#' @export
+
+eco.lock <- function(object, set.names = NULL, valid.names = FALSE, order.df = FALSE) {
+  
+  object.names <- list(XY=rownames(object@XY), 
+                       P=rownames(object@P), 
+                       G=rownames(object@G), 
+                       A=rownames(object@A),
+                       E=rownames(object@E),
+                       S=rownames(object@S), 
+                       C=rownames(object@C))
+  
+  # set names--------------------------------------------
+  # case: use data frames names---->
+  if(is.null(set.names) && !valid.names) {
+    
+    while(TRUE) {
+      
+      if(nrow(object@XY) != 0) {
+        object@ATTR$names <- object.names$XY
+        break
+      }
+      if(nrow(object@P) != 0) {
+        object@ATTR$names <- object.names$P
+        break
+      }
+      if(nrow(object@G) != 0) {
+        object@ATTR$names <- object.names$G
+        break
+      }
+      if(nrow(object@E) != 0) {
+        object@ATTR$names <- object.names$E
+        break
+      }
+      if(nrow(object@S) != 0) {
+        object@ATTR$names <- object.names$S
+        break
+      }
+      if(nrow(object@C) != 0) {
+        object@ATTR$names <- object.names$C
+        break
+      }
+      object@ATTR$names <- character(0)
+      break
+    }
+    
+    # order rows
+    if(order.df) {
+      object <- int.order(object)
+    }
+    
+    # case: use set.names or valid.names---->
+  } else {
+    # use nrow method
+    
+    object.names <- object.names[unlist(lapply(object.names,
+                                               function(x) length(x)  != 0))]
+    
+    if(length(object.names) != 0) {
+      rownumber <- unique(unlist(lapply(object.names, length)))
+      # check nrow consistency
+      if(length(rownumber)> 1) {
+        stop("Non unique row number found")
+      }
+      
+      # set.names case --
+      if(!is.null(set.names)) {
+        
+        #check length consistency
+        if(length(set.names) != rownumber) {
+          stop("the length of valid.names do not match 
+               with the number of rows in the object")
+        }
+        
+        the.names <- set.names
+        
+        # valid.names case --
+        } else if(valid.names) {
+          the.names <- paste0("I.", seq_len(rownumber))
+        }
+      
+      # set data frames names and object names --
+      for(i in names(object.names)) {
+        eval(expr = parse(text=paste0("rownames(object@", i, ") <- the.names")))
+      }
+      
+      object@ATTR$names <- list(the.names)
+      
+    } 
+  }
+  
+  object@ATTR$lock.rows <- TRUE
+  # check validity 
+  validObject(object)
+  
+  object
+}
+
+#' Unlock rows in an ecogen object
+#' @description  This methods unlocks the rows in an ecogen object. This means that 
+#' different data frames in the object can have different rows, with different row names.
+#' @export
+
+eco.unlock <- function(object) {
+  object@ATTR$names <- list(character(0))
+  object@ATTR$lock.rows <- FALSE
+  object
+}

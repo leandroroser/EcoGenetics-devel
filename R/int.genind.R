@@ -242,7 +242,6 @@ int.df2genind <- function(indata,
                           lock.rows = TRUE) {
   
   
-  
   # DATA CHECK-----------------------------------------------------------------#
   
   type <- match.arg(type)
@@ -434,7 +433,8 @@ int.df2genind <- function(indata,
     
     # Handling separators
     
-    if(sep == "" && ploidy > 1) {
+    if(ploidy > 1) {
+    if(sep == "") {
       
       ## add "/" as separator
       X <- gsub(paste("([[:alnum:]]{",ncod,"})", sep = ""), "\\1/", X)
@@ -446,6 +446,7 @@ int.df2genind <- function(indata,
       X <- gsub(meta2char(sep),"/",X)
       sep <- "/"
     }
+  }
     
     
     # Translate data into allelic frequencies 
@@ -478,9 +479,27 @@ int.df2genind <- function(indata,
     
     ## get matrix with frequencies
     allele.data <- paste(locus.data, allele.data, sep = ".")
-    allele.data <- factor(allele.data, levels = unique(allele.data))
+    
+    # sort allele names   4/14/2018 L.R
+    my_names <- unique(allele.data)
+    if(length(my_names) > 1) {
+      pre <- gsub("(^.+)([.])(.+$)", "\\1", my_names)
+      names_order <- character(length(my_names))
+      j <- 1
+      names_order[1] <- 1
+      for(i in seq(2, length(my_names), 1)) {
+        if(pre[i] != pre[i-1]) j <- j +1
+        names_order[i] <- j
+      }
+    }
+
+    my_names <- unname(unlist(tapply(my_names, as.integer(names_order), sort)))
+   
+    allele.data <- factor(allele.data, levels = my_names)
     out <- table(ind.data, allele.data)
-    out <- out[ind.names, , drop = FALSE] # table sorts alphabetically. This resets.
+    out <- out[ind.names, , drop = FALSE] # table sorts rownames alphabetically. This resets.
+
+    
     #out <- out/2
     ## force type 'matrix'
     class(out) <- NULL

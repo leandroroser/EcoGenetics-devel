@@ -48,7 +48,7 @@
 #' set.names. The program will name individuals with valid tags I.1, I.2, etc.
 #' @param lock.rows Turn on row names check. Data frames require indentical individuals in rows.
 #' Default TRUE.
-#' 
+
 #' @details This is a generic function for creation of ecogen objects.
 #' In the default option, missing data should be coded as "NA", but any missing 
 #' data character can be passed with the option NA.char. 
@@ -159,7 +159,7 @@
 setGeneric("ecogen",      	 
            function(XY = data.frame(),
                     P = data.frame(),
-                    G = matrix(nrow = 0, ncol = 0), 
+                    G = data.frame(), 
                     E = data.frame(),
                     S = data.frame(),
                     C = data.frame(),
@@ -176,7 +176,8 @@ setGeneric("ecogen",
                     order.df = TRUE,
                     set.names = NULL,
                     valid.names = FALSE,
-                    lock.rows = TRUE) {				
+                    lock.rows = TRUE,
+                    sort.alleles = FALSE) {				
              
           
              # general configuration
@@ -199,7 +200,7 @@ setGeneric("ecogen",
              # G configuration-------------------------------------------------#
              
              if(any(dim(G) == 0)) { # empty G
-               object@G <- matrix(nrow = 0, ncol = 0)
+               object@G <- data.frame()
                object@A <- matrix(nrow = 0, ncol = 0)
                object@INT <- new("int.gendata")
                
@@ -228,7 +229,7 @@ setGeneric("ecogen",
                # matrix is lighter than data frame. LR 9/12/2016
                object@A <- temporal_int_genind@tab
                }  else {
-               object@G <- temporal_int_genind@tab
+               object@G <- as.data.frame(temporal_int_genind@tab)
                }
  
                object@INT <- int.genind2gendata(temporal_int_genind)
@@ -249,7 +250,7 @@ setGeneric("ecogen",
                  } 
                  
                  # G processed data frame
-                 G <- tmp
+                 G <- as.data.frame(tmp)
                  
                  # G changes messages 
                  if(dim(tmp)[1] != dim(G)[1]) {

@@ -5,14 +5,13 @@
 #' Can be one of 'zhivor' ( Zhivotovsky 1999, with uniform prior),  
 #' 'zhivonu' (Zhivotovsky 1999, with non uniform prior), 
 #' 'rawfreq' (square root method).
-#' @author Juan Vilardi
 #' @references 
 #' Zhivotovsky, L. A. (1999). Estimating population structure in diploids 
 #' with multilocus dominant DNA markers. Molecular Ecology, 8:907-913.
 #' @author Juan Vilardi
 #' @export
 
-setGeneric("eco.pop_alfreq", function(x, method = c("zhivor", "zhivonu", "rawfreq")) {
+setGeneric("eco.dom_af", function(x, method = c("zhivor", "zhivonu", "rawfreq")) {
   
   method <- match.arg(method)
   

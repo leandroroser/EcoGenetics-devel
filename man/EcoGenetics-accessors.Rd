@@ -23,6 +23,7 @@
 \alias{ecoslot.OUT}
 \alias{ecoslot.OUT<-}
 \alias{int.ecoslot.INT}
+\alias{int.ecoslot.INT<-}
 \alias{ecoslot.XY,ecogen-method}
 \alias{ecoslot.XY<-,ecogen-method}
 \alias{ecoslot.P,ecogen-method}
@@ -39,7 +40,7 @@
 \alias{ecoslot.C<-,ecogen-method}
 \alias{ecoslot.OUT,ecogen-method}
 \alias{ecoslot.OUT<-,ecogen-method}
-\alias{int.ecoslot.INT<-}
+\alias{int.ecoslot.INT,ecogen-method}
 \alias{ecoslot.XY,ecopop-method}
 \alias{ecoslot.XY<-,ecopop-method}
 \alias{ecoslot.P,ecopop-method}
@@ -138,6 +139,8 @@ ecoslot.OUT(object) <- value
 
 int.ecoslot.INT(X)
 
+int.ecoslot.INT(object) <- value
+
 \S4method{ecoslot.XY}{ecogen}(X)
 
 \S4method{ecoslot.XY}{ecogen}(object, use.object.names = FALSE,
@@ -179,7 +182,7 @@ int.ecoslot.INT(X)
 
 \S4method{ecoslot.OUT}{ecogen}(object) <- value
 
-int.ecoslot.INT(object) <- value
+\S4method{int.ecoslot.INT}{ecogen}(X)
 
 \S4method{ecoslot.XY}{ecopop}(X)
 

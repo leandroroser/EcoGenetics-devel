@@ -4,10 +4,10 @@
 \name{eco.old2new,ecogen-method}
 \alias{eco.old2new,ecogen-method}
 \alias{eco.old2new,ecogen}
-\title{Update an old ecogen or ecopop object to a version compatible with EcoGenetics >= 1.5.0-1}
+\title{Update an old ecogen or ecopop object to version  >= 1.5.0-1}
 \usage{
 \S4method{eco.old2new}{ecogen}(object)
 }
 \description{
-Update an old ecogen or ecopop object to a version compatible with EcoGenetics >= 1.5.0-1
+Update an old ecogen or ecopop object to version  >= 1.5.0-1
 }

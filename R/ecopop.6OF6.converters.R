@@ -32,13 +32,13 @@ if(length(which_pop) == 0) {
   stop("non matching S column name")
 }
 
-pop <- from@S[, hier]
+pop <- from@S[, which_pop]
 to <- new("ecopop", ploidy = from@INT@ploidy, type = from@INT@type)
 to@XY <-  aue.aggregated_df(from@XY, pop, aggregator, factor_to_counts = FALSE)
 to@P <-   aue.aggregated_df(from@P, pop, aggregator, factor_to_counts = factor_to_counts )
 
 if(from@INT@type == "codominant") {
-  to@AF <- as.matrix(apply(from@A, 2, tapply, pop, sum, na.rm = TRUE))
+   to@AF <- as.matrix(apply(from@A, 2, tapply, pop, sum, na.rm = TRUE))
   if(allele_data == "frequencies") {
     to@AF <-  aue.dummy2af(to@AF, from@INT@loc.fac)
   }
@@ -50,7 +50,9 @@ if(from@INT@type == "codominant") {
 }
 
 to@E <-  aue.aggregated_df(from@E, pop, aggregator, factor_to_counts = factor_to_counts)
+
 to@S <-  data.frame(pop = factor(levels(pop)))
+rownames(to@S) <- to@S$pop
 to@C <-   aue.aggregated_df(from@C, pop, aggregator, factor_to_counts = factor_to_counts)
 
 

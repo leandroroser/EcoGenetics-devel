@@ -4,9 +4,12 @@ Changes:
 
 * Correction in genind2ecogen
 * Correction in the exportation of methods for ecogen and ecopop objects
-* EcoGen objects now are allowing genetic data with alleles coded with a different character length
+* ecogen objects now are allowing genetic data with alleles coded with a different character length
 * Changes in eco.format to allow genetic data with alleles coded with different character lengths
 * genetic data of ecopop objects can now be generated from ecogen objects as counts or allelic frequencies
+* ecogen & ecopop objects can now be locked/unlocked. Locked objects allow to have data frames with different
+length or row names. Three functions were added for this purpose: eco.lock, eco.unlock and is.locked
+* New function for computation of allelic frequencies with dominant markers: eco.dom_af
 
 
 EcoGenetics 1.2.1-4 (Release date: 2018-01-13)

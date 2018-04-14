@@ -1,15 +1,14 @@
 context("Test ecogen-ecopop constructors")
 
 data(eco4)
+my_ecogen <- ecogen(G=G, S=S, XY=XY, P = P, E = E, sep = "/")
+my_ecopop <- ecogen2ecopop(my_ecogen, hier = "pop")
 
 
 test_that("test that ecogen constructor works fine", {
   
   # error
   expect_error(ecogen(G=G, S=S, XY=XY, P = P, sep = ""))
-  
-  # ok 
-  my_ecogen <- ecogen(G=G, S=S, XY=XY, P = P, sep = "/")
 
   expect_that(my_ecogen, is_a("ecogen"))
   expect_true(all(dim(my_ecogen[["XY"]]) == c(173, 2)))
@@ -25,8 +24,7 @@ test_that("test that ecogen constructor works fine", {
 
 test_that("ecogen2ecopop works fine", {
   skip_on_cran()
-  my_ecopop <- ecogen2ecopop(my_ecogen, hier = "pop")
-
+  
   XY_pop <- my_ecopop[["XY"]]
   P_pop <- my_ecopop[["P"]]
   AF_pop <- my_ecopop[["AF"]]
@@ -44,27 +42,27 @@ test_that("ecogen2ecopop works fine", {
   my_ecopop3[["S"]] <- S_pop
   
   expect_that(my_ecopop, is_a("ecopop"))
-  expect_true(all(dim(my_ecopop[["XY"]]) == c(4, 2)))
-  expect_true(all(dim(my_ecopop[["P"]]) == c(4, 8)))
-  expect_true(all(dim(my_ecopop[["AF"]]) == c(4, 40)))
-  expect_true(all(dim(my_ecopop[["E"]]) == c(4, 6)))
-  expect_true(all(dim(my_ecopop[["S"]]) == c(4, 1)))
+  expect_true(all(dim(my_ecopop[["XY"]]) == c(10, 2)))
+  expect_true(all(dim(my_ecopop[["P"]]) == c(10, 8)))
+  expect_true(all(dim(my_ecopop[["AF"]]) == c(10, 92)))
+  expect_true(all(dim(my_ecopop[["E"]]) == c(10, 11)))
+  expect_true(all(dim(my_ecopop[["S"]]) == c(10, 1)))
   expect_true(all(dim(my_ecopop[["C"]]) == c(0, 0)))
   
   expect_that(my_ecopop2, is_a("ecopop"))
-  expect_true(all(dim(my_ecopop2[["XY"]]) == c(4, 2)))
-  expect_true(all(dim(my_ecopop2[["P"]]) == c(4, 8)))
-  expect_true(all(dim(my_ecopop2[["AF"]]) == c(4, 40)))
-  expect_true(all(dim(my_ecopop2[["E"]]) == c(4, 6)))
-  expect_true(all(dim(my_ecopop2[["S"]]) == c(4, 1)))
+  expect_true(all(dim(my_ecopop2[["XY"]]) == c(10, 2)))
+  expect_true(all(dim(my_ecopop2[["P"]]) == c(10, 8)))
+  expect_true(all(dim(my_ecopop2[["AF"]]) == c(10, 92)))
+  expect_true(all(dim(my_ecopop2[["E"]]) == c(10, 11)))
+  expect_true(all(dim(my_ecopop2[["S"]]) == c(10, 1)))
   expect_true(all(dim(my_ecopop2[["C"]]) == c(0, 0)))
   
   expect_that(my_ecopop3, is_a("ecopop"))
-  expect_true(all(dim(my_ecopop3[["XY"]]) == c(4, 2)))
-  expect_true(all(dim(my_ecopop3[["P"]]) == c(4, 8)))
-  expect_true(all(dim(my_ecopop3[["AF"]]) == c(4, 40)))
-  expect_true(all(dim(my_ecopop2[["E"]]) == c(4, 6)))
-  expect_true(all(dim(my_ecopop2[["S"]]) == c(4, 1)))
+  expect_true(all(dim(my_ecopop3[["XY"]]) == c(10, 2)))
+  expect_true(all(dim(my_ecopop3[["P"]]) == c(10, 8)))
+  expect_true(all(dim(my_ecopop3[["AF"]]) == c(10, 92)))
+  expect_true(all(dim(my_ecopop3[["E"]]) == c(10, 11)))
+  expect_true(all(dim(my_ecopop3[["S"]]) == c(10, 1)))
   expect_true(all(dim(my_ecopop3[["C"]]) == c(0, 0)))
   
 })

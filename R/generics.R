@@ -161,8 +161,13 @@ setGeneric("ecoslot.OUT<-", function(object, value) standardGeneric("ecoslot.OUT
 setGeneric("int.ecoslot.INT", function(X) standardGeneric("int.ecoslot.INT"))
 
 
-# is.locked
+#' @rdname EcoGenetics-accessors
+#' @keywords internal
 
+setGeneric("int.ecoslot.INT<-", function(object, value) standardGeneric("int.ecoslot.INT<-"))
+
+
+# is.locked
 setGeneric("is.locked", function(object) standardGeneric("is.locked"))
 
 
@@ -170,3 +175,8 @@ setGeneric("is.locked", function(object) standardGeneric("is.locked"))
 setGeneric("eco.old2new", function(object) standardGeneric("eco.old2new"))
 
 
+# eco.lock
+setGeneric("eco.lock", function(object) standardGeneric("eco.lock"))
+
+# eco.unlock
+setGeneric("eco.unlock", function(object) standardGeneric("eco.unlock"))
