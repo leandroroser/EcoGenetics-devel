@@ -265,16 +265,19 @@ setMethod("show",
 #' @aliases is.locked,ecopop
 #' @exportMethod is.locked
 
-setMethod("is.locked", "ecopop", function(object) {
-          if(object@ATTR$ver < '1.2.1-5' || is.null(object@ATTR$ver)) {
-            locked <- TRUE
-          } else if(!is.null(object@ATTR$ver)) {
-            if(object@ATTR$lock.rows) locked <- TRUE
-          } else {
-            locked <- FALSE
-          }
-  })
-
+setMethod("is.locked", "ecopop", 
+          function(object) {
+            if(object@ATTR$ver < '1.2.1-5' || is.null(object@ATTR$ver)) {
+              out <- TRUE
+            } else {
+              if(object@ATTR$lock.rows) {
+                out <- TRUE
+              } else {
+                out <- FALSE
+              }
+            }
+            out
+          })
 
 #' Update an old ecogen or ecopop object to a version compatible with EcoGenetics >= 1.5.0-1
 #' @description Update an old ecogen or ecopop object to a version compatible with EcoGenetics >= 1.5.0-1
