@@ -32,7 +32,7 @@ setGeneric("eco.nei_dist", function(obj, as_dist = TRUE) {
   nrow_x <- nrow(x)
   neidistan <- matrix(rep(0, nrow_x^2), ncol = nrow_x, nrow = nrow_x) 
   
-  for (i in seq_len(nrow_x) - 1) {
+  for (i in seq_len(nrow_x - 1)) {
     for (j in seq(i + 1, nrow_x)) {
       present <- which(!is.na(x[i, ]) & !is.na(x[j, ]))
       ja <- sum(x[i, present]^2)

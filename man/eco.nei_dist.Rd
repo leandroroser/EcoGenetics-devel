@@ -17,7 +17,7 @@ Estimate Nei distance matrix. NAs are avoided.
 \examples{
 \dontrun{
 data(eco.test)
-eco.nei_distance(my_ecopop)
+eco.nei_dist(my_ecopop)
 }
 }
 \author{
