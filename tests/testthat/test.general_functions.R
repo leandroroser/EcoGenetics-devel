@@ -247,10 +247,11 @@ test_that("eco.theilsen works fine", {
   file.remove(c("temporal.tif", "slope.tif", "pvalue.tif"))
 })
 
-test_that("eco.pop_alfreq works fine", {
+
+test_that("eco.dom_af works fine", {
   skip_on_cran()
-  expect_true(class(obj) == "eco.detrend")
-  expect_true(all(dim(obj@RES) == c(900, 1)))
+  out <- eco.dom_af(my_ecopop)
+  expect_true(all(names(out) == c("freq", "var")))
 })
 
 

@@ -1,12 +1,17 @@
 
 #' Estimate Nei distance matrix 
 #' @description Estimate Nei distance matrix. NAs are avoided. 
-#' @param x Matrix of allele frequencies
+#' @param obj ecopop orgenpop  objects, or matrix/data frame with allele frequencies
 #' @param as_dist Return a dist object or a matrix? default an object of class "dist".
+#' @examples
+#' \dontrun{
+#' data(eco.test)
+#' eco.nei_distance(my_ecopop)
+#' }
 #' @author Juan Vilardi
 #' @export
 
-setGeneric("eco.nei_distance", function(obj, as.dist = TRUE) {
+setGeneric("eco.nei_distance", function(obj, as_dist = TRUE) {
   
   # get matrix matr with 'allele counts'
   
@@ -37,5 +42,8 @@ setGeneric("eco.nei_distance", function(obj, as.dist = TRUE) {
     }
   }
   rownames(neidistan) <- colnames(neidistan) <- rownames(x)
+  if(as_dist) {
+  neidistan <- as.dist(neidistan)
+  }
   neidistan
 })

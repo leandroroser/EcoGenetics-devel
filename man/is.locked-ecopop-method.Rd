@@ -8,6 +8,17 @@
 \usage{
 \S4method{is.locked}{ecopop}(object)
 }
+\arguments{
+\item{object}{ecopop object}
+}
 \description{
 Test if rows of an ecopop object are locked
+}
+\examples{
+\dontrun{
+data(eco.test)
+is.locked(my_ecopop) 
+eco2 <- eco.unlock(eco)
+is.locked(eco2) 
+}
 }

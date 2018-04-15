@@ -130,6 +130,8 @@ if(run_parallel) {
         
         # use psock or fork depending on OS
         
+        this_os <- aue.get_os()
+        
         if(is.null(cl_type)) {
         if(this_os == "windows") {
           cl_type <- "PSOCK"

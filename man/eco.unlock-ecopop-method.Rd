@@ -3,11 +3,24 @@
 \docType{methods}
 \name{eco.unlock,ecopop-method}
 \alias{eco.unlock,ecopop-method}
+\alias{eco.unlock,ecopop}
 \title{Unlock rows in an ecogen object}
 \usage{
 \S4method{eco.unlock}{ecopop}(object)
 }
+\arguments{
+\item{object}{ecopop object}
+}
 \description{
 This methods unlocks the rows in an ecogen object. This means that 
 different data frames in the object can have different rows, with different row names.
+}
+\examples{
+\dontrun{
+data(eco.test)
+my_ecopop2 <- eco.unlock(my_ecopop)
+is.locked(my_ecopop2) 
+my_ecopop3 <- eco.lock(my_ecopop)
+is.locked(my_ecopop3) 
+}
 }

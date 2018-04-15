@@ -16,6 +16,7 @@
 #' @param C Data frame with n rows (populations), and m columns (custom variables).
 #' @param ploidy Ploidy of the AF data frame. 
 #' @param type Marker type: "codominant" or "dominant".
+#' @param allele_data format for allele data output (slot AF). Can be "counts" or "frequencies".
 #' @param order.df Order populations of data frames by row? 
 #' (all data frames with a same row order).
 #' Defalut FALSE. The row names of all the data frames must be ordered. In this case,

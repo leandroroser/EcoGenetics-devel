@@ -57,7 +57,7 @@ test_that("gstudio importation/exportation works", {
 test_that("spagedi importation/exportation works", {
   skip_on_cran()
   expect_that(ecogen2spagedi(eco, dir = "", pop = "pop", ndig = 1,int=2, smax=6, 
-                            outName="infile.spagedi.txt"), 
+                            outName="infile.spagedi.txt", to_numeric = TRUE), 
              prints_text("File written to"))
  
   toeco <- suppressWarnings(spagedi2ecogen("infile.spagedi.txt", sep = ""))
@@ -76,7 +76,7 @@ test_that("spagedi importation/exportation works", {
 
 test_that("ecogen2hierfstat works", {
   skip_on_cran()
-  hiereco <- ecogen2hierfstat(eco, "pop")
+  hiereco <- ecogen2hierfstat(eco, "pop", to_numeric = TRUE)
   mystats <- basic.stats(hiereco)
   expect_true(all(dim(mystats$Ho) == c(10, 4)))
 })
@@ -84,7 +84,7 @@ test_that("ecogen2hierfstat works", {
 
 test_that("genpop and ecopop interconversion works", {
   skip_on_cran()
-  my_ecopop <- ecogen2ecopop(eco, hier = "pop")
+  hiereco <- ecogen2hierfstat(eco, "pop",to_numeric = TRUE)
   my_genpop <- ecopop2genpop(my_ecopop)
   my_ecopop2 <- genpop2ecopop(my_genpop)
   

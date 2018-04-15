@@ -42,6 +42,8 @@ In both cases, the program set the content of the S slots as the reference names
 using the row names of the first non-empty data frame found in the following order: 
 XY, P, AF, E, C. This attribute is used as reference to order rows when order.df = TRUE.}
 
+\item{allele_data}{format for allele data output (slot AF). Can be "counts" or "frequencies".}
+
 \item{lock.rows}{Turn on row names check. Data frames require indentical individuals in rows.
 Default TRUE.}
 }

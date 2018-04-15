@@ -8,6 +8,12 @@
 #' @references 
 #' Zhivotovsky, L. A. (1999). Estimating population structure in diploids 
 #' with multilocus dominant DNA markers. Molecular Ecology, 8:907-913.
+#' @examples
+#' \dontrun{
+#' data(eco.test)
+#' my_ecopop <- ecogen2ecopop(eco, "pop")
+#' eco.dom_af(my_ecopop)
+#' }
 #' @author Juan Vilardi
 #' @export
 

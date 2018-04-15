@@ -38,10 +38,11 @@ test_that("test ecogen set", {
 
 test_that("test ecopop get", {
   skip_on_cran()
+  expect_true(all(dim(my_ecopop[["XY"]]) == c(4, 2)))
   expect_true(all(dim(my_ecopop[["P"]]) == c(4, 8)))
   expect_true(all(dim(my_ecopop[["AF"]]) == c(4, 40)))
-  expect_true(all(dim(my_ecopop[["E"]]) == c(4, 8)))
-  expect_true(all(dim(my_ecopop[["S"]]) == c(4,2)))
+  expect_true(all(dim(my_ecopop[["E"]]) == c(4, 6)))
+  expect_true(all(dim(my_ecopop[["S"]]) == c(4,1)))
   expect_true(all(dim(my_ecopop[["C"]]) == c(0, 0)))
 })
 
@@ -49,10 +50,11 @@ test_that("test ecopop get", {
 test_that("test ecopop set", {
   skip_on_cran()
   new_eco <- ecopop(ploidy = 2)
+  expect_true(all(dim(new_eco[["XY"]] <- my_ecopop@XY) == c(4, 2)))
   expect_true(all(dim(new_eco[["P"]] <- my_ecopop@P) == c(4, 8)))
   expect_true(all(dim(new_eco[["AF"]] <- my_ecopop@AF) == c(4, 40)))
-  expect_true(all(dim(new_eco[["E"]] <- my_ecopop@E) == c(4, 8)))
-  expect_true(all(dim(new_eco[["S"]] <- my_ecopop@S) == c(4, 2)))
+  expect_true(all(dim(new_eco[["E"]] <- my_ecopop@E) == c(4, 6)))
+  expect_true(all(dim(new_eco[["S"]] <- my_ecopop@S) == c(4, 1)))
   expect_true(all(dim(new_eco[["C"]] <- my_ecopop@C) == c(0, 0)))
 })
 

@@ -10,7 +10,7 @@ ecogen(XY = data.frame(), P = data.frame(), G = data.frame(),
   type = c("codominant", "dominant"), sep = "", ncod = NULL,
   missing = c("0", "NA", "MEAN"), NA.char = "NA", poly.level = 5,
   rm.empty.ind = FALSE, order.df = TRUE, set.names = NULL,
-  valid.names = FALSE, lock.rows = TRUE, sort.alleles = FALSE)
+  valid.names = FALSE, lock.rows = TRUE)
 }
 \arguments{
 \item{XY}{Data frame with m columns (coordinates) and n rows (individuals).}

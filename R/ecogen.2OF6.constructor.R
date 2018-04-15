@@ -176,8 +176,7 @@ setGeneric("ecogen",
                     order.df = TRUE,
                     set.names = NULL,
                     valid.names = FALSE,
-                    lock.rows = TRUE,
-                    sort.alleles = FALSE) {				
+                    lock.rows = TRUE) {				
              
           
              # general configuration

@@ -166,11 +166,17 @@ setGeneric("genpop2ecopop", function(from) {
 #' @rdname ecopop_counts2af
 #' @description Conversion from ecopop with genetic data as count,
 #' into ecopop with genetic data as allele frequencies
+#' @param from ecopop object
+#' @examples
+#' \dontrun{
+#' data(eco.test)
+#' ecopop_counts2af(my_ecopop)
+#' }
 #' @export
 
 setGeneric("ecopop_counts2af", function(from) { 
   to <- from
-  to@AF <- aue.dummy2af(from@AF, loc_fac)
+  to@AF <- aue.dummy2af(from@AF, from@INT@loc.fac)
   to@INT@allele_data <- "frequency"
   to
 })

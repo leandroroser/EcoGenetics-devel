@@ -262,7 +262,15 @@ setMethod("show",
 
 #' Test if rows of an ecopop object are locked
 #' @description  Test if rows of an ecopop object are locked 
+#' @param object ecopop object
 #' @aliases is.locked,ecopop
+#' @examples
+#' \dontrun{
+#' data(eco.test)
+#' is.locked(my_ecopop) 
+#' eco2 <- eco.unlock(eco)
+#' is.locked(eco2) 
+#' }
 #' @exportMethod is.locked
 
 setMethod("is.locked", "ecopop", 
@@ -281,6 +289,7 @@ setMethod("is.locked", "ecopop",
 
 #' Update an old ecogen or ecopop object to a version compatible with EcoGenetics >= 1.5.0-1
 #' @description Update an old ecogen or ecopop object to a version compatible with EcoGenetics >= 1.5.0-1
+#' @param object ecopop object
 #' @aliases eco.old2new,ecopop
 #' @exportMethod eco.old2new
 
@@ -316,6 +325,7 @@ setMethod("eco.old2new", "ecopop",
 #' @description  This methods locks the rows in an ecogen object.  When rows are locked,
 #' the object requires rows with identical indviduals in the non empty data frames, and
 #' identity in the row names of the data frames.
+#' @param object ecopop object
 #' @param set.names Character vector with names for the rows of the non-empty data frames. 
 #' This argument is incompatible with valid.names
 #' @param valid.names Logical. Create valid row names? This argument is incompatible with 
@@ -329,7 +339,17 @@ setMethod("eco.old2new", "ecopop",
 #' In both cases, the program sets an internal names attribute of the object
 #' using the row names of the first non-empty data frame found in the following order: 
 #' XY, P, G, E, S, C. This attribute is used as reference to order rows when order.df = TRUE. 
-#' @export
+#' @aliases eco.lock,ecopop
+#' @examples
+#' \dontrun{
+#' data(eco.test)
+#' my_ecopop2 <- eco.unlock(my_ecopop)
+#' is.locked(my_ecopop2) 
+#' my_ecopop3 <- eco.lock(my_ecopop)
+#' is.locked(my_ecopop3) 
+#' }
+#' 
+#'@exportMethod eco.lock
 
 setMethod("eco.lock", "ecopop", 
           function(object, set.names = NULL, valid.names = FALSE, order.df = FALSE) {
@@ -430,7 +450,17 @@ setMethod("eco.lock", "ecopop",
 #' Unlock rows in an ecogen object
 #' @description  This methods unlocks the rows in an ecogen object. This means that 
 #' different data frames in the object can have different rows, with different row names.
-#' @export
+#' @param object ecopop object
+#' @aliases eco.unlock,ecopop
+#' @examples
+#' \dontrun{
+#' data(eco.test)
+#' my_ecopop2 <- eco.unlock(my_ecopop)
+#' is.locked(my_ecopop2) 
+#' my_ecopop3 <- eco.lock(my_ecopop)
+#' is.locked(my_ecopop3) 
+#' }
+#' @exportMethod eco.unlock
 
 setMethod("eco.unlock", "ecopop", function(object) {
   object@ATTR$names <- list(character(0))

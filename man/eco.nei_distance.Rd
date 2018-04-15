@@ -4,15 +4,21 @@
 \alias{eco.nei_distance}
 \title{Estimate Nei distance matrix}
 \usage{
-eco.nei_distance(obj, as.dist = TRUE)
+eco.nei_distance(obj, as_dist = TRUE)
 }
 \arguments{
-\item{x}{Matrix of allele frequencies}
+\item{obj}{ecopop orgenpop  objects, or matrix/data frame with allele frequencies}
 
 \item{as_dist}{Return a dist object or a matrix? default an object of class "dist".}
 }
 \description{
 Estimate Nei distance matrix. NAs are avoided.
+}
+\examples{
+\dontrun{
+data(eco.test)
+eco.nei_distance(my_ecopop)
+}
 }
 \author{
 Juan Vilardi

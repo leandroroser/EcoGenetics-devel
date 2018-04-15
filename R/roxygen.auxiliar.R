@@ -68,19 +68,6 @@
 # DATA FILES 
 #--------------------
 
-#' phenotype
-#' @name phenotype
-#' @docType data
-#' @description Data frame with simulated morphometric 
-#' data of 225 individuals.
-#' @author Leandro Roser \email{learoser@@gmail.com}
-#' @usage
-#' data(eco.test)
-#' phenotype
-#' @keywords data
-
-0
-
 #' tab
 #' @name tab
 #' @docType data
@@ -97,34 +84,8 @@
 #' tab
 #' @keywords data
 
-
 0
 
-#' structure
-#' @name structure
-#' @docType data
-#' @description Factor with simulated groups of 225 individuals.
-#' @author Leandro Roser \email{learoser@@gmail.com}
-#' @usage
-#' data(eco.test)
-#' structure
-#' @keywords data
-
-0
-
-#' coordinates
-#' @name coordinates
-#' @docType data
-#' @description Data frame with cartesian coordinates of 
-#' 225 simulated individuals.
-#' @keywords data
-#' @usage
-#' data(eco.test)
-#' coordinates
-#' @author Leandro Roser \email{learoser@@gmail.com}
-#' 
-
-0
 
 #' eco
 #' @name eco
@@ -150,17 +111,6 @@
 
 0
 
-#' eco_dom
-#' @name eco
-#' @docType data
-#' @description ecogen object with simulated data of 225 individuals, with dominant markers
-#' @author Leandro Roser \email{learoser@@gmail.com}
-#' @usage
-#' data(eco.test)
-#' eco
-#' @keywords data
-
-0
 
 #' eco2
 #' @name eco2
@@ -197,21 +147,101 @@
 #' data(eco3)
 #' eco3
 #' @keywords data
+#' 
 
 0
-#' environment
-#' @name environment
+
+
+#' XY
+#' @name XY
 #' @docType data
-#' @description Data frame with simulated environmental variables 
-#' of 225 individuals.
+#' @description Factor with simulated coordinates of 173 individuals.
+#' @author Leandro Roser \email{learoser@@gmail.com}
+#' @usage
+#' data(eco4)
+#' XY
+#' @keywords data
+
+0
+
+
+#' P
+#' @name P
+#' @docType data
+#' @description Factor with simulated phenotypic data of 173 individuals.
+#' @author Leandro Roser \email{learoser@@gmail.com}
+#' @usage
+#' data(eco4)
+#' P
+#' @keywords data
+
+0
+
+#' G
+#' @name G
+#' @docType data
+#' @description data frame with simulated genetic data of 173 individuals.
+#' @author Leandro Roser \email{learoser@@gmail.com}
+#' @usage
+#' data(eco4)
+#' G
+#' @keywords data
+
+0
+
+#' E
+#' @name E
+#' @docType data
+#' @description data frame with simulated environmental data of 173 individuals.
+#' @author Leandro Roser \email{learoser@@gmail.com}
+#' @usage
+#' data(eco4)
+#' E
+#' @keywords data
+
+0
+
+
+#' S
+#' @name S
+#' @docType data
+#' @description Factor with simulated groups of 173 individuals.
+#' @author Leandro Roser \email{learoser@@gmail.com}
+#' @usage
+#' data(eco4)
+#' S
+#' @keywords data
+
+0
+
+#' coordinates
+#' @name coordinates
+#' @docType data
+#' @description Data frame with cartesian coordinates of 
+#' 225 simulated individuals.
+#' @keywords data
+#' @usage
+#' data(eco.test)
+#' coordinates
+#' @author Leandro Roser \email{learoser@@gmail.com}
+#' 
+
+0
+
+
+#' phenotype
+#' @name phenotype
+#' @docType data
+#' @description Data frame with simulated morphometric 
+#' data of 225 individuals.
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @usage
 #' data(eco.test)
-#' environment
+#' phenotype
 #' @keywords data
 
-
 0
+
 
 #' genotype
 #' @name genotype
@@ -225,6 +255,32 @@
 #' @keywords data
 
 0
+
+#' environment
+#' @name environment
+#' @docType data
+#' @description Data frame with simulated environmental variables 
+#' of 225 individuals.
+#' @author Leandro Roser \email{learoser@@gmail.com}
+#' @usage
+#' data(eco.test)
+#' environment
+#' @keywords data
+
+0
+
+#' structure
+#' @name structure
+#' @docType data
+#' @description Factor with simulated groups of 225 individuals.
+#' @author Leandro Roser \email{learoser@@gmail.com}
+#' @usage
+#' data(eco.test)
+#' structure
+#' @keywords data
+
+0
+
 
 #' genotype_dom
 #' @name genotype_dom

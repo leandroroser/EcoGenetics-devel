@@ -6,7 +6,16 @@
 \usage{
 ecopop_counts2af(from)
 }
+\arguments{
+\item{from}{ecopop object}
+}
 \description{
 Conversion from ecopop with genetic data as count,
 into ecopop with genetic data as allele frequencies
+}
+\examples{
+\dontrun{
+data(eco.test)
+ecopop_counts2af(my_ecopop)
+}
 }

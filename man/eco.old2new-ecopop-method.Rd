@@ -8,6 +8,9 @@
 \usage{
 \S4method{eco.old2new}{ecopop}(object)
 }
+\arguments{
+\item{object}{ecopop object}
+}
 \description{
 Update an old ecogen or ecopop object to a version compatible with EcoGenetics >= 1.5.0-1
 }

@@ -8,6 +8,17 @@
 \usage{
 \S4method{is.locked}{ecogen}(object)
 }
+\arguments{
+\item{object}{ecogen object}
+}
 \description{
 Test if rows of an ecogen object are locked
+}
+\examples{
+\dontrun{
+data(eco.test)
+is.locked(eco) 
+eco2 <- eco.unlock(eco)
+is.locked(eco2) 
+}
 }

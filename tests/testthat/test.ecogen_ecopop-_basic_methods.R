@@ -30,3 +30,26 @@ test_that("ecopop basic methods work", {
                                rownames(my_ecopop@AF)[1], rownames(my_ecopop@E)[1], 
                                rownames(my_ecopop@S)[1], rownames(my_ecopop@C)[1]))) == "test1")
 })
+
+
+
+test_that("ecopop basic methods work", {
+  
+  expect_true(is.locked(eco))
+  
+  unlocked <- ecogen(G = genotype, P = phenotype, lock.rows = FALSE)
+  
+  expect_true(!is.locked(unlocked))
+  expect_true(!is.locked(eco.unlock(eco)))
+  
+  
+  ecoslot.P(unlocked) <- rbind(ecoslot.P(eco), ecoslot.P(eco)) 
+  
+  expect_true(nrow(unlocked@P) != nrow(unlocked@G))
+  expect_error(eco.lock(unlocked), "invalid class")
+  
+  ecoslot.P(unlocked) <- ecoslot.P(eco)
+  locked <- eco.lock(unlocked) 
+  expect_true(is.locked(locked))
+  
+})

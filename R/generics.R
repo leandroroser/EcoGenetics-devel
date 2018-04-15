@@ -166,17 +166,18 @@ setGeneric("int.ecoslot.INT", function(X) standardGeneric("int.ecoslot.INT"))
 
 setGeneric("int.ecoslot.INT<-", function(object, value) standardGeneric("int.ecoslot.INT<-"))
 
-
-# is.locked
+#' is.locked
+#'@keywords internal
 setGeneric("is.locked", function(object) standardGeneric("is.locked"))
 
-
-# eco.old2new
+#' eco.old2new
+#'@keywords internal
 setGeneric("eco.old2new", function(object) standardGeneric("eco.old2new"))
 
+#' eco.lock
+#'@keywords internal
+setGeneric("eco.lock", function(object, ...) standardGeneric("eco.lock"))
 
-# eco.lock
-setGeneric("eco.lock", function(object) standardGeneric("eco.lock"))
-
-# eco.unlock
+#' eco.unlock
+#'@keywords internal
 setGeneric("eco.unlock", function(object) standardGeneric("eco.unlock"))
