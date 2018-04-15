@@ -6,12 +6,12 @@
 #' @examples
 #' \dontrun{
 #' data(eco.test)
-#' eco.nei_distance(my_ecopop)
+#' eco.nei_dist(my_ecopop)
 #' }
 #' @author Juan Vilardi
 #' @export
 
-setGeneric("eco.nei_distance", function(obj, as_dist = TRUE) {
+setGeneric("eco.nei_dist", function(obj, as_dist = TRUE) {
   
   # get matrix matr with 'allele counts'
   

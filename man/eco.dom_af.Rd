@@ -17,6 +17,13 @@ Can be one of 'zhivor' ( Zhivotovsky 1999, with uniform prior),
 \description{
 Compute allele frequencies for dominant data using different methods
 }
+\examples{
+\dontrun{
+data(eco.test)
+my_ecopop <- ecogen2ecopop(eco, "pop")
+eco.dom_af(my_ecopop)
+}
+}
 \references{
 Zhivotovsky, L. A. (1999). Estimating population structure in diploids 
 with multilocus dominant DNA markers. Molecular Ecology, 8:907-913.
