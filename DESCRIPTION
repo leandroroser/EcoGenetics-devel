@@ -46,4 +46,4 @@ Collate: 'ZZZ.R' 'generics.R' 'auxiliar.R' 'int.genind.R'
         'eco.kin.hardy.R' 'eco.nei_dist.R'
 RoxygenNote: 6.0.1
 NeedsCompilation: no
-Packaged: 2018-01-12 08:12:58 UTC; leandro
+Packaged: 2018-04-16 08:12:58 UTC; leandro

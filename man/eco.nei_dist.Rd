@@ -7,9 +7,9 @@
 eco.nei_dist(obj, as_dist = TRUE)
 }
 \arguments{
-\item{obj}{ecopop orgenpop  objects, or matrix/data frame with allele frequencies}
+\item{obj}{ecopop or genpop  objects, or matrix/data frame with allele frequencies}
 
-\item{as_dist}{Return a dist object or a matrix? default an object of class "dist".}
+\item{as_dist}{Return a dist object or a matrix? default is an object of class "dist"}
 }
 \description{
 Estimate Nei distance matrix. NAs are avoided.

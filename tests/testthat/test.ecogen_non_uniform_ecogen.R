@@ -1,7 +1,7 @@
 context("Test ecogen-ecopop constructors")
 
 data(eco4)
-my_ecogen <- ecogen(G=G, S=S, XY=XY, P = P, E = E, sep = "/")
+my_ecogen <- ecogen(G=G, S=S, XY=XY, P = P, sep = "/")
 my_ecopop <- ecogen2ecopop(my_ecogen, hier = "pop")
 
 
@@ -45,7 +45,7 @@ test_that("ecogen2ecopop works fine", {
   expect_true(all(dim(my_ecopop[["XY"]]) == c(10, 2)))
   expect_true(all(dim(my_ecopop[["P"]]) == c(10, 8)))
   expect_true(all(dim(my_ecopop[["AF"]]) == c(10, 92)))
-  expect_true(all(dim(my_ecopop[["E"]]) == c(10, 11)))
+  expect_true(all(dim(my_ecopop[["E"]]) == c(0, 0)))
   expect_true(all(dim(my_ecopop[["S"]]) == c(10, 1)))
   expect_true(all(dim(my_ecopop[["C"]]) == c(0, 0)))
   
@@ -53,7 +53,7 @@ test_that("ecogen2ecopop works fine", {
   expect_true(all(dim(my_ecopop2[["XY"]]) == c(10, 2)))
   expect_true(all(dim(my_ecopop2[["P"]]) == c(10, 8)))
   expect_true(all(dim(my_ecopop2[["AF"]]) == c(10, 92)))
-  expect_true(all(dim(my_ecopop2[["E"]]) == c(10, 11)))
+  expect_true(all(dim(my_ecopop2[["E"]]) == c(0, 0)))
   expect_true(all(dim(my_ecopop2[["S"]]) == c(10, 1)))
   expect_true(all(dim(my_ecopop2[["C"]]) == c(0, 0)))
   
@@ -61,7 +61,7 @@ test_that("ecogen2ecopop works fine", {
   expect_true(all(dim(my_ecopop3[["XY"]]) == c(10, 2)))
   expect_true(all(dim(my_ecopop3[["P"]]) == c(10, 8)))
   expect_true(all(dim(my_ecopop3[["AF"]]) == c(10, 92)))
-  expect_true(all(dim(my_ecopop3[["E"]]) == c(10, 11)))
+  expect_true(all(dim(my_ecopop3[["E"]]) == c(0, 0)))
   expect_true(all(dim(my_ecopop3[["S"]]) == c(10, 1)))
   expect_true(all(dim(my_ecopop3[["C"]]) == c(0, 0)))
   

@@ -1,8 +1,8 @@
 
 #' Estimate Nei distance matrix 
 #' @description Estimate Nei distance matrix. NAs are avoided. 
-#' @param obj ecopop orgenpop  objects, or matrix/data frame with allele frequencies
-#' @param as_dist Return a dist object or a matrix? default an object of class "dist".
+#' @param obj ecopop or genpop  objects, or matrix/data frame with allele frequencies
+#' @param as_dist Return a dist object or a matrix? default is an object of class "dist"
 #' @examples
 #' \dontrun{
 #' data(eco.test)
