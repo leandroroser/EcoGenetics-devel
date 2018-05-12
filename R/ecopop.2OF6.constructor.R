@@ -84,7 +84,7 @@
 #' 
 #' # extracting tables with accessors (double brackets notation)
 #' XY_pop <- my_ecopop[["XY"]]
-#' AF_pop <- my_ecopop[["P"]]
+#' P_pop <- my_ecopop[["P"]]
 #' AF_pop <- my_ecopop[["AF"]]
 #' E_pop <- my_ecopop[["E"]]
 #' S_pop <- my_ecopop[["S"]]
