@@ -434,10 +434,10 @@ eco.malecot <- function(eco,
     }
     
     if(type == "knearest" & is.null(kmax)) {
-      stop("kmax argument must be non-null with local knearest analysis")
+      stop("kmax argument must be not-null with local knearest analysis")
     }
     if(type == "radialdist" & is.null(smax)) {
-      stop("smax argument must be non-null with local radialdist analysis")
+      stop("smax argument must be not-null with local radialdist analysis")
     }
     if(type == "knearest") {
       modelmatrix <- eco.weight(XY = XY, 
@@ -843,7 +843,7 @@ eco.malecot <- function(eco,
     
     salida <- new("eco.IBD")
     salida@OUT <- list(tab)
-    salida@GLOBALTEST <- ifelse(min(tab$p.val) < 0.05/nrow(tab), "SIGNIFICANT", "NON-SIGNIFICANT")
+    salida@GLOBALTEST <- ifelse(min(tab$p.val) < 0.05/nrow(tab), "SIGNIFICANT", "NOT-SIGNIFICANT")
     salida@IN <- list(XY = XY, ECOGEN = eco@INT)
     salida@BREAKS <- breaks.kin
     salida@CARDINAL <- cardinal

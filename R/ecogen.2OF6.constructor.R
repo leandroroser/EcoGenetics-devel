@@ -24,9 +24,9 @@
 #' @param sep Character separating alleles (codominant data). 
 #' Default option is no character separating alleles. 
 #' @param ncod Number of characters coding each allele (codominant data).
-#' @param missing Missing data treatment ("0", "NA", or "MEAN") for the A
-#' slot. Missing elements are set to 0 in the default option. missing elements
-#' are recoded as "NA" or the mean allelic frequency across individuals in "NA" 
+#' @param missing Missing data treatment ("NA", "0", or "MEAN") for the A
+#' slot. Missing elements are set to NA in the default option. missing elements
+#' are recoded as 0 or the mean allelic frequency across individuals in "0" 
 #' and "MEAN" options, respectively. 
 #' @param NA.char Character simbolizing missing data in the input. Default is "NA".
 #' @param poly.level Polymorphism threshold in percentage (0 - 100), 
@@ -169,7 +169,7 @@ setGeneric("ecogen",
                     type = c("codominant", "dominant"),
                     sep = "", 
                     ncod = NULL,
-                    missing = c("0", "NA", "MEAN"),
+                    missing = c("NA", "0", "MEAN"),
                     NA.char = "NA", 
                     poly.level = 5,
                     rm.empty.ind = FALSE,

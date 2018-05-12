@@ -90,7 +90,8 @@
 #' S_pop <- my_ecopop[["S"]]
 #' 
 #' ## 2) Creating a new ecopop object
-#' my_ecopop2 <- ecopop(XY = XY_pop, P = XY_pop, AF = AF_pop, E = E_pop, S = S_pop,
+#' my_ecopop2 <- ecopop(XY = XY_pop, P = XY_pop, AF = AF_pop, E = E_pop, 
+#'                      S = S_pop,
 #'                      ploidy = 2, type = "codominant")
 #' 
 #' ## 3) From an empty object
@@ -127,7 +128,7 @@ setGeneric("ecopop",
                     type = c("codominant", "dominant"),
                     order.df = FALSE,
                     allele_data = c("counts", "frequencies"),
-                    lock.rows = FALSE) {				
+                    lock.rows = TRUE) {				
              
             
              type <- match.arg(type)
@@ -152,11 +153,6 @@ setGeneric("ecopop",
              S <- as.data.frame(S)
              if(dim(S)[1] != 0) {
                S[] <- lapply(S, factor)
-               
-               if(!( pop_names_column %in% seq_len(ncol(S)))) {
-                 stop("Invalid pop column")
-               }
-               
              }
              
              object@S <- S
@@ -167,15 +163,16 @@ setGeneric("ecopop",
              # set row names
              
              
-             if(lock.rows) {
+             if(!lock.rows) {
                object@ATTR$names <- list(character(0))
-               object@ATTR$lock.rows <- TRUE
+               object@ATTR$lock.rows <- FALSE
              } else {
               object.names <- list(XY=rownames(object@XY), P=rownames(object@P),
                                    AF=rownames(object@AF), E=rownames(object@E), 
                                    S=rownames(object@S), C=rownames(object@C))
              
-              object.names <- object.names[unlist(lapply(object.names, function(x) length(x)  != 0))]
+              object.names <- object.names[unlist(lapply(object.names, 
+                function(x) length(x)  != 0))]
               
               if(length(object.names) != 0) {
                 rownumber <- unique(unlist(lapply(object.names, length)))
@@ -188,14 +185,49 @@ setGeneric("ecopop",
              ## set names
              S_ncol <- ncol(S)
              if(S_ncol > 0) {
-               if(!(pop_names_column %in% S_ncol)) {
-                 stop("Incorrect value for pop_names_column")
+               
+               if(!( pop_names_column %in% seq_len(S_ncol))) {
+                 stop("Invalid pop column")
                }
-             object@ATTR$names <- as.factor(S[, pop_names_column])
+             the_names < as.factor(S[, pop_names_column])
+             object@ATTR$names <- the_names
              } else {
                if(length(object.names) != 0) {
+                 while(TRUE) {
+                   
+                   if(nrow(object@XY) != 0) {
+                     object@ATTR$names <- object.names$XY
+                     break
+                   }
+                   if(nrow(object@P) != 0) {
+                     object@ATTR$names <- object.names$P
+                     break
+                   }
+                   if(nrow(object@AF) != 0) {
+                     object@ATTR$names <- object.names$G
+                     break
+                   }
+                   if(nrow(object@E) != 0) {
+                     object@ATTR$names <- object.names$E
+                     break
+                   }
+                   if(nrow(object@E) != 0) {
+                     object@ATTR$names <- object.names$S
+                     break
+                   }
+                   if(nrow(object@C) != 0) {
+                     object@ATTR$names <- object.names$C
+                     break
+                   }
+                   object@ATTR$names <- character(0)
+                   break
+                 }
+               } else {
              object@ATTR$names <- factor(paste0("P.", seq_len(rownumber)))
                }
+             }
+             for(i in names(object.names)) {
+               eval(expr = parse(text=paste0("rownames(object@", i, ") <- object@ATTR$names")))
              }
              }
         
