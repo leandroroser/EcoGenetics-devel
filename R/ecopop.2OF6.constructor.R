@@ -71,7 +71,15 @@
 #' Second, the data can be added to each slot, using the corresponding
 #' accessor or, in an equivalent way, with double brackets notation ("[[").
 #' 
-
+##' \bold{LOCKED AND UNLOCKED OBJECTS}
+#' #' Starting from version 1.2.1.5, ecogen and ecopop objects can be "locked" 
+#' (default) or "unlocked". A "locked" object must have identical number of rows and 
+#' row names in all the input data frames (or a rule must be provided to construct
+#' the row names in case of ecogen objects, with valid.names or set.names arguments).
+#' An unlocked objects allows to have a free number of rows
+#' in each table, and row names do not need to coincide among tables. See 
+#' examples below.
+#' 
 #' @examples
 #' \dontrun{
 #' 
@@ -109,6 +117,26 @@
 #' 
 #' ## Subsetting by rows:
 #' my_ecopop3[1:10]
+#' #--------------------------------
+#' # Locked and unlocked objects 
+#' #--------------------------------
+#' 
+#' is.locked(my_ecopop) # check if object is locked
+#' my_ecopop[["P"]] <- rbind(my_ecopop[["P"]], my_ecopop[["P"]]) # invalid in locked object
+#' 
+#' my_ecopop_unlocked <- eco.unlock(my_ecopop) #unlocked object
+#' my_ecopop_unlocked[["P"]]<-rbind(my_ecopop[["P"]], my_ecopop[["P"]])  # valid now
+#' 
+#' new_locked <- eco.lock(my_ecopop_unlocked) # invalid
+#' my_ecopop_unlocked[["P"]]<- my_ecopop[["P"]]
+#' new_locked <- eco.lock(my_ecopop_unlocked) # valid now
+#' 
+#' 
+#' 
+#' 
+#' 
+#'
+#' 
 #' 
 #' }
 #' 
@@ -130,22 +158,22 @@ setGeneric("ecopop",
                     allele_data = c("counts", "frequencies"),
                     lock.rows = TRUE) {				
              
-            
+             
              type <- match.arg(type)
              if(is.null(ploidy) || missing(ploidy)) {
                stop("Please provide the ploidy of your data")
              }
              allele_data <- match.arg(allele_data)
-
+             
              # creating a new ecopop object
              object <- new("ecopop", ploidy, type)
-
+             
              object@XY <- as.data.frame(XY)
              object@P <- as.data.frame(P)
              object@AF <- as.matrix(AF)
              
              if(allele_data == "counts") {
-             mode(object@AF)<- "integer"
+               mode(object@AF)<- "integer"
              }
              object@E <- as.data.frame(E)
              
@@ -159,7 +187,7 @@ setGeneric("ecopop",
              object@C <- as.data.frame(C)
              
              # set object environment
- 
+             
              # set row names
              
              
@@ -167,70 +195,68 @@ setGeneric("ecopop",
                object@ATTR$names <- list(character(0))
                object@ATTR$lock.rows <- FALSE
              } else {
-              object.names <- list(XY=rownames(object@XY), P=rownames(object@P),
-                                   AF=rownames(object@AF), E=rownames(object@E), 
-                                   S=rownames(object@S), C=rownames(object@C))
-             
-              object.names <- object.names[unlist(lapply(object.names, 
-                function(x) length(x)  != 0))]
-              
-              if(length(object.names) != 0) {
-                rownumber <- unique(unlist(lapply(object.names, length)))
-                # check nrow consistency
-                if(length(rownumber)> 1) {
-                  stop("Non unique row number found")
-                }
-              }
-             
-             ## set names
-             S_ncol <- ncol(S)
-             if(S_ncol > 0) {
+               object.names <- list(XY=rownames(object@XY), P=rownames(object@P),
+                                    AF=rownames(object@AF), E=rownames(object@E), 
+                                    S=rownames(object@S), C=rownames(object@C))
                
-               if(!( pop_names_column %in% seq_len(S_ncol))) {
-                 stop("Invalid pop column")
-               }
-             the_names < as.factor(S[, pop_names_column])
-             object@ATTR$names <- the_names
-             } else {
+               object.names <- object.names[unlist(lapply(object.names, 
+                                                          function(x) length(x)  != 0))]
+               
                if(length(object.names) != 0) {
-                 while(TRUE) {
-                   
-                   if(nrow(object@XY) != 0) {
-                     object@ATTR$names <- object.names$XY
-                     break
-                   }
-                   if(nrow(object@P) != 0) {
-                     object@ATTR$names <- object.names$P
-                     break
-                   }
-                   if(nrow(object@AF) != 0) {
-                     object@ATTR$names <- object.names$G
-                     break
-                   }
-                   if(nrow(object@E) != 0) {
-                     object@ATTR$names <- object.names$E
-                     break
-                   }
-                   if(nrow(object@E) != 0) {
-                     object@ATTR$names <- object.names$S
-                     break
-                   }
-                   if(nrow(object@C) != 0) {
-                     object@ATTR$names <- object.names$C
-                     break
-                   }
-                   object@ATTR$names <- character(0)
-                   break
+                 rownumber <- unique(unlist(lapply(object.names, length)))
+                 # check nrow consistency
+                 if(length(rownumber)> 1) {
+                   stop("Non unique row number found")
                  }
+               } 
+               
+               ## set names
+               S_ncol <- ncol(S)
+               if(S_ncol > 0) {
+                 
+                 if(!( pop_names_column %in% seq_len(S_ncol))) {
+                   stop("Invalid pop column")
+                 }
+                 object@ATTR$names <- as.factor(S[, pop_names_column])
                } else {
-             object@ATTR$names <- factor(paste0("P.", seq_len(rownumber)))
+                 if(length(object.names) != 0) {
+                   while(TRUE) {
+                     
+                     if(nrow(object@XY) != 0) {
+                       object@ATTR$names <- object.names$XY
+                       break
+                     }
+                     if(nrow(object@P) != 0) {
+                       object@ATTR$names <- object.names$P
+                       break
+                     }
+                     if(nrow(object@AF) != 0) {
+                       object@ATTR$names <- object.names$G
+                       break
+                     }
+                     if(nrow(object@E) != 0) {
+                       object@ATTR$names <- object.names$E
+                       break
+                     }
+                     if(nrow(object@E) != 0) {
+                       object@ATTR$names <- object.names$S
+                       break
+                     }
+                     if(nrow(object@C) != 0) {
+                       object@ATTR$names <- object.names$C
+                       break
+                     }
+                     object@ATTR$names <- character(0)
+                     break
+                   }
+                   object@ATTR$names <- factor(paste0("P.", seq_along(object@ATTR$names)))
+                   for(i in names(object.names)) {
+                     eval(expr = parse(text=paste0("rownames(object@", i, ") <- object@ATTR$names")))
+                   }
+                 }
                }
              }
-             for(i in names(object.names)) {
-               eval(expr = parse(text=paste0("rownames(object@", i, ") <- object@ATTR$names")))
-             }
-             }
-        
+             
              if(order.df && lock.rows) {
                object <- int.order(object)
              } else if(order.df && !lock.rows) {

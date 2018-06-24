@@ -14,7 +14,7 @@
 #' my_ecopop <- ecogen2ecopop(eco, "pop")
 #' eco.dom_af(my_ecopop)
 #' }
-#' @author Juan Vilardi
+#' @author Juan Vilardi \email{vilardi@@ege.fcen.uba.ar}
 #' @export
 
 setGeneric("eco.dom_af", function(x, method = c("zhivor", "zhivonu", "rawfreq")) {

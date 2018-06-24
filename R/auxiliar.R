@@ -16,23 +16,23 @@ setClassUnion("characterORlogical",
               c("character", "logical"))
 setClassUnion("characterORmissing",
               c("character", "missing"))
-setClassUnion("listORnull", 
+setClassUnion("listORnull",
               c("list","NULL"))
 setClassUnion("factorORnull",
               c("factor","NULL"))
 setClassUnion("callORnull",
               c("call","NULL"))
-setClassUnion("intORnumeric", 
+setClassUnion("intORnumeric",
               c("integer","numeric","NULL"))
-setClassUnion("intORmissing", 
+setClassUnion("intORmissing",
               c("integer","missing","NULL"))
-setClassUnion("intORnull", 
+setClassUnion("intORnull",
               c("integer","NULL"))
-setClassUnion("numericORnull", 
+setClassUnion("numericORnull",
               c("numeric","NULL"))
-setClassUnion("numericORmissing", 
+setClassUnion("numericORmissing",
               c("numeric","missing"))
-setClassUnion("logicalORmissing", 
+setClassUnion("logicalORmissing",
               c("logical","missing","NULL"))
 
 

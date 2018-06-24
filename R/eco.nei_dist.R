@@ -8,7 +8,7 @@
 #' data(eco.test)
 #' eco.nei_dist(my_ecopop)
 #' }
-#' @author Juan Vilardi
+#' @author Juan Vilardi \email{vilardi@@ege.fcen.uba.ar}
 #' @export
 
 setGeneric("eco.nei_dist", function(obj, as_dist = TRUE) {

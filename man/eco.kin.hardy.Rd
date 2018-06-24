@@ -11,15 +11,15 @@ eco.kin.hardy(x, fi)
 tha data consists in a table with individuals in rows and allele counts 
 in columns.}
 
-\item{fi}{assumed Fi}
+\item{fi}{Assumed Fi}
 }
 \value{
-a list with three slots containing, respectively, the heretability 
+List with three slots containing, respectively, the heretability 
 of each locus, relationship and kinship values
 }
 \description{
 Kinship and relationship estimation following Hardy (2003).
 }
 \author{
-Juan Vilardi
+Juan Vilardi \email{vilardi@ege.fcen.uba.ar}
 }

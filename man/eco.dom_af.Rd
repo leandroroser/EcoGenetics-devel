@@ -29,5 +29,5 @@ Zhivotovsky, L. A. (1999). Estimating population structure in diploids
 with multilocus dominant DNA markers. Molecular Ecology, 8:907-913.
 }
 \author{
-Juan Vilardi
+Juan Vilardi \email{vilardi@ege.fcen.uba.ar}
 }

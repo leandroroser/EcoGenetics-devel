@@ -2,7 +2,7 @@
 #' Formula construction for ecogen objects
 #' 
 #' @param eco Object of class "ecogen". 
-#' @param formula formula with names of colums from the slots XY, P, G, A, E, or C
+#' @param formula Formula with names of colums from the slots XY, P, G, A, E, or C
 #' @param out.mode Output results explicit formula (default) or expression. 
 #' @param expand.tables method for tables coertion. Default is "+"
 #' @description  When a data frame is present in a slot of an object, any individual column can be 

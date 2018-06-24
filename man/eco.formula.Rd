@@ -10,7 +10,7 @@ eco.formula(eco, formula, out.mode = c("formula", "expression"),
 \arguments{
 \item{eco}{Object of class "ecogen".}
 
-\item{formula}{formula with names of colums from the slots XY, P, G, A, E, or C}
+\item{formula}{Formula with names of colums from the slots XY, P, G, A, E, or C}
 
 \item{out.mode}{Output results explicit formula (default) or expression.}
 

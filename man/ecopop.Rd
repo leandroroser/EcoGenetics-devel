@@ -8,7 +8,7 @@ ecopop(XY = data.frame(), P = data.frame(), AF = data.frame(),
   E = data.frame(), S = data.frame(), C = data.frame(),
   pop_names_column = 1L, ploidy, type = c("codominant", "dominant"),
   order.df = FALSE, allele_data = c("counts", "frequencies"),
-  lock.rows = FALSE)
+  lock.rows = TRUE)
 }
 \arguments{
 \item{XY}{Data frame with n rows (populations) and m columns (coordinates).}
@@ -92,6 +92,15 @@ be directly constructed in two different ways. First, a new object can be create
 incorporating all the information in one step with the constructor. 
 Second, the data can be added to each slot, using the corresponding
 accessor or, in an equivalent way, with double brackets notation ("[[").
+
+\bold{LOCKED AND UNLOCKED OBJECTS}
+#' Starting from version 1.2.1.5, ecogen and ecopop objects can be "locked" 
+(default) or "unlocked". A "locked" object must have identical number of rows and 
+row names in all the input data frames (or a rule must be provided to construct
+the row names in case of ecogen objects, with valid.names or set.names arguments).
+An unlocked objects allows to have a free number of rows
+in each table, and row names do not need to coincide among tables. See 
+examples below.
 }
 \examples{
 \dontrun{
@@ -105,13 +114,14 @@ my_ecopop <- ecogen2ecopop(eco, hier = "pop")
 
 # extracting tables with accessors (double brackets notation)
 XY_pop <- my_ecopop[["XY"]]
-AF_pop <- my_ecopop[["P"]]
+P_pop <- my_ecopop[["P"]]
 AF_pop <- my_ecopop[["AF"]]
 E_pop <- my_ecopop[["E"]]
 S_pop <- my_ecopop[["S"]]
 
 ## 2) Creating a new ecopop object
-my_ecopop2 <- ecopop(XY = XY_pop, P = XY_pop, AF = AF_pop, E = E_pop, S = S_pop,
+my_ecopop2 <- ecopop(XY = XY_pop, P = XY_pop, AF = AF_pop, E = E_pop, 
+                     S = S_pop,
                      ploidy = 2, type = "codominant")
 
 ## 3) From an empty object
@@ -129,6 +139,26 @@ my_ecopop3[["S"]] <- S_pop
 
 ## Subsetting by rows:
 my_ecopop3[1:10]
+#--------------------------------
+# Locked and unlocked objects 
+#--------------------------------
+
+is.locked(my_ecopop) # check if object is locked
+my_ecopop[["P"]] <- rbind(my_ecopop[["P"]], my_ecopop[["P"]]) # invalid in locked object
+
+my_ecopop_unlocked <- eco.unlock(my_ecopop) #unlocked object
+my_ecopop_unlocked[["P"]]<-rbind(my_ecopop[["P"]], my_ecopop[["P"]])  # valid now
+
+new_locked <- eco.lock(my_ecopop_unlocked) # invalid
+my_ecopop_unlocked[["P"]]<- my_ecopop[["P"]]
+new_locked <- eco.lock(my_ecopop_unlocked) # valid now
+
+
+
+
+
+
+
 
 }
 

@@ -97,6 +97,15 @@
 #' they provide a basic pre-processing of the data during assignment, 
 #' generating a coherent and valid set of information.
 #' 
+##' \bold{LOCKED AND UNLOCKED OBJECTS}
+#' #' Starting from version 1.2.1.5, ecogen and ecopop objects can be "locked" 
+#' (default) or "unlocked". A "locked" object must have identical number of rows and 
+#' row names in all the input data frames (or a rule must be provided to construct
+#' the row names in case of ecogen objects, with valid.names or set.names arguments).
+#' An unlocked objects allows to have a free number of rows
+#' in each table, and row names do not need to coincide among tables. See 
+#' examples below.
+#' 
 #' 
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' 
@@ -149,6 +158,23 @@
 #' # this is identical to:
 #' 
 #' eco[["OUT"]] <- list(singers, golden.number)
+#' 
+#' #---------------------------------
+#' # Locked and unlocked objects
+#' #---------------------------------
+#' 
+#' is.locked(eco) # check if object is locked
+#' 
+#' eco[["P"]] <- rbind(eco[["P"]], eco[["P"]]) # invalid 
+#'                                             # in locked object
+#' 
+#' 
+#' eco_unlocked <- eco.unlock(eco) #unlocked object
+#' eco_unlocked[["P"]]<-rbind(eco[["P"]], eco[["P"]]) # valid now
+#' 
+#' new_locked <- eco.lock(eco_unlocked) # invalid
+#' eco_unlocked[["P"]]<- eco[["P"]]
+#' new_locked <- eco.lock(eco_unlocked) # valid now
 #' 
 #' }
 #' 

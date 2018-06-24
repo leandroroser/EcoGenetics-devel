@@ -2,7 +2,7 @@ Package: EcoGenetics
 Type: Package
 Title: Management and Exploratory Analysis of Spatial Data in Landscape Genetics
 Version: 1.2.1-5
-Date: 2018-01-13
+Date: 2018-06-23
 Authors@R: c(person(given = "Leandro", family = "Roser", role = c("aut", "cre"), email = "learoser@gmail.com"), person(given = "Juan", family = "Vilardi", role = "aut"),  person(given = "Beatriz", family = "Saidman", role = "aut"), person(given = "Laura", family = "Ferreyra", role = "aut"), person(given = "Thibaut", family = "Jombart", role = "ctb", comment = "author of included adegenet code"), person(given = "Winston", family = "Chang", role = "ctb", comment = "author of the multiplot function included under the name grf.multiplot"))
 Maintainer: Leandro Roser <learoser@gmail.com>
 Description: Management and exploratory analysis of spatial data in landscape genetics. Easy integration of information from multiple sources with "ecogen" objects.
@@ -16,7 +16,9 @@ Imports: d3heatmap, edgebundleR, ggplot2, grid, htmlwidgets, igraph,
 Suggests: 
     adegenet,
     testthat,
-    covr
+    covr,
+    vegan,
+    hierfstat
 Collate: 'ZZZ.R' 'generics.R' 'auxiliar.R' 'int.genind.R' 
         'ecogen.1OF6.definition.R'
         'ecogen.2OF6.constructor.R' 'ecogen.3OF6.basic.methods.R'
@@ -46,4 +48,4 @@ Collate: 'ZZZ.R' 'generics.R' 'auxiliar.R' 'int.genind.R'
         'eco.kin.hardy.R' 'eco.nei_dist.R'
 RoxygenNote: 6.0.1
 NeedsCompilation: no
-Packaged: 2018-04-16 08:12:58 UTC; leandro
+Packaged: 2018-06-23 04:53:44 UTC; leandro

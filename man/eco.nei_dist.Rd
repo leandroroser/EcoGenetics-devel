@@ -21,5 +21,5 @@ eco.nei_dist(my_ecopop)
 }
 }
 \author{
-Juan Vilardi
+Juan Vilardi \email{vilardi@ege.fcen.uba.ar}
 }

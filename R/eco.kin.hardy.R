@@ -2,12 +2,12 @@
 #' @param x ecogen, genind matrix or data.frame. In case of matrix or data frame,
 #' tha data consists in a table with individuals in rows and allele counts 
 #' in columns.
-#' @param fi assumed Fi
+#' @param fi Assumed Fi
 #' @description Kinship and relationship estimation following Hardy (2003).
-#' @return a list with three slots containing, respectively, the heretability 
+#' @return List with three slots containing, respectively, the heretability 
 #' of each locus, relationship and kinship values
 #' @export
-#' @author Juan Vilardi
+#' @author Juan Vilardi \email{vilardi@@ege.fcen.uba.ar}
 
 eco.kin.hardy <- function(x, fi) { 
   
