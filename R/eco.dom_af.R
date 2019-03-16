@@ -159,7 +159,8 @@ setGeneric("eco.dom_af", function(x, method = c("zhivor", "zhivonu", "rawfreq"))
     matrs[, index3] <- (1 - frsq[, index]^2)/(4 * (matr[, index] + matr[, index2]))
     LM <- frsq
     numer <- frsq[, index]
-    denom <- 1 - (matrs[, index3])/(8 * (frsq[, index]))^4
+    Vx <- frsq[, index]^2*(1-frsq[, index]^2)/(matr[, index] + matr[, index2])
+    denom <-1 - Vx/(8*frsq[, index]^4)
     LM[, index] <- numer/denom
     LM[, index2] <- 1 - LM[, index]
     result <- list(frsq, matrs, LM)
