@@ -1,4 +1,10 @@
-EcoGenetics 1.2.1-5 (Release date: CURRENTLY DEVEL)
+EcoGenetics 1.2.1-6 (2020-05-16)
+==============
+Changes:
+
+* Deprecated d3heatmap functionalities according to CRAN policies
+
+EcoGenetics 1.2.1-5 (2018-06-24)
 ==============
 Changes:
 

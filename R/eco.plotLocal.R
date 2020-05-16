@@ -61,7 +61,7 @@
 
 eco.plotLocal <- function(x,
                           interactivePlot = TRUE,
-                          multi = c("d3heatmap", "ggplot"),
+                          multi = c("ggplot", "d3heatmap"),
                           significant = TRUE,
                           alpha = 0.05,
                           rescaled = FALSE,
@@ -88,6 +88,7 @@ eco.plotLocal <- function(x,
   } else if(class(x) == "eco.multilsa"){
   
    if(multi == "d3heatmap" && interactivePlot) {
+   stop("Sorry, the use of d3heatmap has been deprecated")
      
    # if significant, set to 0 when no SA has been found
    if(significant) {

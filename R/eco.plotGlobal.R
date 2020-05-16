@@ -14,7 +14,7 @@
 #' @author Leandro Roser \email{learoser@@gmail.com}
 #' @export
 
-eco.plotGlobal <- function(input, interactivePlot = TRUE, 
+eco.plotGlobal <- function(input, interactivePlot = FALSE, 
                            background = c("grey", "white"),
                            xlabel =NULL, ylabel = NULL, title = NULL,
                            legend = TRUE, rescaled = FALSE, alpha = 0.05) {
@@ -216,6 +216,7 @@ eco.plotGlobal <- function(input, interactivePlot = TRUE,
       out <- pheatmap::pheatmap(matrixplot, display_numbers = matrix(ifelse(pvals == 1, "*", ""), nrow(pvals)), fontsize_number = 18)
       
     } else {
+      stop("Sorry, the use of d3heatmap has been deprecated")
       matrixplot[pvals == 0] <- -1
       out <- d3heatmap::d3heatmap(matrixplot)
     }
