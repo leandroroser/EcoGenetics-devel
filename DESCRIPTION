@@ -12,13 +12,15 @@ LazyLoad: yes
 Depends: R (>= 3.0), methods
 Imports: edgebundleR, ggplot2, grid, htmlwidgets, igraph,
         jsonlite, magrittr, networkD3, party, pheatmap, plotly, raster,
-        reshape2, rgdal, rkt, SoDA, sp, parallel, doParallel, foreach
+        reshape2, rkt, sp, parallel, doParallel, foreach
 Suggests: 
     adegenet,
     testthat,
     covr,
     vegan,
-    hierfstat
+    hierfstat,
+    SoDA,
+    rgdal
 Collate: 'ZZZ.R' 'generics.R' 'auxiliar.R' 'int.genind.R' 
         'ecogen.1OF6.definition.R'
         'ecogen.2OF6.constructor.R' 'ecogen.3OF6.basic.methods.R'
