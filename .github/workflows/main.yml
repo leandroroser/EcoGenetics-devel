@@ -1,0 +1,45 @@
+name: R-CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        r-version: [oldrel, release, devel]
+
+    env:
+      R_VERSION: ${{ matrix.r-version }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up R ${{ matrix.r-version }}
+        uses: r-lib/actions/setup-r@f57f1301a053485946083d7a45022b278929a78a
+        with:
+          r-version: ${{ matrix.r-version }}
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get install -y libgdal-dev libproj-dev
+
+
+      - name: Install dependencies
+        run: |
+          install.packages(c("remotes", "rcmdcheck"))
+          remotes::install_deps(dependencies = TRUE)
+
+      - name: Install R dependencies
+        run: Rscript -e 'install.packages(remotes::local_package_deps(), dependencies = TRUE, repos = c(CRAN = "https://cloud.r-project.org"))'
+
+      - name: Build and check
+        run: R CMD build . && R CMD check *tar.gz
+
+      - name: Check if on Linux and install
+        if: runner.os == 'Linux'
+        run: R CMD INSTALL *tar.gz
+
