@@ -148,14 +148,15 @@ test_that("eco.formula works fine", {
 test_that("eco.pairtest works fine", {
   skip_on_cran()
   t1 <- eco.pairtest(eco = eco3, df = "P", x = "structure")
-  t2 <- eco.pairtest(eco = eco3,df = "E", x = "structure")
+  t2 <- eco.pairtest(eco = eco3, df = "E", x = "structure")
   t3 <- eco.pairtest(eco = eco3, df = "P", x = "structure", only.p = FALSE)
-  t4 <- eco.pairtest(eco = eco3,df = "P", x = "structure", test = "tukey")
-  expect_true(class(t1$kruskall.test) == "matrix")
-  expect_true(class(t2$kruskall.test) == "matrix")
-  expect_true(class(t3$kruskall.test) == "matrix")
-  expect_true(class(t4$aov) == "matrix")
+  t4 <- eco.pairtest(eco = eco3, df = "P", x = "structure", test = "tukey")
+  expect_true(inherits(t1$kruskall.test, "matrix"))
+  expect_true(inherits(t2$kruskall.test, "matrix"))
+  expect_true(inherits(t3$kruskall.test, "matrix"))
+  expect_true(inherits(t4$aov, "matrix"))
 })
+
 
 
 

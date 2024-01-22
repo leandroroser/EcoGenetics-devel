@@ -94,7 +94,7 @@ int.random.test <- function(repsim = NULL, obs, nsim,
     } else if(test == "bootstrap") {
       
       # no simulations or NA observed value
-      if(nsim == 0 || is.na(obs)) {
+      if(nsim == 0 || (length(obs) == 1 && is.na(obs))) {
         result <- list(obs = obs, CI = NA)
         return(result)
       } else  {
