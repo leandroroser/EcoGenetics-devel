@@ -410,7 +410,7 @@ setGeneric("eco.lsa",
                
                Gm <- t(replicate(n, Z))
                
-               if(inherits(classG, "G")) {
+               if(classG=="G") {
                  if(any(diag(con.cl) != 0)) {
                    diag(con.cl) <- 0
                    msg <- "Non zero elements in the diagonal of the weight matrix, 
@@ -419,7 +419,7 @@ setGeneric("eco.lsa",
                  }
                  diag(Gm) <- 0
                  n2 <- n - 1
-               } else if(inherits(classG, "G*")) {
+               } else if(classG=="G*") {
                  if(any(diag(con.cl) == 0)) {
                    stop(paste("Individuals non self-included in the weight matrix",
                               "(zeros present in the diagonal). Self-included individuals",

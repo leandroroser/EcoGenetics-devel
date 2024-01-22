@@ -36,9 +36,6 @@ jobs:
         env:
           GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install R dependencies
-        run: Rscript -e 'install.packages(remotes::local_package_deps(), dependencies = TRUE, repos = c(CRAN = "https://cloud.r-project.org"))'
-
       - name: Build and check
         run: R CMD build . && R CMD check *tar.gz
 

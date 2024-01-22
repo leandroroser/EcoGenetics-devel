@@ -76,6 +76,7 @@ eco.plotLocal <- function(x,
                           byrow = TRUE,
                           ...) {
   
+  multi <- match.arg(multi)
   if(inherits(x, "eco.lsa")) {
     if(x@TEST == "permutation" || x@NSIM == 0) {
       out <- eco.rankplot(x, rescaled = rescaled, 

@@ -116,7 +116,7 @@ setGeneric("eco.mantel",
              method <- match.arg(method)
              truncMat <- match.arg(truncMat)
              
-             control <- all(inherits(c(d1, d2, dc), "dist"))
+             control <- c(inherits(d1, "dist"), inherits(d2, "dist"), inherits(dc, "dist"))
              sumcontrol<- sum(control)
              
              

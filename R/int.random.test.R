@@ -14,24 +14,20 @@ int.random.test <- function(repsim = NULL, obs, nsim,
   
   test <- match.arg(test)
   alternative <- match.arg(alternative)
-  
+  N <- length(obs)
   clase <- class(repsim)
-  if (any(inherits(obs, c("matrix", "data.frame")))) {
+  
+  if (length(obs) > 1) {
     multi <- TRUE
-    N <- nrow(obs)
     if (any(is.null(dim(repsim)))) {
       repsim <- NULL
     }
-  } else if (inherits(obs, c("vector", "integer", "numeric"))) {
+  } else {
     multi <- FALSE
-    N <- length(obs)
-    if (length(repsim) == 0) {
+    if(length(repsim) == 0) {
       repsim <- NULL
     }
-  } else {
-    stop("obs is not of class matrix, data.frame, vector, numeric, or integer")
-  }
-  
+  } 
   
   
   if(is.null(repsim)) {
@@ -44,7 +40,7 @@ int.random.test <- function(repsim = NULL, obs, nsim,
     if(test == "permutation") {
       
       #no simulations or NA observed value
-      if(nsim == 0 ||is.na(obs)) {
+      if (nsim == 0 || is.na(obs)) {
         
         results <- list(obs = obs, 
                         exp = NA, 
@@ -94,7 +90,7 @@ int.random.test <- function(repsim = NULL, obs, nsim,
     } else if(test == "bootstrap") {
       
       # no simulations or NA observed value
-      if(nsim == 0 || (length(obs) == 1 && is.na(obs))) {
+      if(nsim == 0 || is.na(obs)) {
         result <- list(obs = obs, CI = NA)
         return(result)
       } else  {
