@@ -121,7 +121,7 @@ setGeneric("eco.mantel",
              
              
              if(!is.null(con)) {
-               if(class(con) != "eco.weight") {
+               if(!inherits(con, "eco.weight")) {
                  stop("con must be an eco.weight object")
                }
                if(!is.null(thres) && (!is.numeric(thres) ||length(thres) > 1)) {

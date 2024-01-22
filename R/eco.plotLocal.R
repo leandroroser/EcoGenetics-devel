@@ -76,7 +76,7 @@ eco.plotLocal <- function(x,
                           byrow = TRUE,
                           ...) {
   
-  if(class(x) == "eco.lsa") {
+  if(inherits(x, "eco.lsa")) {
     if(x@TEST == "permutation" || x@NSIM == 0) {
       out <- eco.rankplot(x, rescaled = rescaled, 
                           interactivePlot = interactivePlot, ...)
@@ -85,7 +85,7 @@ eco.plotLocal <- function(x,
                             interactivePlot = interactivePlot, ...)
     }
     
-  } else if(class(x) == "eco.multilsa"){
+  } else if(inherits(x, "eco.multilsa")) {
   
    if(multi == "d3heatmap" && interactivePlot) {
    stop("Sorry, the use of d3heatmap has been deprecated")
@@ -115,7 +115,7 @@ eco.plotLocal <- function(x,
    }
     
     
-  } else if (class(x) == "eco.listlsa") {
+  } else if(inherits(x, "eco.listlsa")) {
     
     
     if(legend) {

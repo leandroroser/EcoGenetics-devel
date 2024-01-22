@@ -173,10 +173,10 @@ test_that("eco.NDVI works fine", {
     extent(temp[[i]])<-c(3770000, 3950000, 6810000, 6920000)
   }
   
-  writeRaster(temp[[1]], "20040719b4.tif", overwrite=T)
-  writeRaster(temp[[2]], "20040719b3.tif", overwrite=T)
-  writeRaster(temp[[3]], "20091106b4.tif", overwrite=T)
-  writeRaster(temp[[4]], "20091106b3.tif", overwrite=T)
+  writeRaster(temp[[1]], "20040719b4.tif", overwrite=T, crs="+proj=utm")
+  writeRaster(temp[[2]], "20040719b3.tif", overwrite=T, crs="+proj=utm")
+  writeRaster(temp[[3]], "20091106b4.tif", overwrite=T, crs="+proj=utm")
+  writeRaster(temp[[4]], "20091106b3.tif", overwrite=T, crs="+proj=utm")
   eco.NDVI(tab, "COST", "NDVI", "LT5")
   
   example <- raster("NDVICOST20040719.tif")

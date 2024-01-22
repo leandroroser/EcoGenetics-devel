@@ -145,8 +145,12 @@ int.genind <- function(X,
   type <- match.arg(type)
   missing <- match.arg(missing)
   
-  if (!(class(X) %in% c("data.frame", "matrix"))) {
-    stop("X is not of class <data.frame> or <matrix>")
+  print("hello")
+  print(X)
+  print(class(X))
+  
+  if (!(any(class(X) %in% c("matrix", "data.frame")))) {
+    stop("X is not of class <matrix> or <data.frame>")
   }
   
   # X configuration

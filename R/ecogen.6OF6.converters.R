@@ -836,10 +836,10 @@ setGeneric("ecogen2spagedi",
   cat(final, sep = "\t")
   
   if(!is.null(distmat)) {
-    if(class(distmat) == "dist") {
+    if(inherits(distmat, "dist")) {
       distmat <- as.matrix(distmat)
     } 
-    if(class(distmat) != "matrix" & class(distmat) != "data.frame") {
+    if(!(inherits(distmat, "matrix") || inherits(distmat, "data.frame"))) {
       stop("invalid distance matrix format (It should be of class: dist, matrix or data.frame")
     }
     distnames <- rownames(distmat)
