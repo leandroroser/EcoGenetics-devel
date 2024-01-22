@@ -1,0 +1,56 @@
+name: R-CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        r-version: [oldrel, release, devel]
+
+    env:
+      R_VERSION: ${{ matrix.r-version }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up R
+      uses: r-lib/actions/setup-r@v1
+      with:
+        r-version: ${{ env.R_VERSION }}
+
+    - name: Cache R packages
+      uses: actions/cache@v2
+      with:
+        path: ${{ env.HOME }}/.cache/R
+        key: ${{ runner.os }}-R-${{ hashFiles('**/DESCRIPTION') }}
+        restore-keys: |
+          ${{ runner.os }}-R-
+
+    - name: Install system dependencies
+      run: |
+        sudo apt-get install -y libgdal-dev libproj-dev
+
+    - name: Install R dependencies
+      run: Rscript -e 'install.packages(remotes::local_package_deps(), dependencies = TRUE, repos = c(CRAN = "https://cloud.r-project.org"))'
+
+    - name: Build and check
+      run: R CMD build . && R CMD check *tar.gz
+
+    - name: Check if on Linux and install
+      if: runner.os == 'Linux'
+      run: R CMD INSTALL *tar.gz
+
+    - name: Email notification
+      if: success()
+      run: echo "Build successful!"  # Add your email notification logic here
+
+    - name: Handle failures
+      if: failure()
+      run: echo "Build failed!"  # Add your failure notification logic here
