@@ -4,6 +4,8 @@ on:
   push:
   pull_request:
     branches: [ "master" ]
+
+
 jobs:
   build:
     runs-on: ubuntu-20.04
@@ -32,7 +34,7 @@ jobs:
           R -e 'install.packages(c("remotes", "rcmdcheck"))'
           R -e 'remotes::install_deps(dependencies = TRUE)'
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install R dependencies
         run: Rscript -e 'install.packages(remotes::local_package_deps(), dependencies = TRUE, repos = c(CRAN = "https://cloud.r-project.org"))'
