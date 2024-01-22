@@ -3,14 +3,14 @@ name: R-CI
 on:
   push:
   pull_request:
-
+    branches: [ "master" ]
 jobs:
   build:
     runs-on: ubuntu-latest
     
     strategy:
       matrix:
-        r-version: [oldrel, release, devel]
+        r-version: ['3.6.3', '4.1.1']
 
     env:
       R_VERSION: ${{ matrix.r-version }}
