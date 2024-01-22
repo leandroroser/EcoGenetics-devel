@@ -16,24 +16,22 @@ int.random.test <- function(repsim = NULL, obs, nsim,
   alternative <- match.arg(alternative)
   
   clase <- class(repsim)
-  if (any(clase %in% c("matrix", "data.frame"))) {
-    multi <- TRUE 
+  if (any(inherits(obs, c("matrix", "data.frame")))) {
+    multi <- TRUE
     N <- nrow(obs)
-    if(any(is.null(dim(repsim)))) {
+    if (any(is.null(dim(repsim)))) {
       repsim <- NULL
     }
-    
-  } else if(clase == "vector" || class(obs) == "integer" || class(obs) == "numeric") {
+  } else if (inherits(obs, c("vector", "integer", "numeric"))) {
     multi <- FALSE
     N <- length(obs)
-    
-    if(length(repsim) == 0) {
+    if (length(repsim) == 0) {
       repsim <- NULL
     }
-    
   } else {
-    stop("obs is not of class matrix, data.frame, vector, numeric or integer")
+    stop("obs is not of class matrix, data.frame, vector, numeric, or integer")
   }
+  
   
   
   if(is.null(repsim)) {

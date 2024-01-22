@@ -438,7 +438,7 @@ setGeneric("ecogen2gstudio",
                  class(dat[, i]) <- "locus"
                  #out[[i]] <- gstudio::locus(dat[, i, drop = FALSE], type = "separated")
                }
-               dat[is.na(dat)] <- locus(NA)
+               dat[is.na(dat)] <- gstudio::locus(NA)
                colnames(dat) <- colnames(from@G)
                
                #dominant case
@@ -448,7 +448,7 @@ setGeneric("ecogen2gstudio",
                for(i in 1:ncol(dat)) {
                  class(dat[, i]) = "locus"
                }
-               dat[is.na(dat)] <- locus(NA)
+               dat[is.na(dat)] <- gstudio::locus(NA)
                colnames(dat) <- colnames(from@G)
              }
              

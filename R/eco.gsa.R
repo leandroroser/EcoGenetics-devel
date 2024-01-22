@@ -186,7 +186,7 @@ setGeneric("eco.gsa",
              alternative <- match.arg(alternative)
              method <- match.arg(method)
              
-             if(any(class(con) == "ecoweight")) {
+             if(any(inherits(con, "ecoweight"))) {
                XY <- attr(con, "XY")
              } else {
                XY <- attr(con, "xy")

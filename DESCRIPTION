@@ -21,7 +21,8 @@ Suggests:
     covr,
     vegan,
     hierfstat,
-    terra
+    terra,
+    spdep
 Collate: 'ZZZ.R' 'generics.R' 'auxiliar.R' 'int.genind.R' 
         'ecogen.1OF6.definition.R'
         'ecogen.2OF6.constructor.R' 'ecogen.3OF6.basic.methods.R'
