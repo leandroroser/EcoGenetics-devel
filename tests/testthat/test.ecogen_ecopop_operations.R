@@ -21,7 +21,7 @@ test_that("eco.split & eco.rbind work", {
   skip_on_cran()
   obj <- eco.split(eco3, "structure", asList = TRUE)
   obj_bind <- eco.rbind(obj)
-  expect_that(length(obj), equals(3))
+  expect_equal(length(obj), 3)
   expect_that(obj, is_a("ecolist"))
   expect_true(all(dim(obj_bind[["XY"]]) == c(173, 2)))
   expect_true(all(dim(obj_bind[["P"]]) == c(173, 8)))
@@ -66,7 +66,7 @@ test_that("slot OUT works", {
   skip_on_cran()
   variog <- eco.variogram(eco[["P"]][, 1], eco[["XY"]])
   ecoslot.OUT(eco) <- variog     
-  expect_that(length(eco[["OUT"]]), equals(1))
+  expect_equal(length(eco[["OUT"]]), 1)
   ee <- eco.remove(eco, variog)
-  expect_that(length( ee[["OUT"]]), equals(0))
+  expect_equal(length( ee[["OUT"]]), 0)
 })

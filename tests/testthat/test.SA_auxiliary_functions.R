@@ -51,10 +51,10 @@ test_that("eco.lagweight works fine", {
   ex6 <- eco.weight(eco3[["XY"]], method = "circle.exponential", d2 = 2000)
 
   tr <- make_tree(40, children = 3, mode = "undirected")
-  weights <- as.matrix(as_adj(tr))
+  weights <- as.matrix(as_adjacency_matrix(tr))
   myNames <- 1:nrow(weights)
-  rownames(weights) <- colnames(weights) <-  myNames 
-  coord <- layout.auto(tr)
+  rownames(weights) <- colnames(weights) <-  myNames
+  coord <- layout_nicely(tr)
   rownames(coord) <- myNames
   ex7 <- eco.weight(XY = coord, W = weights)
 

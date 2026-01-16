@@ -62,7 +62,7 @@ test_that("test that ecopop constructor works fine", {
   expect_true(all(dim(out[["P"]]) == c(0, 0)))
   expect_true(all(dim(out[["AF"]]) == c(0, 0)))
   expect_true(all(dim(out[["E"]]) == c(0, 0)))
-  expect_that(length(out[["S"]]), equals(0))
+  expect_equal(length(out[["S"]]), 0)
   expect_true(all(dim(out[["C"]]) == c(0, 0)))
 })
 

@@ -11,10 +11,14 @@ setMethod("ecoslot.XY", "ecogen", function(X) X@XY)
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.XY
 
-setReplaceMethod("ecoslot.XY", "ecogen", function(object, 
-                                                 value,
-                                                 use.object.names = FALSE, 
-                                                 order.rows = FALSE) {
+setReplaceMethod("ecoslot.XY", "ecogen", function(object,
+                                                 ...,
+                                                 value) {
+
+  # Extract optional arguments
+  args <- list(...)
+  use.object.names <- if("use.object.names" %in% names(args)) args$use.object.names else FALSE
+  order.rows <- if("order.rows" %in% names(args)) args$order.rows else FALSE
   
   
   object@XY <- as.data.frame(value)
@@ -42,10 +46,14 @@ setMethod("ecoslot.P", "ecogen", function(X) X@P)
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.P
 
-setReplaceMethod("ecoslot.P", "ecogen", function(object, 
-                                                 value,
-                                                 use.object.names = FALSE, 
-                                                 order.rows = FALSE) {
+setReplaceMethod("ecoslot.P", "ecogen", function(object,
+                                                 ...,
+                                                 value) {
+
+  # Extract optional arguments
+  args <- list(...)
+  use.object.names <- if("use.object.names" %in% names(args)) args$use.object.names else FALSE
+  order.rows <- if("order.rows" %in% names(args)) args$order.rows else FALSE
   
   
   object@P <- as.data.frame(value)
@@ -74,24 +82,35 @@ setMethod("ecoslot.G", "ecogen", function(X) X@G)
 #' @exportMethod ecoslot.G<-
 
 setReplaceMethod("ecoslot.G", "ecogen",
-                 function(object, value, G.processed = TRUE, order.G = FALSE, 
-                          type = c("codominant", "dominant"),
-                          ploidy = 2,sep,  ncod = NULL, missing = c("0", "NA", "MEAN"),
-                          NA.char = "NA", poly.level = 5, rm.empty.ind = FALSE, 
-                          use.object.names = FALSE, order.rows = FALSE) {
-                   
+                 function(object, ..., value) {
+
+                   # Extract optional arguments
+                   args <- list(...)
+                   G.processed <- if("G.processed" %in% names(args)) args$G.processed else TRUE
+                   order.G <- if("order.G" %in% names(args)) args$order.G else FALSE
+                   type <- if("type" %in% names(args)) args$type else c("codominant", "dominant")
+                   ploidy <- if("ploidy" %in% names(args)) args$ploidy else 2
+                   sep <- if("sep" %in% names(args)) args$sep else NULL
+                   ncod <- if("ncod" %in% names(args)) args$ncod else NULL
+                   missing <- if("missing" %in% names(args)) args$missing else c("0", "NA", "MEAN")
+                   NA.char <- if("NA.char" %in% names(args)) args$NA.char else "NA"
+                   poly.level <- if("poly.level" %in% names(args)) args$poly.level else 5
+                   rm.empty.ind <- if("rm.empty.ind" %in% names(args)) args$rm.empty.ind else FALSE
+                   use.object.names <- if("use.object.names" %in% names(args)) args$use.object.names else FALSE
+                   order.rows <- if("order.rows" %in% names(args)) args$order.rows else FALSE
+
                    # give flexibility to missing argument
                    if(length(missing) == 1 && is.na(missing)) {
                      missing <- "NA"
-                   } 
+                   }
                    if(length(missing) == 1 && missing == 0) {
                      missing <- "0"
                    }
-                   missing <- match.arg(missing)
-                   
-                   type <- match.arg(type)
-                   
-                   if(missing(sep)) {
+                   missing <- match.arg(missing, c("0", "NA", "MEAN"))
+
+                   type <- match.arg(type, c("codominant", "dominant"))
+
+                   if(is.null(sep)) {
                      sep <- ""
                    }
                    
@@ -216,10 +235,14 @@ setMethod("ecoslot.E", "ecogen", function(X) X@E)
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.E
 
-setReplaceMethod("ecoslot.E", "ecogen", function(object, 
-                                                 value,
-                                                 use.object.names = FALSE, 
-                                                 order.rows = FALSE) {
+setReplaceMethod("ecoslot.E", "ecogen", function(object,
+                                                 ...,
+                                                 value) {
+
+  # Extract optional arguments
+  args <- list(...)
+  use.object.names <- if("use.object.names" %in% names(args)) args$use.object.names else FALSE
+  order.rows <- if("order.rows" %in% names(args)) args$order.rows else FALSE
   
   
   object@E <- as.data.frame(value)
@@ -248,10 +271,14 @@ setMethod("ecoslot.S", "ecogen", function(X) X@S)
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.S
 
-setReplaceMethod("ecoslot.S", "ecogen", function(object, 
-                                                 value,
-                                                 use.object.names = FALSE, 
-                                                 order.rows = FALSE) {
+setReplaceMethod("ecoslot.S", "ecogen", function(object,
+                                                 ...,
+                                                 value) {
+
+  # Extract optional arguments
+  args <- list(...)
+  use.object.names <- if("use.object.names" %in% names(args)) args$use.object.names else FALSE
+  order.rows <- if("order.rows" %in% names(args)) args$order.rows else FALSE
   
   value <- as.data.frame(value)
   if(dim(value)[1] != 0) {
@@ -290,10 +317,14 @@ setMethod("ecoslot.C", "ecogen", function(X) X@C)
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.C
 
-setReplaceMethod("ecoslot.C", "ecogen", function(object, 
-                                                 value,
-                                                 use.object.names = FALSE, 
-                                                 order.rows = FALSE) {
+setReplaceMethod("ecoslot.C", "ecogen", function(object,
+                                                 ...,
+                                                 value) {
+
+  # Extract optional arguments
+  args <- list(...)
+  use.object.names <- if("use.object.names" %in% names(args)) args$use.object.names else FALSE
+  order.rows <- if("order.rows" %in% names(args)) args$order.rows else FALSE
   
   
   object@C <- as.data.frame(value)

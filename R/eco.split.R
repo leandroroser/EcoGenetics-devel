@@ -62,11 +62,11 @@ setGeneric("eco.split",
 
              if(length(missing) == 1 && is.na(missing)) {
                missing <- "NA"
-             } 
+             }
              if(length(missing) == 1 && missing == 0) {
                missing <- "0"
              }
-             missing <- match.arg(missing)
+             missing <- match.arg(missing, c("0", "NA", "MEAN"))
   
   if(!any(hier %in% colnames(eco@S))) {
     stop("hier do not correspond to any column name in slot S of eco")

@@ -2,7 +2,7 @@ name: R-CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "leandro/fixes_2026" ]
   pull_request:
     branches: [ "master" ]
 
@@ -13,7 +13,7 @@ jobs:
     
     strategy:
       matrix:
-        r-version: ['3.6.3', '4.1.1']
+        r-version: ['3.6.3', '4.1.1', '4.5.2']
 
     env:
       R_VERSION: ${{ matrix.r-version }}
@@ -27,18 +27,38 @@ jobs:
 
       - name: Install system dependencies
         run: |
-          sudo apt-get install -y libgdal-dev libproj-dev
-
+          sudo apt-get update
+          sudo apt-get install -y \
+            libgdal-dev \
+            libproj-dev \
+            libgeos-dev \
+            libudunits2-dev \
+            libcurl4-openssl-dev \
+            libssl-dev \
+            libxml2-dev \
+            libfontconfig1-dev \
+            libharfbuzz-dev \
+            libfribidi-dev \
+            libfreetype6-dev \
+            libpng-dev \
+            libtiff5-dev \
+            libjpeg-dev
 
       - name: Install dependencies
         run: |
           R -e 'install.packages(c("remotes", "rcmdcheck"))'
           R -e 'remotes::install_deps(dependencies = TRUE)'
+          R -e 'install.packages(c("adegenet", "vegan", "hierfstat", "spdep"), dependencies = TRUE)'
+          R -e 'remotes::install_github("dyerlab/popgraph")'
+          R -e 'remotes::install_github("dyerlab/gstudio")'
         env:
           GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and check
-        run: R CMD build . && R CMD check *tar.gz
+        run: R CMD build . && R CMD check --as-cran --no-manual *tar.gz
+        env:
+          _R_CHECK_CRAN_INCOMING_: false
+          _R_CHECK_FORCE_SUGGESTS_: false
 
       - name: Check if on Linux and install
         if: runner.os == 'Linux'

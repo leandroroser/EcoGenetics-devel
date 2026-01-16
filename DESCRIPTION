@@ -1,12 +1,13 @@
 Package: EcoGenetics
 Type: Package
 Title: Management and Exploratory Analysis of Spatial Data in Landscape Genetics
-Version: 1.2.1-6
-Date: 2024-01-23
+Version: 1.2.2
+Date: 2026-01-16
 Authors@R: c(person(given = "Leandro", family = "Roser", role = c("aut", "cre"), email = "learoser@gmail.com"), person(given = "Juan", family = "Vilardi", role = "aut"),  person(given = "Beatriz", family = "Saidman", role = "aut"), person(given = "Laura", family = "Ferreyra", role = "aut"),person(given = "Helene", family = "Wagner", role = "aut"), person(given = "Chambers", family = "John", role = "ctb", comment = "author of the geoXY function of the SoDA package, and included here"), person(given = "Thibaut", family = "Jombart", role = "ctb", comment = "author of included adegenet code"), person(given = "Winston", family = "Chang", role = "ctb", comment = "author of the multiplot function included under the name grf.multiplot"))
 Maintainer: Leandro Roser <learoser@gmail.com>
 Description: Management and exploratory analysis of spatial data in landscape genetics. Easy integration of information from multiple sources with "ecogen" objects.
 License: GPL (>= 2)
+Encoding: UTF-8
 URL: https://github.com/cran/EcoGenetics, https://leandroroser.github.io/EcoGenetics-Tutorial
 LazyLoad: yes
 LazyData: true
@@ -15,6 +16,7 @@ Imports: edgebundleR, ggplot2, grid, htmlwidgets, igraph,
         jsonlite, magrittr, networkD3, party, pheatmap, plotly, raster,
         reshape2, rkt, sp, parallel, doParallel, foreach, terra
 Remotes:
+    github::dyerlab/popgraph,
     github::dyerlab/gstudio
 Suggests: 
     adegenet,
@@ -51,6 +53,6 @@ Collate: 'ZZZ.R' 'generics.R' 'auxiliar.R' 'int.genind.R'
         'miscellaneous.R' 'fill_ecogen_with_pop.R' 'plot.generic.R' 'plot.methods.R'
         'roxygen.auxiliar.R' 'show_summary.methods.R' 'eco.dom_af.R' 
         'eco.kin.hardy.R' 'eco.nei_dist.R' 'geoDist.R' 'geoXY.R'
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.3
 NeedsCompilation: yes
 Packaged: 2024-01-23 04:53:44 UTC; leandro
