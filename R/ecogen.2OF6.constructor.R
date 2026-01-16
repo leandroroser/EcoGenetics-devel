@@ -207,9 +207,9 @@ setGeneric("ecogen",
           
              # general configuration
              type <- tolower(type)
-             type <- match.arg(type)
+             type <- match.arg(type, c("codominant", "dominant"))
              missing <- toupper(as.character(missing))
-             missing <- match.arg(missing)
+             missing <- match.arg(missing, c("NA", "0", "MEAN"))
 
              # names configuration
              if(!is.null(set.names) && valid.names) {

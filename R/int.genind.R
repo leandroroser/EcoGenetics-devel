@@ -142,8 +142,8 @@ int.genind <- function(X,
   
   #----GENERAL CONFIGURATION---------------------------------------------------#
   
-  type <- match.arg(type)
-  missing <- match.arg(missing)
+  type <- match.arg(type, c("codominant", "dominant"))
+  missing <- match.arg(missing, c("0", "NA", "MEAN"))
   
   if(!any(inherits(X, c("matrix", "data.frame")))) {
     stop("X is not of class <matrix> or <data.frame>")
@@ -244,8 +244,8 @@ int.df2genind <- function(indata,
   
   # DATA CHECK-----------------------------------------------------------------#
   
-  type <- match.arg(type)
-  missing <- match.arg(missing)
+  type <- match.arg(type, c("codominant", "dominant"))
+  missing <- match.arg(missing, c("0", "NA", "MEAN"))
   
   # check ploidy
   if(ploidy < 1L) {

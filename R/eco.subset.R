@@ -33,11 +33,11 @@ setGeneric("eco.subset",
              # give flexibility to missing argument
              if(length(missing) == 1 && is.na(missing)) {
                missing <- "NA"
-             } 
+             }
              if(length(missing) == 1 && missing == 0) {
                missing <- "0"
              }
-             missing <- match.arg(missing)
+             missing <- match.arg(missing, c("0", "NA", "MEAN"))
              
              if(length(x) == 0) {
                stop("incorrect name of column in slot S")

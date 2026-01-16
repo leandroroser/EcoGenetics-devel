@@ -102,13 +102,13 @@ setReplaceMethod("ecoslot.G", "ecogen",
                    # give flexibility to missing argument
                    if(length(missing) == 1 && is.na(missing)) {
                      missing <- "NA"
-                   } 
+                   }
                    if(length(missing) == 1 && missing == 0) {
                      missing <- "0"
                    }
-                   missing <- match.arg(missing)
-                   
-                   type <- match.arg(type)
+                   missing <- match.arg(missing, c("0", "NA", "MEAN"))
+
+                   type <- match.arg(type, c("codominant", "dominant"))
 
                    if(is.null(sep)) {
                      sep <- ""

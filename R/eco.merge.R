@@ -111,8 +111,9 @@ setGeneric("eco.merge",
              z@C <- int.merge(e1@C, e2@C, z@C, m[5] == TRUE)
              
              # set row names
-             maxrow <- which(nrow(z) == max(nrow(z)))
-             if(any(maxrow) != 0){
+             nrows_vec <- nrow(z)
+             maxrow <- which(nrows_vec == max(nrows_vec))
+             if(length(maxrow) > 0 && any(maxrow != 0)){
              maxrow <- maxrow[1]
              z@ATTR$names <- rownames(z[[maxrow]])
              }
