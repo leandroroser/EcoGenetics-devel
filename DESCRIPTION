@@ -16,6 +16,7 @@ Imports: edgebundleR, ggplot2, grid, htmlwidgets, igraph,
         jsonlite, magrittr, networkD3, party, pheatmap, plotly, raster,
         reshape2, rkt, sp, parallel, doParallel, foreach, terra
 Remotes:
+    github::dyerlab/popgraph,
     github::dyerlab/gstudio
 Suggests: 
     adegenet,

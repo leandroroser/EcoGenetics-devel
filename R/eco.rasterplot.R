@@ -184,18 +184,18 @@ setGeneric("eco.rasterplot",
                z.name <- "   z"
              } 
              
-             out <- ggplot2::ggplot(x, ggplot2::aes(Sample, Variable, fill =  z)) + 
-               ggplot2::geom_raster() +
+             out <- ggplot2::ggplot(x, ggplot2::aes(Sample, Variable, fill =  z)) +
+               ggplot2::geom_tile() +
                ggplot2::labs(title = title)+
                scale_fill_gradient2(name= z.name,space = "Lab",na.value = "white",
                                     high= scales::muted("red"),
                                     low = scales::muted("blue"), limits = limits) +
                ggplot2::theme_bw()+
-               ggplot2::theme(axis.text = ggplot2::element_text(size = axis.size), 
-                              axis.title = ggplot2::element_text(size = title.size), 
-                              legend.position = "right") + 
-               ggplot2::scale_y_discrete(expand = c(0.1, 0), limits = c(minplot:maxplot), 
-                                         breaks = scales::pretty_breaks())
+               ggplot2::theme(axis.text = ggplot2::element_text(size = axis.size),
+                              axis.title = ggplot2::element_text(size = title.size),
+                              legend.position = "right") +
+               ggplot2::scale_y_continuous(expand = c(0.1, 0), limits = c(minplot, maxplot),
+                                           breaks = scales::pretty_breaks())
              
              
              if(!is.null(grp)) {
