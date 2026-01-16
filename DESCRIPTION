@@ -7,6 +7,7 @@ Authors@R: c(person(given = "Leandro", family = "Roser", role = c("aut", "cre"),
 Maintainer: Leandro Roser <learoser@gmail.com>
 Description: Management and exploratory analysis of spatial data in landscape genetics. Easy integration of information from multiple sources with "ecogen" objects.
 License: GPL (>= 2)
+Encoding: UTF-8
 URL: https://github.com/cran/EcoGenetics, https://leandroroser.github.io/EcoGenetics-Tutorial
 LazyLoad: yes
 LazyData: true
@@ -51,6 +52,6 @@ Collate: 'ZZZ.R' 'generics.R' 'auxiliar.R' 'int.genind.R'
         'miscellaneous.R' 'fill_ecogen_with_pop.R' 'plot.generic.R' 'plot.methods.R'
         'roxygen.auxiliar.R' 'show_summary.methods.R' 'eco.dom_af.R' 
         'eco.kin.hardy.R' 'eco.nei_dist.R' 'geoDist.R' 'geoXY.R'
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.3
 NeedsCompilation: yes
 Packaged: 2024-01-23 04:53:44 UTC; leandro

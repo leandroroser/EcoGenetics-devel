@@ -143,29 +143,15 @@ int.ecoslot.INT(object) <- value
 
 \S4method{ecoslot.XY}{ecogen}(X)
 
-\S4method{ecoslot.XY}{ecogen}(object, use.object.names = FALSE, order.rows = FALSE) <- value
+\S4method{ecoslot.XY}{ecogen}(object, ...) <- value
 
 \S4method{ecoslot.P}{ecogen}(X)
 
-\S4method{ecoslot.P}{ecogen}(object, use.object.names = FALSE, order.rows = FALSE) <- value
+\S4method{ecoslot.P}{ecogen}(object, ...) <- value
 
 \S4method{ecoslot.G}{ecogen}(X)
 
-\S4method{ecoslot.G}{ecogen}(
-  object,
-  G.processed = TRUE,
-  order.G = FALSE,
-  type = c("codominant", "dominant"),
-  ploidy = 2,
-  sep,
-  ncod = NULL,
-  missing = c("0", "NA", "MEAN"),
-  NA.char = "NA",
-  poly.level = 5,
-  rm.empty.ind = FALSE,
-  use.object.names = FALSE,
-  order.rows = FALSE
-) <- value
+\S4method{ecoslot.G}{ecogen}(object, ...) <- value
 
 \S4method{ecoslot.A}{ecogen}(X)
 
@@ -173,15 +159,15 @@ int.ecoslot.INT(object) <- value
 
 \S4method{ecoslot.E}{ecogen}(X)
 
-\S4method{ecoslot.E}{ecogen}(object, use.object.names = FALSE, order.rows = FALSE) <- value
+\S4method{ecoslot.E}{ecogen}(object, ...) <- value
 
 \S4method{ecoslot.S}{ecogen}(X)
 
-\S4method{ecoslot.S}{ecogen}(object, use.object.names = FALSE, order.rows = FALSE) <- value
+\S4method{ecoslot.S}{ecogen}(object, ...) <- value
 
 \S4method{ecoslot.C}{ecogen}(X)
 
-\S4method{ecoslot.C}{ecogen}(object, use.object.names = FALSE, order.rows = FALSE) <- value
+\S4method{ecoslot.C}{ecogen}(object, ...) <- value
 
 \S4method{ecoslot.OUT}{ecogen}(X, ...)
 
@@ -191,27 +177,27 @@ int.ecoslot.INT(object) <- value
 
 \S4method{ecoslot.XY}{ecopop}(X)
 
-\S4method{ecoslot.XY}{ecopop}(object, order.rows = FALSE) <- value
+\S4method{ecoslot.XY}{ecopop}(object, ...) <- value
 
 \S4method{ecoslot.P}{ecopop}(X)
 
-\S4method{ecoslot.P}{ecopop}(object, order.rows = FALSE) <- value
+\S4method{ecoslot.P}{ecopop}(object, ...) <- value
 
 \S4method{ecoslot.AF}{ecopop}(X)
 
-\S4method{ecoslot.AF}{ecopop}(object, order.rows = FALSE) <- value
+\S4method{ecoslot.AF}{ecopop}(object, ...) <- value
 
 \S4method{ecoslot.E}{ecopop}(X)
 
-\S4method{ecoslot.E}{ecopop}(object, order.rows = FALSE) <- value
+\S4method{ecoslot.E}{ecopop}(object, ...) <- value
 
 \S4method{ecoslot.S}{ecopop}(X)
 
-\S4method{ecoslot.S}{ecopop}(object, order.rows = FALSE) <- value
+\S4method{ecoslot.S}{ecopop}(object, ...) <- value
 
 \S4method{ecoslot.C}{ecopop}(X)
 
-\S4method{ecoslot.C}{ecopop}(object, order.rows = FALSE) <- value
+\S4method{ecoslot.C}{ecopop}(object, ...) <- value
 
 ecoslot.ALTER(X)
 
@@ -311,16 +297,6 @@ ecoslot.W(X)
 \item{value}{Single object or a list of objects to assign. Multiple 
 objects v1, v2, ...vn must be passed as a list : list(v1, v2, ...vn).}
 
-\item{use.object.names}{Logical. Use the names stored in the object 
-for the assigned data frame? This argument can be combined with order.rows 
-if the order of the individuals do not match to the order of the 
-other elements in the object. If the names stored in the object are empty, 
-in all the cases they will be set to the names of the assigned data frame.}
-
-\item{order.rows}{Order rows of the object after assignnment to align individuals?
-This argument can be used when use.object.names is TRUE. Otherwise, it will not have
-effect in the function.}
-
 \item{G.processed}{If TRUE, the slot G will include a processed data frame (
 removed non informative loci (the data non available for all the individuals),
 removed non polymorphic loci (for dominant data) and ordered alleles in ascending
@@ -349,6 +325,16 @@ for remotion of non polymorphic loci (for dominant data). Default is 5 (5\%).}
 
 \item{rm.empty.ind}{Remotion of noninformative individuals (rows of "NAs").
 Default if FALSE.}
+
+\item{use.object.names}{Logical. Use the names stored in the object 
+for the assigned data frame? This argument can be combined with order.rows 
+if the order of the individuals do not match to the order of the 
+other elements in the object. If the names stored in the object are empty, 
+in all the cases they will be set to the names of the assigned data frame.}
+
+\item{order.rows}{Order rows of the object after assignnment to align individuals?
+This argument can be used when use.object.names is TRUE. Otherwise, it will not have
+effect in the function.}
 }
 \description{
 These functions provide basic access to the slots of any object
