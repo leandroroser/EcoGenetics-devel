@@ -13,9 +13,9 @@ setMethod("ecoslot.XY", "ecopop", function(X) X@XY)
 
 setReplaceMethod("ecoslot.XY", "ecopop", function(object, ..., value) {
 
-  # Extract optional arguments
+  # Extract optional arguments with defaults
   args <- list(...)
-  order.rows <- if("order.rows" %in% names(args)) args$order.rows else FALSE
+  order.rows <- isTRUE(args$order.rows)
 
 
   object@XY <- as.data.frame(value)
@@ -44,9 +44,9 @@ setMethod("ecoslot.P", "ecopop", function(X) X@P)
 
 setReplaceMethod("ecoslot.P", "ecopop", function(object, ..., value) {
 
-  # Extract optional arguments
+  # Extract optional arguments with defaults
   args <- list(...)
-  order.rows <- if("order.rows" %in% names(args)) args$order.rows else FALSE
+  order.rows <- isTRUE(args$order.rows)
 
 
   object@P <- as.data.frame(value)
@@ -75,9 +75,9 @@ setMethod("ecoslot.AF", "ecopop", function(X) X@AF)
 
 setReplaceMethod("ecoslot.AF", "ecopop", function(object, ..., value) {
 
-  # Extract optional arguments
+  # Extract optional arguments with defaults
   args <- list(...)
-  order.rows <- if("order.rows" %in% names(args)) args$order.rows else FALSE
+  order.rows <- isTRUE(args$order.rows)
 
   object@AF <- as.matrix(value)
   mode(object@AF) <- "integer"
@@ -105,9 +105,9 @@ setMethod("ecoslot.E", "ecopop", function(X) X@E)
 
 setReplaceMethod("ecoslot.E", "ecopop", function(object, ..., value) {
 
-  # Extract optional arguments
+  # Extract optional arguments with defaults
   args <- list(...)
-  order.rows <- if("order.rows" %in% names(args)) args$order.rows else FALSE
+  order.rows <- isTRUE(args$order.rows)
 
 
   object@E <- as.data.frame(value)
@@ -138,9 +138,9 @@ setMethod("ecoslot.S", "ecopop", function(X) X@S)
 # PARA QUE NO CAMBIE TODO PORQUE ES EL NOMBRE!!
 setReplaceMethod("ecoslot.S", "ecopop", function(object, ..., value) {
 
-  # Extract optional arguments
+  # Extract optional arguments with defaults
   args <- list(...)
-  order.rows <- if("order.rows" %in% names(args)) args$order.rows else FALSE
+  order.rows <- isTRUE(args$order.rows)
 
   object@S <- value
   
@@ -166,9 +166,9 @@ setMethod("ecoslot.C", "ecopop", function(X) X@C)
 
 setReplaceMethod("ecoslot.C", "ecopop", function(object, ..., value) {
 
-  # Extract optional arguments
+  # Extract optional arguments with defaults
   args <- list(...)
-  order.rows <- if("order.rows" %in% names(args)) args$order.rows else FALSE
+  order.rows <- isTRUE(args$order.rows)
 
 
   object@C <- as.data.frame(value)
