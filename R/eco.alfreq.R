@@ -63,9 +63,8 @@ setGeneric("eco.alfreq", function(eco, grp = NULL) {
       tit <-""
     }
     
-    grafico<- ggplot2::ggplot(frecuencia, ggplot2::aes(frecuencia),
-                              fill = "black") + 
-      ggplot2::geom_histogram(ggplot2::aes(y = ..density..)) + 
+    grafico<- ggplot2::ggplot(frecuencia, ggplot2::aes(frecuencia)) +
+      ggplot2::geom_histogram(ggplot2::aes(y = ..density..), fill = "black") +
       ggplot2::geom_density(alpha = 0.5, fill = "red") +
       ggplot2::labs(title = tit) +
       ggplot2::xlab("Frequency class") +

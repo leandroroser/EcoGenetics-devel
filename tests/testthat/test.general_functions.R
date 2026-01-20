@@ -106,12 +106,12 @@ test_that("eco.format works fine", {
   ex5 <- eco.format(ex5, ncod = 3, ploidy = 2, 
                         nout = 2, recode = "column")
  
-  #expect_that(ex5[1], equals("1414"))
+  #expect_equal(ex5[1], "1414")
   
   temp2 <- as.data.frame(temp2)
 
   ex6 <- eco.format(temp2, ploidy = 1, recode = "all")
-  #expect_that(ex6[1], equals("113"))
+  #expect_equal(ex6[1], "113")
 
 })
 

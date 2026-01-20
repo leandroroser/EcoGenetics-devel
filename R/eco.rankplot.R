@@ -190,7 +190,7 @@ setMethod("eco.rankplot",
             
             xy.out <- data.frame(x, y)
             rownames(xy.out) <- rownames(XY)
-            colnames(xy.out) <- c("X rank", "X rank")
+            colnames(xy.out) <- c("X rank", "Y rank")
             
             attr(rankplot, "data") <- xy.out
             if(significant == TRUE) {
@@ -286,7 +286,7 @@ setMethod("eco.rankplot",
             
             xy.out <- data.frame(x, y)
             rownames(xy.out) <- rownames(XY)
-            colnames(xy.out) <- c("X rank", "X rank")
+            colnames(xy.out) <- c("X rank", "Y rank")
             
             if(interactivePlot) {
               rankplot <- suppressMessages(plotly::ggplotly(rankplot))
@@ -377,7 +377,7 @@ setMethod("eco.rankplot",
             
             xy.out <- data.frame(x, y)
             rownames(xy.out) <- rownames(XY)
-            colnames(xy.out) <- c("X rank", "X rank")
+            colnames(xy.out) <- c("X rank", "Y rank")
            
              if(interactivePlot) {
               rankplot <- suppressMessages(plotly::ggplotly(rankplot))

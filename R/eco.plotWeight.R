@@ -112,7 +112,7 @@ eco.plotWeight <-  function(x, type = c("simple", "igraph", "edgebundle", "netwo
   # IGRAPH PLOT #################################################
   
   igraphPlot <- function(con, vertex.size, vertex.labels, group, ...) {
-    myGraph <- igraph::graph_from_adjacency_matrix(con@W, mode = "undirected", add.rownames = TRUE, weighted = TRUE)
+    myGraph <- igraph::graph_from_adjacency_matrix(con@W, mode = "undirected", weighted = TRUE)
     
     if(!is.null(group)) {
       group <- as.factor(group)
@@ -200,7 +200,7 @@ eco.plotWeight <-  function(x, type = c("simple", "igraph", "edgebundle", "netwo
       #levels(relations[,1]) <- levels(myFactor)
       #levels(relations[,2]) <- levels(myFactor)
       #myCol <- clr[as.numeric(myCol)]
-      g <- igraph::graph.data.frame(relations, directed = FALSE, vertices = myFactor)
+      g <- igraph::graph_from_data_frame(relations, directed = FALSE, vertices = myFactor)
       
       # set color
       # there is a problem to render colors in hex, a partial solution below

@@ -186,9 +186,9 @@ test_that("ecogen2ecopop works fine", {
 #   obj  <- eco.fill_ecogen_with_df(out, "pop", c(1,2,3,4), 
 #                                   XY = my_ecopop[["XY"]], P = my_ecopop[["P"]], 
 #                                   E = my_ecopop[["E"]])
-#   expect_that(nrow(obj[["XY"]]), equals(225))
-#   expect_that(nrow(obj[["P"]]), equals(225))
-#   expect_that(nrow(obj[["E"]]), equals(225))
+#   expect_equal(nrow(obj[["XY"]]), 225)
+#   expect_equal(nrow(obj[["P"]]), 225)
+#   expect_equal(nrow(obj[["E"]]), 225)
 #   
 # })
 # 
@@ -196,9 +196,9 @@ test_that("ecogen2ecopop works fine", {
 #   skip_on_cran()
 #   obj <- ecogen(S = eco[["S"]])
 #   obj <- eco.fill_ecogen_with_ecopop(my_ecopop, obj, "pop")
-#   expect_that(nrow(obj[["XY"]]), equals(225))
-#   expect_that(nrow(obj[["P"]]), equals(225))
-#   expect_that(nrow(obj[["E"]]), equals(225))
+#   expect_equal(nrow(obj[["XY"]]), 225)
+#   expect_equal(nrow(obj[["P"]]), 225)
+#   expect_equal(nrow(obj[["E"]]), 225)
 # })
 # 
 # 
@@ -211,11 +211,11 @@ test_that("ecogen2ecopop works fine", {
 # 
 # test_that("ecogen basic methods", {
 #   expect_true(is.ecogen(eco))
-#   expect_that(length(nrow(eco)), equals(7))
-#   expect_that(length(ncol(eco)), equals(7))
-#   expect_that(length(dim(eco)), equals(7))
-#   expect_that(length(as.list(eco)), equals(8))
-#   expect_that(names(as.list(eco))[1], equals("XY"))
+#   expect_equal(length(nrow(eco)), 7)
+#   expect_equal(length(ncol(eco)), 7)
+#   expect_equal(length(dim(eco)), 7)
+#   expect_equal(length(as.list(eco)), 8)
+#   expect_equal(names(as.list(eco))[1], "XY")
 #   
 #   names(eco) <- paste0("test", names(eco))
 #   expect_true(na.omit(unique(c(rownames(eco@XY)[1], rownames(eco@P)[1], rownames(eco@G)[1], 
@@ -225,11 +225,11 @@ test_that("ecogen2ecopop works fine", {
 # 
 # test_that("ecopop basic methods work", {
 #   expect_true(is.ecopop(my_ecopop))
-#   expect_that(length(nrow(my_ecopop)), equals(6))
-#   expect_that(length(ncol(my_ecopop)), equals(6))
-#   expect_that(length(dim(my_ecopop)), equals(6))
-#   expect_that(length(as.list(my_ecopop)), equals(6))
-#   expect_that(names(as.list(eco))[1], equals("XY"))
+#   expect_equal(length(nrow(my_ecopop)), 6)
+#   expect_equal(length(ncol(my_ecopop)), 6)
+#   expect_equal(length(dim(my_ecopop)), 6)
+#   expect_equal(length(as.list(my_ecopop)), 6)
+#   expect_equal(names(as.list(eco))[1], "XY")
 #   
 #   names(my_ecopop) <- paste0("test", names(my_ecopop))
 #   expect_true(na.omit(unique(c(rownames(my_ecopop@XY)[1], rownames(my_ecopop@P)[1],
@@ -320,7 +320,7 @@ test_that("ecogen2ecopop works fine", {
 #   skip_on_cran()
 #   obj <- eco.split(eco3, "structure", asList = TRUE)
 #   obj_bind <- eco.rbind(obj)
-#   expect_that(length(obj), equals(3))
+#   expect_equal(length(obj), 3)
 #   expect_that(obj, is_a("ecolist"))
 #   expect_true(all(dim(obj_bind[["XY"]]) == c(173, 2)))
 #   expect_true(all(dim(obj_bind[["P"]]) == c(173, 8)))
@@ -365,8 +365,8 @@ test_that("ecogen2ecopop works fine", {
 #   skip_on_cran()
 #   variog <- eco.variogram(eco[["P"]][, 1], eco[["XY"]])
 #   ecoslot.OUT(eco) <- variog     
-#   expect_that(length(eco[["OUT"]]), equals(1))
+#   expect_equal(length(eco[["OUT"]]), 1)
 #   ee <- eco.remove(eco, variog)
-#   expect_that(length( ee[["OUT"]]), equals(0))
+#   expect_equal(length( ee[["OUT"]]), 0)
 # })
 # 

@@ -35,8 +35,8 @@ setGeneric("eco.cbind",
              
              
              #--GENERAL CONFIGURATION----------------------#
-             
-             missing <- match.arg(missing)
+
+             missing <- match.arg(missing, c("0", "MEAN", "NA"))
              
              # unlist dots
              u <- unlist(list(...))
@@ -70,7 +70,7 @@ setGeneric("eco.cbind",
              tem <- list()
              
              for(i in 1:5) {
-               
+
                if(m[[i]]) {
                  # check row number-------
                  a <- nrow(z1[[i]])
@@ -90,19 +90,23 @@ setGeneric("eco.cbind",
                    # both non empty. 
                  } else {
                    # check first row names consistency.
-                   # if different names present, the program generates 
+                   # if different names present, the program generates
                    # an empty data frame.
                    if(any(rownames(z1[[i]]) != rownames(z2[[i]]))) {
                      warning(paste("Individuals in",
-                                   paste("<", vec[i], ">", sep = ""),  
+                                   paste("<", vec[i], ">", sep = ""),
                                    "data frame do not have the same rownames.
                                    This will generate an empty slot."))
+                     tem[[i]] <- data.frame()
                      next
                    }
                    # bind both data frames
                    tem[[i]] <- cbind(z1[[i]], z2[[i]])
                  }
-                 }
+                 } else {
+                 # if m[[i]] is FALSE, set empty data frame
+                 tem[[i]] <- data.frame()
+               }
              }
              
              # fill XY slot--------------------------------

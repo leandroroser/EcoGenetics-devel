@@ -11,9 +11,13 @@ setMethod("ecoslot.XY", "ecopop", function(X) X@XY)
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.XY<-
 
-setReplaceMethod("ecoslot.XY", "ecopop", function(object, value, order.rows = FALSE) {
-  
-  
+setReplaceMethod("ecoslot.XY", "ecopop", function(object, ..., value) {
+
+  # Extract optional arguments with defaults
+  args <- list(...)
+  order.rows <- isTRUE(args$order.rows)
+
+
   object@XY <- as.data.frame(value)
   
   if(length(object@ATTR$names) != 0) {
@@ -38,9 +42,13 @@ setMethod("ecoslot.P", "ecopop", function(X) X@P)
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.P<-
 
-setReplaceMethod("ecoslot.P", "ecopop", function(object, value, order.rows = FALSE) {
-  
-  
+setReplaceMethod("ecoslot.P", "ecopop", function(object, ..., value) {
+
+  # Extract optional arguments with defaults
+  args <- list(...)
+  order.rows <- isTRUE(args$order.rows)
+
+
   object@P <- as.data.frame(value)
   
   if(length(object@ATTR$names) != 0) {
@@ -65,8 +73,12 @@ setMethod("ecoslot.AF", "ecopop", function(X) X@AF)
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.AF<-
 
-setReplaceMethod("ecoslot.AF", "ecopop", function(object, value, order.rows = FALSE) {
-  
+setReplaceMethod("ecoslot.AF", "ecopop", function(object, ..., value) {
+
+  # Extract optional arguments with defaults
+  args <- list(...)
+  order.rows <- isTRUE(args$order.rows)
+
   object@AF <- as.matrix(value)
   mode(object@AF) <- "integer"
   
@@ -91,9 +103,13 @@ setMethod("ecoslot.E", "ecopop", function(X) X@E)
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.E<-
 
-setReplaceMethod("ecoslot.E", "ecopop", function(object, value, order.rows = FALSE) {
-  
-  
+setReplaceMethod("ecoslot.E", "ecopop", function(object, ..., value) {
+
+  # Extract optional arguments with defaults
+  args <- list(...)
+  order.rows <- isTRUE(args$order.rows)
+
+
   object@E <- as.data.frame(value)
   
   if(length(object@ATTR$names) != 0) {
@@ -118,10 +134,14 @@ setMethod("ecoslot.S", "ecopop", function(X) X@S)
 #' @exportMethod ecoslot.S<-
 
 
-# ACA HAY QUE VER QUE SE HACE 
+# ACA HAY QUE VER QUE SE HACE
 # PARA QUE NO CAMBIE TODO PORQUE ES EL NOMBRE!!
-setReplaceMethod("ecoslot.S", "ecopop", function(object, value, order.rows = FALSE) {
-  
+setReplaceMethod("ecoslot.S", "ecopop", function(object, ..., value) {
+
+  # Extract optional arguments with defaults
+  args <- list(...)
+  order.rows <- isTRUE(args$order.rows)
+
   object@S <- value
   
   if(length(object@ATTR$names) != 0) {
@@ -144,9 +164,13 @@ setMethod("ecoslot.C", "ecopop", function(X) X@C)
 #' @rdname EcoGenetics-accessors
 #' @exportMethod ecoslot.C<-
 
-setReplaceMethod("ecoslot.C", "ecopop", function(object, value, order.rows = FALSE) {
-  
-  
+setReplaceMethod("ecoslot.C", "ecopop", function(object, ..., value) {
+
+  # Extract optional arguments with defaults
+  args <- list(...)
+  order.rows <- isTRUE(args$order.rows)
+
+
   object@C <- as.data.frame(value)
   
   if(length(object@ATTR$names) != 0) {
